@@ -263,25 +263,26 @@ const Preview = () => {
   return (
     <div className="w-full h-screen sticky top-0 preview rm-padding-print overflow-y-auto bg-gray-50">
       {/* Template Dropdown */}
-      <div className="absolute top-6 right-6 z-50 exclude-print">
-        <div className="flex gap-3">
+      <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-50 exclude-print">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
           {/* Section Toggle Button */}
           <div className="relative" ref={toggleRef}>
             <button
               onClick={() => setShowSectionToggle(!showSectionToggle)}
-              className="flex items-center gap-2 px-4 py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors shadow-lg"
+              className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors shadow-lg text-xs sm:text-sm"
               title="Toggle Sections"
             >
-              <FaTh className="w-4 h-4" />
-              <span className="text-sm font-medium">Sections</span>
-              <FaChevronDown className={`w-3 h-3 transition-transform ${showSectionToggle ? 'rotate-180' : ''}`} />
+              <FaTh className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="font-medium hidden sm:inline">Sections</span>
+              <span className="font-medium sm:hidden">Sec</span>
+              <FaChevronDown className={`w-2 h-2 sm:w-3 sm:h-3 transition-transform ${showSectionToggle ? 'rotate-180' : ''}`} />
             </button>
             
             {/* Section Toggle Dropdown */}
             {showSectionToggle && (
-              <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-3">
-                <div className="px-4 pb-2 border-b border-gray-200">
-                  <h3 className="text-sm font-semibold text-gray-900">Toggle Resume Sections</h3>
+              <div className="absolute right-0 mt-2 w-64 sm:w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-3">
+                <div className="px-3 sm:px-4 pb-2 border-b border-gray-200">
+                  <h3 className="text-xs sm:text-sm font-semibold text-gray-900">Toggle Resume Sections</h3>
                   <p className="text-xs text-gray-600 mt-1">Hide sections you don't need (e.g., freshers can hide experience)</p>
                 </div>
                 <div className="py-2 max-h-60 overflow-y-auto">
@@ -316,18 +317,21 @@ const Preview = () => {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center gap-2 px-4 py-3 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors shadow-lg"
+              className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors shadow-lg text-xs sm:text-sm"
             >
-              <FaFileAlt className="w-4 h-4" />
-              <span className="text-sm font-medium">
+              <FaFileAlt className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="font-medium hidden sm:inline">
                 {templates.find(t => t.id === currentTemplate)?.name}
               </span>
-              <FaChevronDown className={`w-3 h-3 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+              <span className="font-medium sm:hidden">
+                {templates.find(t => t.id === currentTemplate)?.name.split(' ')[0]}
+              </span>
+              <FaChevronDown className={`w-2 h-2 sm:w-3 sm:h-3 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
             
             {/* Dropdown Menu */}
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
+              <div className="absolute right-0 mt-2 w-56 sm:w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
                 {templates.map((template) => {
                   const IconComponent = template.icon;
                   return (
