@@ -4,7 +4,7 @@ import FormButton from "./FormButton";
 import React, { useContext } from "react";
 import { ResumeContext } from "../../app/builder/page";
 import EditableFormTitle from './EditableFormTitle';
-import CustomDatePicker from '../ui/CustomDatePicker';
+import PinkDatePicker from '../ui/date-picker';
 
 const WorkExperience = () => {
   const {
@@ -81,7 +81,7 @@ const WorkExperience = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="label-text">Start Date</label>
-              <CustomDatePicker
+              <PinkDatePicker
                 value={workExperience.startYear}
                 onChange={(date) => handleWorkExperience({ target: { name: 'startYear', value: date } }, index)}
                 placeholder="Select start date"
@@ -90,7 +90,7 @@ const WorkExperience = () => {
             </div>
             <div>
               <label className="label-text">End Date</label>
-              <CustomDatePicker
+              <PinkDatePicker
                 value={workExperience.endYear}
                 onChange={(date) => handleWorkExperience({ target: { name: 'endYear', value: date } }, index)}
                 placeholder="Select end date"
