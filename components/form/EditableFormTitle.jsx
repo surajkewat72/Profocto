@@ -51,41 +51,44 @@ const EditableFormTitle = ({ sectionKey, defaultTitle, className = "input-title"
 
   if (isEditing) {
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 bg-gray-900/30 rounded-md p-2 border border-pink-500/20">
         <input
           type="text"
           value={editValue}
           onChange={(e) => setEditValue(e.target.value)}
           onKeyDown={handleKeyDown}
           onBlur={handleSave}
-          className="bg-white text-black px-2 py-1 rounded border border-gray-300 focus:outline-none focus:border-blue-500 text-lg font-bold"
+          className="bg-gray-800/60 text-gray-50 px-2 py-1 rounded border border-pink-500/40 focus:outline-none focus:border-pink-500 text-base font-medium placeholder-gray-400 transition-all duration-200 min-w-0 flex-1"
           autoFocus
           maxLength={50}
+          placeholder="Enter section title..."
         />
         <button
           onClick={handleSave}
-          className="text-green-500 hover:text-green-700 p-1"
+          className="bg-gray-600/20 hover:bg-gray-500/30 text-gray-300 hover:text-white p-1.5 rounded transition-all duration-200"
           type="button"
+          title="Save changes"
         >
-          <FaCheck size={14} />
+          <FaCheck size={12} />
         </button>
         <button
           onClick={handleCancel}
-          className="text-red-500 hover:text-red-700 p-1"
+          className="bg-gray-600/20 hover:bg-gray-500/30 text-gray-300 hover:text-white p-1.5 rounded transition-all duration-200"
           type="button"
+          title="Cancel editing"
         >
-          <FaTimes size={14} />
+          <FaTimes size={12} />
         </button>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 group">
       <h2 className={className}>{currentTitle}</h2>
       <button
         onClick={handleEdit}
-        className="text-gray-500 hover:text-blue-600 transition-colors duration-200 cursor-pointer"
+        className="bg-pink-500/10 hover:bg-pink-500/20 text-pink-400 hover:text-pink-300 p-2 rounded-md transition-all duration-200 opacity-70 hover:opacity-100 hover:scale-105 group-hover:opacity-100"
         type="button"
         title="Click to edit section title"
       >

@@ -68,11 +68,11 @@ export default function Builder() {
             handleChange,
           }}
         >
-          <div className="flex flex-col lg:flex-row min-h-screen max-w-full">
+          <div className="flex flex-col lg:flex-row min-h-screen max-w-full overflow-hidden">
             {!formClose && (
-              <div className="w-full lg:w-[45%] xl:w-[40%] h-screen exclude-print relative" style={{backgroundColor: 'hsl(240 10% 3.9%)'}}>
+              <div className="w-full lg:w-[45%] xl:w-[40%] h-screen lg:h-screen md:h-auto exclude-print relative" style={{backgroundColor: 'hsl(240 10% 3.9%)'}}>
                 {/* Fixed Animated Background Grid */}
-                <div className="fixed inset-0 w-full lg:w-[45%] xl:w-[40%] h-screen z-0">
+                <div className="fixed inset-0 w-full lg:w-[45%] xl:w-[40%] h-screen z-0 hidden lg:block">
                   <Squares
                     speed={0.3} 
                     squareSize={30}
@@ -82,17 +82,17 @@ export default function Builder() {
                   />
                 </div>
                 <div className="h-full border-r relative z-10 overflow-y-auto" style={{borderColor: 'hsl(240 3.7% 15.9%)'}}>
-                  <div className="p-8 relative z-20">
+                  <div className="p-4 sm:p-6 lg:p-8 relative z-20">
                     {/* Clean Header */}
-                    <div className="mb-8">
-                      <h1 className="text-3xl font-light mb-2" style={{color: 'hsl(0 0% 98%)'}}>
+                    <div className="mb-6 lg:mb-8">
+                      <h1 className="text-2xl sm:text-3xl font-light mb-2" style={{color: 'hsl(0 0% 98%)'}}>
                         Resume Builder
                       </h1>
-                      <p className="text-sm" style={{color: 'hsl(240 5% 64.9%)'}}>Create your professional resume</p>
+                      <p className="text-xs sm:text-sm" style={{color: 'hsl(240 5% 64.9%)'}}>Create your professional resume</p>
                     </div>
 
                     {/* Form Sections */}
-                    <div className="space-y-6">
+                    <div className="space-y-4 lg:space-y-6">
                       <LoadUnload/>
                       <PersonalInformation />
                       <SocialMedia />
@@ -133,7 +133,7 @@ export default function Builder() {
                 </div>
               </div>
             )}
-            <div className={`${formClose ? 'w-full' : 'w-full lg:w-[55%] xl:w-[60%]'} transition-all duration-300`}>
+            <div className={`${formClose ? 'w-full' : 'w-full lg:w-[55%] xl:w-[60%]'} transition-all duration-300 min-h-screen lg:min-h-0`}>
               <Preview />
             </div>
           </div>
