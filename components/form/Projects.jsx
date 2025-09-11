@@ -4,7 +4,6 @@ import FormButton from "./FormButton";
 import React, { useContext } from "react";
 import { ResumeContext } from "../../app/builder/page";
 import EditableFormTitle from './EditableFormTitle';
-import PinkDatePicker from '../ui/date-picker';
 
 const Projects = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
@@ -80,20 +79,26 @@ const Projects = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="label-text">Start Date</label>
-              <PinkDatePicker
+              <input
+                type="date"
+                name="startYear"
                 value={project.startYear}
-                onChange={(date) => handleProjects({ target: { name: 'startYear', value: date } }, index)}
-                placeholder="Select start date"
-                className="w-full"
+                onChange={(e) => handleProjects(e, index)}
+                className="other-input w-full"
+                max={new Date().toISOString().split('T')[0]}
+                min="1950-01-01"
               />
             </div>
             <div>
               <label className="label-text">End Date</label>
-              <PinkDatePicker
+              <input
+                type="date"
+                name="endYear"
                 value={project.endYear}
-                onChange={(date) => handleProjects({ target: { name: 'endYear', value: date } }, index)}
-                placeholder="Select end date"
-                className="w-full"
+                onChange={(e) => handleProjects(e, index)}
+                className="other-input w-full"
+                max={new Date().toISOString().split('T')[0]}
+                min="1950-01-01"
               />
             </div>
           </div>

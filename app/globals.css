@@ -995,51 +995,6 @@ input[type="week"] {
     color-scheme: light !important;
 }
 
-/* Remove all date picker related styles to avoid conflicts */
-.pink-date-picker-popper,
-.pink-date-picker-calendar,
-.react-datepicker__header,
-.react-datepicker__current-month,
-.react-datepicker-time__header,
-.react-datepicker-year-header,
-.react-datepicker__day-name,
-.react-datepicker__day,
-.react-datepicker__time-name,
-.react-datepicker__day:hover,
-.react-datepicker__month-text:hover,
-.react-datepicker__quarter-text:hover,
-.react-datepicker__year-text:hover,
-.react-datepicker__day--selected,
-.react-datepicker__day--in-selecting-range,
-.react-datepicker__day--in-range,
-.react-datepicker__month-text--selected,
-.react-datepicker__month-text--in-selecting-range,
-.react-datepicker__month-text--in-range,
-.react-datepicker__quarter-text--selected,
-.react-datepicker__quarter-text--in-selecting-range,
-.react-datepicker__quarter-text--in-range,
-.react-datepicker__year-text--selected,
-.react-datepicker__year-text--in-selecting-range,
-.react-datepicker__year-text--in-range,
-.react-datepicker__day--today,
-.react-datepicker__navigation,
-.react-datepicker__navigation:hover,
-.react-datepicker__navigation--previous,
-.react-datepicker__navigation--next,
-.react-datepicker__month-dropdown,
-.react-datepicker__year-dropdown,
-.react-datepicker__month-option,
-.react-datepicker__year-option,
-.react-datepicker__month-option:hover,
-.react-datepicker__year-option:hover,
-.react-datepicker__month-option--selected,
-.react-datepicker__year-option--selected,
-.react-datepicker__dropdown-container,
-.react-datepicker__year-dropdown--scrollable,
-.date-picker-wrapper .react-datepicker-popper {
-    display: none !important;
-}
-
 @layer base {
   * {
     @apply border-border;
