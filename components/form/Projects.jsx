@@ -80,22 +80,20 @@ const Projects = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="label-text">Start Date</label>
-              <input
-                type="date"
-                name="startYear"
-                className="other-input w-full"
+              <CustomDatePicker
                 value={project.startYear}
-                onChange={(e) => handleProjects(e, index)}
+                onChange={(date) => handleProjects({ target: { name: 'startYear', value: date } }, index)}
+                placeholder="Select start date"
+                className="w-full"
               />
             </div>
             <div>
               <label className="label-text">End Date</label>
-              <input
-                type="date"
-                name="endYear"
-                className="other-input w-full"
+              <CustomDatePicker
                 value={project.endYear}
-                onChange={(e) => handleProjects(e, index)}
+                onChange={(date) => handleProjects({ target: { name: 'endYear', value: date } }, index)}
+                placeholder="Select end date"
+                className="w-full"
               />
             </div>
           </div>

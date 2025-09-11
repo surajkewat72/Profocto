@@ -725,7 +725,7 @@ input[type="date"]:focus-within {
             accent-color: #ec4899 !important;
         }
     }
-}
+
 
     /* Ensure exact font sizes match preview */
     .a4-preview * {

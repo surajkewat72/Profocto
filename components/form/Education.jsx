@@ -4,6 +4,7 @@ import FormButton from "./FormButton";
 import React, { useContext } from "react";
 import { ResumeContext } from "../../app/builder/page";
 import EditableFormTitle from './EditableFormTitle';
+import CustomDatePicker from '../ui/CustomDatePicker';
 
 const Education = () => {
     const { resumeData, setResumeData} = useContext(ResumeContext);
@@ -70,22 +71,20 @@ const Education = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="label-text">Start Date</label>
-                <input
-                  type="date"
-                  name="startYear"
-                  className="other-input w-full"
+                <CustomDatePicker
                   value={education.startYear}
-                  onChange={(e) => handleEducation(e, index)}
+                  onChange={(date) => handleEducation({ target: { name: 'startYear', value: date } }, index)}
+                  placeholder="Select start date"
+                  className="w-full"
                 />
               </div>
               <div>
                 <label className="label-text">End Date</label>
-                <input
-                  type="date"
-                  name="endYear"
-                  className="other-input w-full"
+                <CustomDatePicker
                   value={education.endYear}
-                  onChange={(e) => handleEducation(e, index)}
+                  onChange={(date) => handleEducation({ target: { name: 'endYear', value: date } }, index)}
+                  placeholder="Select end date"
+                  className="w-full"
                 />
               </div>
             </div>
