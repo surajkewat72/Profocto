@@ -39,68 +39,89 @@ const Projects = () => {
   };
 
   return (
-    <div className="flex-col-gap-2">
-      <EditableFormTitle 
-        sectionKey="projects" 
-        defaultTitle="Projects" 
-      />
+    <div className="form-section">
+      <div className="form-section-title">
+        <EditableFormTitle 
+          sectionKey="projects" 
+          defaultTitle="Projects" 
+        />
+      </div>
+
       {resumeData.projects.map((project, index) => (
-        <div key={index} className="f-col">
-          <input
-            type="text"
-            placeholder="Project Name"
-            name="name"
-            className="w-full other-input"
-            value={project.name}
-            onChange={(e) => handleProjects(e, index)}
-          />
-          <input
-            type="text"
-            placeholder="Include https:// in the link"
-            name="link"
-            className="w-full other-input"
-            value={project.link}
-            onChange={(e) => handleProjects(e, index)}
-          />
-          <label className="label-text">Description</label>
-          <textarea
-            type="text"
-            placeholder="Description"
-            name="description"
-            className="w-full other-input h-32"
-            value={project.description}
-            maxLength="250"
-            onChange={(e) => handleProjects(e, index)}
-          />
-          <label className="label-text">Key Achievements</label>
-          <textarea
-            type="text"
-            placeholder="Key Achievements"
-            name="keyAchievements"
-            className="w-full other-input h-40"
-            value={project.keyAchievements}
-            onChange={(e) => handleProjects(e, index)}
-          />
-          <div className="flex-wrap-gap-2">
-            <input
-              type="date"
-              placeholder="Start Year"
-              name="startYear"
-              className="other-input"
-              value={project.startYear}
+        <div key={index} className="section-card">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="label-text">Project Name</label>
+              <input
+                type="text"
+                placeholder="Project Title"
+                name="name"
+                className="other-input w-full"
+                value={project.name}
+                onChange={(e) => handleProjects(e, index)}
+              />
+            </div>
+            <div>
+              <label className="label-text">Project Link</label>
+              <input
+                type="text"
+                placeholder="Include https:// in the link"
+                name="link"
+                className="other-input w-full"
+                value={project.link}
+                onChange={(e) => handleProjects(e, index)}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="label-text">Start Date</label>
+              <input
+                type="date"
+                name="startYear"
+                className="other-input w-full"
+                value={project.startYear}
+                onChange={(e) => handleProjects(e, index)}
+              />
+            </div>
+            <div>
+              <label className="label-text">End Date</label>
+              <input
+                type="date"
+                name="endYear"
+                className="other-input w-full"
+                value={project.endYear}
+                onChange={(e) => handleProjects(e, index)}
+              />
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="label-text">Project Description</label>
+            <textarea
+              placeholder="Describe your project, technologies used, and your role..."
+              name="description"
+              className="other-input w-full h-24 resize-none"
+              value={project.description}
+              maxLength="250"
               onChange={(e) => handleProjects(e, index)}
             />
-            <input
-              type="date"
-              placeholder="End Year"
-              name="endYear"
-              className="other-input"
-              value={project.endYear}
+          </div>
+
+          <div>
+            <label className="label-text">Key Achievements</label>
+            <textarea
+              placeholder="List major accomplishments and measurable results..."
+              name="keyAchievements"
+              className="other-input w-full h-28 resize-none"
+              value={project.keyAchievements}
               onChange={(e) => handleProjects(e, index)}
             />
           </div>
         </div>
       ))}
+
       <FormButton
         size={resumeData.projects.length}
         add={addProjects}

@@ -28,24 +28,34 @@ const Language = () => {
   };  
 
   return (
-    <div className="flex-col-gap-2">
-      <EditableFormTitle 
-        sectionKey="languages" 
-        defaultTitle={title} 
+    <div className="form-section">
+      <div className="form-section-title">
+        <EditableFormTitle 
+          sectionKey="languages" 
+          defaultTitle={title} 
+        />
+      </div>
+
+      <div className="section-card">
+        {resumeData[skillType].map((skill, index) => (
+          <div key={index} className="mb-3 last:mb-0">
+            <input
+              type="text"
+              placeholder="e.g., English (Native), Spanish (Fluent)"
+              name="skill"
+              className="w-full other-input"
+              value={skill}
+              onChange={(e) => handleSkills(e, index, skillType)}
+            />
+          </div>
+        ))}
+      </div>
+
+      <FormButton 
+        size={resumeData[skillType].length} 
+        add={addSkill} 
+        remove={removeSkill} 
       />
-      {resumeData[skillType].map((skill, index) => (
-        <div key={index} className="f-col">
-          <input
-            type="text"
-            placeholder={placeholder}
-            name="skill"
-            className="w-full other-input"
-            value={skill}
-            onChange={(e) => handleSkills(e, index, skillType)}
-          />
-        </div>
-      ))}
-      <FormButton size={resumeData[skillType].length} add={addSkill} remove={removeSkill} />
     </div>
   );
 };

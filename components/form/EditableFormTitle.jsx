@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { FaPencilAlt, FaCheck, FaTimes } from 'react-icons/fa';
+import { FaCheck, FaTimes } from 'react-icons/fa';
+import { BiEdit } from 'react-icons/bi';
 import { useSectionTitles } from '../../contexts/SectionTitleContext';
 
 const EditableFormTitle = ({ sectionKey, defaultTitle, className = "input-title" }) => {
@@ -84,11 +85,11 @@ const EditableFormTitle = ({ sectionKey, defaultTitle, className = "input-title"
       <h2 className={className}>{currentTitle}</h2>
       <button
         onClick={handleEdit}
-        className="bg-blue-100 text-blue-600 hover:bg-blue-200 p-2 rounded-md transition-all duration-200 flex-shrink-0"
+        className="text-gray-500 hover:text-blue-600 transition-colors duration-200 cursor-pointer"
         type="button"
         title="Click to edit section title"
       >
-        <FaPencilAlt size={12} />
+        <BiEdit size={16} />
       </button>
     </div>
   );

@@ -32,46 +32,71 @@ const Education = () => {
     };
     
     return (
-      <div className="flex-col-gap-2">
-        <EditableFormTitle 
-          sectionKey="education" 
-          defaultTitle="Education" 
-        />
+      <div className="form-section">
+        <div className="form-section-title">
+          <EditableFormTitle 
+            sectionKey="education" 
+            defaultTitle="Education" 
+          />
+        </div>
+
         {resumeData.education.map((education, index) => (
-          <div key={index} className="f-col">
-            <input
-              type="text"
-              placeholder="School"
-              name="school"
-              className="w-full other-input"
-              value={education.school}
-              onChange={(e) => handleEducation(e, index)} />
-            <input
-              type="text"
-              placeholder="Degree"
-              name="degree"
-              className="w-full other-input"
-              value={education.degree}
-              onChange={(e) => handleEducation(e, index)} />
-            <div className="flex-wrap-gap-2">
-              <input
-                type="date"
-                placeholder="Start Year"
-                name="startYear"
-                className="other-input"
-                value={education.startYear}
-                onChange={(e) => handleEducation(e, index)} />
-              <input
-                type="date"
-                placeholder="End Year"
-                name="endYear"
-                className="other-input"
-                value={education.endYear}
-                onChange={(e) => handleEducation(e, index)} />
+          <div key={index} className="section-card">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label className="label-text">School/Institution</label>
+                <input
+                  type="text"
+                  placeholder="School or University"
+                  name="school"
+                  className="other-input w-full"
+                  value={education.school}
+                  onChange={(e) => handleEducation(e, index)}
+                />
+              </div>
+              <div>
+                <label className="label-text">Degree/Program</label>
+                <input
+                  type="text"
+                  placeholder="Degree, Field of Study"
+                  name="degree"
+                  className="other-input w-full"
+                  value={education.degree}
+                  onChange={(e) => handleEducation(e, index)}
+                />
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="label-text">Start Date</label>
+                <input
+                  type="date"
+                  name="startYear"
+                  className="other-input w-full"
+                  value={education.startYear}
+                  onChange={(e) => handleEducation(e, index)}
+                />
+              </div>
+              <div>
+                <label className="label-text">End Date</label>
+                <input
+                  type="date"
+                  name="endYear"
+                  className="other-input w-full"
+                  value={education.endYear}
+                  onChange={(e) => handleEducation(e, index)}
+                />
+              </div>
             </div>
           </div>
         ))}
-        <FormButton size={resumeData.education.length} add={addEducation} remove={removeEducation} />
+
+        <FormButton 
+          size={resumeData.education.length} 
+          add={addEducation} 
+          remove={removeEducation} 
+        />
       </div>
     )
   }

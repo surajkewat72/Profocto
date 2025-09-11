@@ -36,48 +36,55 @@ const Certification = () => {
   };
 
   return (
-    <div className="flex-col-gap-2">
-      <EditableFormTitle 
-        sectionKey="certifications" 
-        defaultTitle={title} 
-      />
+    <div className="form-section">
+      <div className="form-section-title">
+        <EditableFormTitle 
+          sectionKey="certifications" 
+          defaultTitle={title} 
+        />
+      </div>
+
       {resumeData[skillType].map((certification, index) => (
-        <div key={index} className="f-col space-y-2 p-4 border border-gray-200 rounded-lg">
-          <div className="f-col">
-            <label className="label-text mb-1">Certificate Name</label>
-            <input
-              type="text"
-              placeholder="e.g., AWS Certified Solutions Architect"
-              name="name"
-              className="w-full other-input"
-              value={certification.name}
-              onChange={(e) => handleCertification(e, index)}
-            />
+        <div key={index} className="section-card">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="label-text">Certificate Name</label>
+              <input
+                type="text"
+                placeholder="e.g., AWS Certified Solutions Architect"
+                name="name"
+                className="other-input w-full"
+                value={certification.name}
+                onChange={(e) => handleCertification(e, index)}
+              />
+            </div>
+            <div>
+              <label className="label-text">Provider/Issuer</label>
+              <input
+                type="text"
+                placeholder="e.g., Amazon Web Services"
+                name="issuer"
+                className="other-input w-full"
+                value={certification.issuer}
+                onChange={(e) => handleCertification(e, index)}
+              />
+            </div>
           </div>
-          <div className="f-col">
-            <label className="label-text mb-1">Provider/Issuer</label>
-            <input
-              type="text"
-              placeholder="e.g., Amazon Web Services"
-              name="issuer"
-              className="w-full other-input"
-              value={certification.issuer}
-              onChange={(e) => handleCertification(e, index)}
-            />
-          </div>
-          <div className="f-col">
-            <label className="label-text mb-1">Verification Link (Optional)</label>
+
+          <div>
+            <label className="label-text">Verification Link (Optional)</label>
             <input
               type="text"
               placeholder="e.g., https://www.credly.com/badges/your-badge"
               name="link"
-              className="w-full other-input"
+              className="other-input w-full"
               value={certification.link || ""}
               onChange={(e) => handleCertification(e, index)}
             />
           </div>
         </div>
       ))}
+
       <FormButton 
         size={resumeData[skillType].length} 
         add={addCertification} 

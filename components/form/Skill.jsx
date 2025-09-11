@@ -71,30 +71,36 @@ const Skill = ({ title }) => {
   };
 
   return (
-    <div className="flex-col-gap-2">
-      {title === "Soft Skills" ? (
-        <EditableFormTitle 
-          sectionKey={getSectionKey(title)} 
-          defaultTitle={title} 
-          className="input-title"
-        />
-      ) : (
-        <h3 className="text-lg font-semibold text-gray-800 mb-2 border-b border-gray-200 pb-1">
-          {title}
-        </h3>
-      )}
-      {skillType.skills.map((skill, index) => (
-        <div key={index} className="f-col">
-          <input
-            type="text"
-            placeholder={title}
-            name={title}
-            className="w-full other-input"
-            value={skill}
-            onChange={(e) => handleSkill(e, index, title)}
+    <div className="form-section">
+      <div className="form-section-title">
+        {title === "Soft Skills" ? (
+          <EditableFormTitle 
+            sectionKey={getSectionKey(title)} 
+            defaultTitle={title} 
+            className="input-title"
           />
-        </div>
-      ))}
+        ) : (
+          <h3 className="text-lg font-semibold text-gray-50 mb-0">
+            {title}
+          </h3>
+        )}
+      </div>
+
+      <div className="section-card">
+        {skillType.skills.map((skill, index) => (
+          <div key={index} className="mb-3 last:mb-0">
+            <input
+              type="text"
+              placeholder={`Add ${title.toLowerCase()}`}
+              name={title}
+              className="w-full other-input"
+              value={skill}
+              onChange={(e) => handleSkill(e, index, title)}
+            />
+          </div>
+        ))}
+      </div>
+
       <FormButton
         size={skillType.skills.length}
         add={() => addSkill(title)}
