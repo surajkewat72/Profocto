@@ -98,8 +98,9 @@ function TemplateCard({ template }: { template: Template }) {
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
-      className="relative group rounded-xl border border-white/10 bg-black/50 backdrop-blur-sm overflow-hidden"
+      className="relative group rounded-xl border border-white/10 bg-black/50 backdrop-blur-sm overflow-hidden hover:border-pink-500/30 transition-all duration-300"
     >
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-transparent to-pink-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div className="aspect-[4/3] relative">
         <img
           src={template.image}
@@ -109,15 +110,16 @@ function TemplateCard({ template }: { template: Template }) {
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <Link
             href={`/builder?template=${template.id}`}
-            className="relative inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+            className="relative inline-flex h-12 items-center justify-center rounded-md border border-pink-500/20 bg-gradient-to-r from-pink-500/10 to-pink-600/10 backdrop-blur-sm px-6 font-medium text-pink-200 transition-all duration-300 hover:border-pink-500/40 hover:bg-gradient-to-r hover:from-pink-500/20 hover:to-pink-600/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
           >
             Use Template
           </Link>
         </div>
       </div>
-      <div className="p-4">
-        <h3 className="text-xl font-semibold text-white">{template.name}</h3>
-        <p className="text-slate-400 mt-2 text-sm">{template.description}</p>
+      <div className="relative p-4">
+        <h3 className="text-xl font-semibold text-white group-hover:text-pink-100 transition-colors duration-300">{template.name}</h3>
+        <p className="text-slate-400 group-hover:text-slate-300 mt-2 text-sm transition-colors duration-300">{template.description}</p>
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-pink-500/0 via-pink-500/50 to-pink-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
     </motion.div>
   );

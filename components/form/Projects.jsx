@@ -38,6 +38,8 @@ const Projects = () => {
     setResumeData({ ...resumeData, projects: newProjects });
   };
 
+  
+
   return (
     <div className="form-section">
       <div className="form-section-title">

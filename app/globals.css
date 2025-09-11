@@ -443,28 +443,50 @@
 
 .form-section {
     @apply bg-[#171717] rounded-lg border-2 border-gray-700 p-6 mb-4 shadow-lg;
-    background: #171717;
+    background: linear-gradient(135deg, #171717 0%, #1a1a1a 100%);
     border-color: hsl(240 5% 26%);
     border-width: 2px;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    position: relative;
+}
+
+.form-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, hsl(330 81% 60% / 0.6) 0%, hsl(330 81% 60% / 0.2) 50%, hsl(330 81% 60% / 0.6) 100%);
+    border-radius: 8px 8px 0 0;
 }
 
 .form-section:hover {
-    border-color: hsl(240 5% 34%);
+    border-color: hsl(330 81% 60% / 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.4), 0 4px 8px -2px rgb(0 0 0 / 0.3);
 }
 
 .form-section-title {
     @apply text-lg font-semibold text-gray-50 mb-4 pb-3 border-b border-gray-700 flex items-center justify-between;
     line-height: 1.2;
     color: hsl(0 0% 98%);
-    border-bottom-color: hsl(240 5% 26%);
+    border-bottom-color: hsl(330 81% 60% / 0.2);
 }
 
 .section-card {
     @apply bg-transparent rounded-md border border-gray-800 p-4 mb-3 shadow-sm;
-    background: transparent;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%);
     border-color: hsl(240 3.7% 15.9%);
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.2), 0 1px 2px -1px rgb(0 0 0 / 0.2);
+    transition: all 0.2s ease;
+}
+
+.section-card:hover {
+    border-color: hsl(330 81% 60% / 0.2);
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.03) 0%, rgba(236, 72, 153, 0.01) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px 0 rgb(0 0 0 / 0.25), 0 2px 4px -1px rgb(0 0 0 / 0.2);
 }
 
 .clean-button {
