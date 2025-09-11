@@ -11,6 +11,7 @@ import {
   FaChevronDown,
   FaFileAlt,
   FaTh,
+  FaEyeSlash,
 } from "react-icons/fa";
 import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
 import { CgWebsite } from "react-icons/cg";
@@ -278,7 +279,7 @@ const Preview = () => {
             
             {/* Section Toggle Dropdown */}
             {showSectionToggle && (
-              <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-gray-200 py-3">
+              <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-3">
                 <div className="px-4 pb-2 border-b border-gray-200">
                   <h3 className="text-sm font-semibold text-gray-900">Toggle Resume Sections</h3>
                   <p className="text-xs text-gray-600 mt-1">Hide sections you don't need (e.g., freshers can hide experience)</p>
@@ -287,17 +288,17 @@ const Preview = () => {
                   {defaultSections.map((sectionId) => (
                     <label
                       key={sectionId}
-                      className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 cursor-pointer"
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-pink-50 cursor-pointer"
                     >
                       <input
                         type="checkbox"
                         checked={enabledSections[sectionId]}
                         onChange={() => toggleSection(sectionId)}
-                        className="w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500 focus:ring-2"
+                        className="w-4 h-4 text-pink-600 bg-white border-2 border-gray-300 rounded focus:ring-pink-500 focus:ring-2 checked:bg-pink-600 checked:border-pink-600"
                       />
                       <span className="text-sm text-gray-900 flex-1">{sectionLabels[sectionId]}</span>
                       {!enabledSections[sectionId] && (
-                        <span className="text-xs text-red-500 bg-red-50 px-2 py-1 rounded">Hidden</span>
+                        <FaEyeSlash className="w-4 h-4 text-gray-400" title="Hidden" />
                       )}
                     </label>
                   ))}
@@ -315,7 +316,7 @@ const Preview = () => {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center gap-2 px-4 py-3 bg-pink-800 text-white rounded-lg hover:bg-pink-700 transition-colors shadow-lg"
+              className="flex items-center gap-2 px-4 py-3 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors shadow-lg"
             >
               <FaFileAlt className="w-4 h-4" />
               <span className="text-sm font-medium">
@@ -326,7 +327,7 @@ const Preview = () => {
             
             {/* Dropdown Menu */}
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2">
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
                 {templates.map((template) => {
                   const IconComponent = template.icon;
                   return (
@@ -336,7 +337,7 @@ const Preview = () => {
                         setCurrentTemplate(template.id);
                         setIsDropdownOpen(false);
                       }}
-                      className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors ${
+                      className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-pink-50 transition-colors ${
                         currentTemplate === template.id ? 'bg-pink-50 border-r-2 border-pink-500' : ''
                       }`}
                     >

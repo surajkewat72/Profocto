@@ -39,6 +39,39 @@
         @apply focus:outline-none;
     }
 
+    /* Custom Checkbox Styling */
+    input[type="checkbox"] {
+        @apply appearance-none;
+        background-color: white !important;
+        border: 2px solid #d1d5db !important;
+        border-radius: 0.25rem;
+        width: 1rem;
+        height: 1rem;
+        position: relative;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"]:checked {
+        background-color: #ec4899 !important;
+        border-color: #ec4899 !important;
+    }
+
+    input[type="checkbox"]:checked::before {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
+
+    input[type="checkbox"]:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px #ec4899;
+    }
+
     /* Shadcn-inspired Textarea */
     textarea {
         @apply px-3 py-2 text-gray-50 bg-[#282828] rounded-md text-sm border-2 border-gray-600 transition-all duration-200 hover:border-gray-700 focus:border-pink-600 focus:outline-none focus:ring-1 focus:ring-pink-600/50 resize-none;
