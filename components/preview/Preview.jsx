@@ -268,7 +268,7 @@ const Preview = () => {
           <div className="relative" ref={toggleRef}>
             <button
               onClick={() => setShowSectionToggle(!showSectionToggle)}
-              className="flex items-center gap-2 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors shadow-lg"
+              className="flex items-center gap-2 px-4 py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors shadow-lg"
               title="Toggle Sections"
             >
               <FaTh className="w-4 h-4" />
@@ -293,7 +293,7 @@ const Preview = () => {
                         type="checkbox"
                         checked={enabledSections[sectionId]}
                         onChange={() => toggleSection(sectionId)}
-                        className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
+                        className="w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500 focus:ring-2"
                       />
                       <span className="text-sm text-gray-900 flex-1">{sectionLabels[sectionId]}</span>
                       {!enabledSections[sectionId] && (
@@ -315,7 +315,7 @@ const Preview = () => {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center gap-2 px-4 py-3 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors shadow-lg"
+              className="flex items-center gap-2 px-4 py-3 bg-pink-800 text-white rounded-lg hover:bg-pink-700 transition-colors shadow-lg"
             >
               <FaFileAlt className="w-4 h-4" />
               <span className="text-sm font-medium">
@@ -337,12 +337,12 @@ const Preview = () => {
                         setIsDropdownOpen(false);
                       }}
                       className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors ${
-                        currentTemplate === template.id ? 'bg-blue-50 border-r-2 border-blue-500' : ''
+                        currentTemplate === template.id ? 'bg-pink-50 border-r-2 border-pink-500' : ''
                       }`}
                     >
-                      <IconComponent className={`w-4 h-4 ${currentTemplate === template.id ? 'text-blue-600' : 'text-gray-600'}`} />
+                      <IconComponent className={`w-4 h-4 ${currentTemplate === template.id ? 'text-pink-600' : 'text-gray-600'}`} />
                       <div className="text-left">
-                        <div className={`font-medium text-sm ${currentTemplate === template.id ? 'text-blue-900' : 'text-gray-900'}`}>
+                        <div className={`font-medium text-sm ${currentTemplate === template.id ? 'text-pink-900' : 'text-gray-900'}`}>
                           {template.name}
                         </div>
                         <div className="text-xs text-gray-500">

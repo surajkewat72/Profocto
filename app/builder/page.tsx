@@ -70,10 +70,10 @@ export default function Builder() {
         >
           <div className="flex flex-col lg:flex-row min-h-screen max-w-full">
             {!formClose && (
-              <div className="w-full lg:w-[45%] xl:w-[40%] h-screen overflow-y-auto exclude-print relative" style={{backgroundColor: 'hsl(240 10% 3.9%)'}}>
-                {/* Animated Background Grid */}
-                <div className="absolute inset-0 z-0">
-                  <Squares 
+              <div className="w-full lg:w-[45%] xl:w-[40%] h-screen exclude-print relative" style={{backgroundColor: 'hsl(240 10% 3.9%)'}}>
+                {/* Fixed Animated Background Grid */}
+                <div className="fixed inset-0 w-full lg:w-[45%] xl:w-[40%] h-screen z-0">
+                  <Squares
                     speed={0.3} 
                     squareSize={30}
                     direction='diagonal'
@@ -81,8 +81,8 @@ export default function Builder() {
                     hoverFillColor='rgba(236, 72, 153, 0.1)'
                   />
                 </div>
-                <div className="h-full border-r relative z-10" style={{borderColor: 'hsl(240 3.7% 15.9%)'}}>
-                  <div className="p-8">
+                <div className="h-full border-r relative z-10 overflow-y-auto" style={{borderColor: 'hsl(240 3.7% 15.9%)'}}>
+                  <div className="p-8 relative z-20">
                     {/* Clean Header */}
                     <div className="mb-8">
                       <h1 className="text-3xl font-light mb-2" style={{color: 'hsl(0 0% 98%)'}}>
