@@ -906,7 +906,7 @@ input[type="date"] {
     appearance: none !important;
 }
 
-/* Custom date input styling */
+/* Override browser date picker colors with pink theme */
 input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0 !important;
     width: 100% !important;
@@ -916,10 +916,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     top: 0 !important;
     cursor: pointer !important;
     z-index: 20 !important;
+    filter: invert(35%) sepia(100%) saturate(500%) hue-rotate(300deg) brightness(1.2) contrast(1.1) !important;
 }
 
+/* Force pink theme on date picker popup */
 input[type="date"]::-webkit-datetime-edit {
     display: none !important;
+}
+
+/* WebKit date picker styling */
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    display: none !important;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+    color: #ec4899 !important;
 }
 
 input[type="date"]::-webkit-inner-spin-button,
@@ -933,10 +946,35 @@ input[type="date"]::-moz-focus-inner {
     border: 0 !important;
 }
 
-/* Focus states for date input */
-input[type="date"]:focus {
+/* Apply pink filter to the entire date picker when opened */
+input[type="date"]:focus,
+input[type="date"]:active {
     outline: none !important;
     box-shadow: none !important;
+    filter: hue-rotate(270deg) saturate(2) brightness(1.1) !important;
+}
+
+/* CSS custom properties for date picker theming */
+:root {
+    --date-picker-accent: #ec4899;
+    --date-picker-accent-light: #fdf2f8;
+    --date-picker-accent-dark: #be185d;
+}
+
+/* Try to override system date picker colors */
+input[type="date"] {
+    accent-color: #ec4899 !important;
+    color-scheme: light !important;
+}
+
+/* Aggressive pink theme application */
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    filter: invert(35%) sepia(100%) saturate(700%) hue-rotate(300deg) brightness(1.3) contrast(1.2) !important;
+}
+
+/* Additional webkit overrides for pink theme */
+input[type="date"]:focus::-webkit-calendar-picker-indicator {
+    filter: invert(35%) sepia(100%) saturate(800%) hue-rotate(300deg) brightness(1.4) contrast(1.3) !important;
 }
 
 /* Ensure no conflicts with other inputs */
@@ -945,6 +983,16 @@ input[type="date"]:focus {
     border: none !important;
     color: transparent !important;
     cursor: pointer !important;
+    accent-color: #ec4899 !important;
+}
+
+/* Global override for all date inputs */
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"] {
+    accent-color: #ec4899 !important;
+    color-scheme: light !important;
 }
 
 /* Remove all date picker related styles to avoid conflicts */
