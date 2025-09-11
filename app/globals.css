@@ -197,6 +197,38 @@
         box-shadow: 0 0 0 2px hsl(330 81% 60% / 0.2);
     }
 
+    /* Sidebar Grid Pattern Background - Replaced with animated Squares component */
+    /*
+    .sidebar-grid {
+        background-color: hsl(240 10% 3.9%);
+        background-image: 
+            linear-gradient(rgba(236, 72, 153, 0.15) 2px, transparent 2px),
+            linear-gradient(90deg, rgba(236, 72, 153, 0.15) 2px, transparent 2px);
+        background-size: 20px 20px;
+        position: relative;
+    }
+
+    .sidebar-grid::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+            linear-gradient(rgba(236, 72, 153, 0.08) 2px, transparent 2px),
+            linear-gradient(90deg, rgba(236, 72, 153, 0.08) 2px, transparent 2px);
+        background-size: 60px 60px;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .sidebar-grid > * {
+        position: relative;
+        z-index: 2;
+    }
+    */
+
     /* Calendar Date Input Styling - Aggressive Pink Theme Override */
     input[type="date"] {
         color-scheme: light !important;
