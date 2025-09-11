@@ -4,6 +4,7 @@ import FormButton from "./FormButton";
 import React, { useContext } from "react";
 import { ResumeContext } from "../../app/builder/page";
 import EditableFormTitle from './EditableFormTitle';
+import CustomDatePicker from '../ui/CustomDatePicker';
 
 const Projects = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
@@ -38,7 +39,7 @@ const Projects = () => {
     setResumeData({ ...resumeData, projects: newProjects });
   };
 
-  
+
 
   return (
     <div className="form-section">
