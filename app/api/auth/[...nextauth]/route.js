@@ -17,9 +17,11 @@ const generateResumeUrl = () => {
 }
 
 export const authOptions = {
-  adapter: MongoDBAdapter(clientPromise),
+  pages: {
+    signIn: '/', // Redirect to homepage instead of default sign-in page
+  },
   session: {
-    strategy: 'jwt', // Use JWT strategy to avoid account linking issues
+    strategy: 'jwt', // Use JWT strategy consistently
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   providers: [
@@ -53,11 +55,6 @@ export const authOptions = {
       },
     }),
   ],
-  session: {
-    strategy: 'database', // Use database sessions with MongoDB adapter
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60, // 24 hours
-  },
   callbacks: {
     async jwt({ token, user, account }) {
       // Generate unique resume URL on first sign in

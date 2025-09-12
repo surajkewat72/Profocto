@@ -28,32 +28,49 @@ const AuthModal = ({ isOpen, onClose }) => {
   };
 
   const handleOAuthSignIn = async (provider) => {
+    console.log('Starting OAuth sign in with:', provider);
     setLoading(true);
     setError('');
     
     try {
+      console.log('Calling signIn...');
       const result = await signIn(provider, { 
-        redirect: false,
-        callbackUrl: '/builder'
+        redirect: false, // Keep this false to handle in modal
+        callbackUrl: window.location.origin + '/builder', // Ensure proper callback
       });
       
+      console.log('SignIn result:', result);
+      
       if (result?.error) {
+        console.error('Sign in error:', result.error);
         setError('Authentication failed. Please try again.');
-      } else {
+        setLoading(false);
+      } else if (result?.ok) {
+        console.log('Sign in successful, waiting for session...');
+        // Wait a bit for session to be established
         setTimeout(async () => {
           const session = await getSession();
+          console.log('Session after sign in:', session);
           if (session?.user?.resumeUrl) {
+            console.log('Redirecting to:', `/builder/${session.user.resumeUrl}`);
             router.push(`/builder/${session.user.resumeUrl}`);
             onClose();
           } else {
+            console.log('No resumeUrl, redirecting to /builder');
+            // If no resumeUrl, redirect to generate one
             router.push('/builder');
             onClose();
           }
-        }, 1000);
+          setLoading(false);
+        }, 1500);
+      } else {
+        console.log('Unexpected result:', result);
+        setError('Authentication failed. Please try again.');
+        setLoading(false);
       }
     } catch (error) {
+      console.error('Auth error:', error);
       setError('Authentication failed. Please try again.');
-    } finally {
       setLoading(false);
     }
   };

@@ -25,9 +25,22 @@ export default function Hero() {
     const [isLoading, setIsLoading] = useState(true);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [showAuthModal, setShowAuthModal] = useState(false);
+    const [showLoginBanner, setShowLoginBanner] = useState(false);
     
     const { data: session, status } = useSession();
     const router = useRouter();
+
+    useEffect(() => {
+        // Check if user was redirected here due to unauthorized access
+        const urlParams = new URLSearchParams(window.location.search);
+        const callbackUrl = urlParams.get('callbackUrl');
+        
+        if (callbackUrl && callbackUrl.includes('/builder')) {
+            setShowLoginBanner(true);
+            // Auto-hide banner after 8 seconds
+            setTimeout(() => setShowLoginBanner(false), 8000);
+        }
+    }, []);
 
     useEffect(() => {
         // Handle video loading state with faster detection
@@ -89,6 +102,37 @@ export default function Hero() {
 
     return (
         <div className="relative w-full h-screen overflow-hidden bg-black">
+            {/* Login Banner - shows when user is redirected from protected route */}
+            {showLoginBanner && (
+                <div className="absolute top-0 left-0 right-0 z-50 bg-gradient-to-r from-pink-600 to-pink-500 text-white py-3 px-4 sm:px-6 shadow-lg transform transition-all duration-500 ease-out">
+                    <div className="flex items-center justify-between max-w-7xl mx-auto">
+                        <div className="flex items-center space-x-3">
+                            <div className="flex-shrink-0">
+                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p className="text-sm font-medium">
+                                    Please log in to access the Resume Builder
+                                </p>
+                                <p className="text-xs opacity-90">
+                                    Click "Create Resume" below to sign in and continue
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            onClick={() => setShowLoginBanner(false)}
+                            className="flex-shrink-0 p-1 rounded-full hover:bg-white/20 transition-colors"
+                        >
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Animated gradient background that shows before video loads */}
             <div 
                 className="absolute top-0 left-0 w-full h-full opacity-70 transition-opacity duration-1000"

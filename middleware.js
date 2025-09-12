@@ -18,11 +18,18 @@ export default withAuth(
       authorized: ({ token, req }) => {
         // Protect all /builder routes
         if (req.nextUrl.pathname.startsWith("/builder")) {
-          return !!token
+          if (!token) {
+            // Redirect to homepage with login prompt instead of sign-in page
+            return false
+          }
+          return true
         }
         return true
       },
     },
+    pages: {
+      signIn: '/', // Redirect unauthorized users to homepage
+    }
   }
 )
 
