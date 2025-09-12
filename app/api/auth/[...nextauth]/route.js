@@ -18,6 +18,10 @@ const generateResumeUrl = () => {
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
+  session: {
+    strategy: 'jwt', // Use JWT strategy to avoid account linking issues
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -50,12 +54,9 @@ export const authOptions = {
     }),
   ],
   session: {
-    strategy: 'jwt',
+    strategy: 'database', // Use database sessions with MongoDB adapter
     maxAge: 30 * 24 * 60 * 60, // 30 days
-  },
-  pages: {
-    signIn: '/auth/signin',
-    error: '/auth/error',
+    updateAge: 24 * 60 * 60, // 24 hours
   },
   callbacks: {
     async jwt({ token, user, account }) {
@@ -77,7 +78,7 @@ export const authOptions = {
       return session
     },
     async signIn({ user, account, profile }) {
-      // Allow all sign ins for now
+      // Allow all sign ins - let NextAuth handle the account linking
       return true
     },
   },

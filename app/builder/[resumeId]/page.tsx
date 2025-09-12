@@ -6,21 +6,29 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 // Import your existing builder components
-import Preview from "@/components/preview/Preview";
-import PersonalInformation from "@/components/form/PersonalInformation";
-import Education from "@/components/form/Education";
-import WorkExperience from "@/components/form/WorkExperience";
-import Projects from "@/components/form/Projects";
-import Skill from "@/components/form/Skill";
-import Summary from "@/components/form/Summary";
 import Language from "@/components/form/Language";
-import Certification from "@/components/form/certification";
-import SocialMedia from "@/components/form/SocialMedia";
+import FormCP from "@/components/form/FormCP";
 import LoadUnload from "@/components/form/LoadUnload";
+import Preview from "@/components/preview/Preview";
+import DefaultResumeData from "@/components/utility/DefaultResumeData";
+import SocialMedia from "@/components/form/SocialMedia";
+import WorkExperience from "@/components/form/WorkExperience";
+import Skill from "@/components/form/Skill";
+import PersonalInformation from "@/components/form/PersonalInformation";
+import Summary from "@/components/form/Summary";
+import Projects from "@/components/form/Projects";
+import Education from "@/components/form/Education";
+import dynamic from "next/dynamic";
+import Certification from "@/components/form/certification";
 import { SectionTitleProvider } from "@/contexts/SectionTitleContext";
 import { ResumeContext } from "@/contexts/ResumeContext";
-import DefaultResumeData from "@/components/utility/DefaultResumeData";
+import Squares from "@/components/ui/Squares";
 import type { ResumeData } from "../../types/resume";
+
+// server side rendering false
+const Print = dynamic(() => import("@/components/utility/WinPrint"), {
+  ssr: false,
+});
 
 interface BuilderPageParams {
   resumeId: string;
@@ -36,6 +44,9 @@ export default function BuilderPage() {
 
   // Resume data state
   const [resumeData, setResumeData] = useState<ResumeData>(DefaultResumeData as ResumeData);
+
+  // Form hide/show
+  const [formClose, setFormClose] = useState(false);
 
   // Profile picture handler
   const handleProfilePicture = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,67 +144,89 @@ export default function BuilderPage() {
 
   // Render the main builder interface
   return (
-    <SectionTitleProvider>
-      <ResumeContext.Provider
-        value={{
-          resumeData,
-          setResumeData,
-          handleProfilePicture,
-          handleChange,
-        }}
-      >
-        <div className="min-h-screen bg-gray-50">
-          {/* Header with user info and resume ID */}
-          <div className="bg-white border-b border-gray-200 p-4 sm:p-6">
-            <div className="max-w-7xl mx-auto flex items-center justify-between">
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">Resume Builder</h1>
-                <p className="text-sm text-gray-500">
-                  Session: {params.resumeId}
-                </p>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="text-sm text-gray-600">
-                  Welcome, {session?.user?.name || session?.user?.email}
+    <>
+      <SectionTitleProvider>
+        <ResumeContext.Provider
+          value={{
+            resumeData,
+            setResumeData,
+            handleProfilePicture,
+            handleChange,
+          }}
+        >
+          <div className="flex flex-col lg:flex-row min-h-screen max-w-full overflow-hidden">
+            {!formClose && (
+              <div className="w-full lg:w-[45%] xl:w-[40%] h-screen lg:h-screen md:h-auto exclude-print relative" style={{backgroundColor: 'hsl(240 10% 3.9%)'}}>
+                {/* Fixed Animated Background Grid */}
+                <div className="fixed inset-0 w-full lg:w-[45%] xl:w-[40%] h-screen z-0 hidden lg:block">
+                  <Squares
+                    speed={0.3} 
+                    squareSize={30}
+                    direction='diagonal'
+                    borderColor='rgba(236, 72, 153, 0.15)'
+                    hoverFillColor='rgba(236, 72, 153, 0.1)'
+                  />
                 </div>
-                <button
-                  onClick={() => {
-                    // You can add sign out functionality here
-                    router.push('/');
-                  }}
-                  className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
-                >
-                  Exit
-                </button>
+                <div className="h-full border-r relative z-10 overflow-y-auto" style={{borderColor: 'hsl(240 3.7% 15.9%)'}}>
+                  <div className="p-4 sm:p-6 lg:p-8 relative z-20">
+                    {/* Clean Header */}
+                    <div className="mb-6 lg:mb-8">
+                      <h1 className="text-2xl sm:text-3xl font-light mb-2" style={{color: 'hsl(0 0% 98%)'}}>
+                        Resume Builder
+                      </h1>
+                      <p className="text-xs sm:text-sm" style={{color: 'hsl(240 5% 64.9%)'}}>Create your professional resume</p>
+                    </div>
+
+                    {/* Form Sections */}
+                    <div className="space-y-4 lg:space-y-6">
+                      <LoadUnload/>
+                      <PersonalInformation />
+                      <SocialMedia />
+                      <Summary />
+                      <Education />
+                      <WorkExperience />
+                      <Projects />
+                      
+                      {/* Technical Skills Section */}
+                      <div className="form-section">
+                        <h2 className="input-title">Technical Skills</h2>
+                        <div className="space-y-4">
+                          {resumeData.skills
+                            .filter((skill: any) => skill.title !== "Soft Skills")
+                            .map((skill: any, index: number) => (
+                              <Skill
+                                title={skill.title}
+                                key={index}
+                              />
+                            ))}
+                        </div>
+                      </div>
+
+                      {/* Soft Skills Section */}
+                      {resumeData.skills
+                        .filter((skill: any) => skill.title === "Soft Skills")
+                        .map((skill: any, index: number) => (
+                          <Skill
+                            title={skill.title}
+                            key={index}
+                          />
+                        ))}
+
+                      <Language />
+                      <Certification />
+                    </div>
+                  </div>
+                </div>
               </div>
+            )}
+            <div className={`${formClose ? 'w-full' : 'w-full lg:w-[55%] xl:w-[60%]'} transition-all duration-300 min-h-screen lg:min-h-0`}>
+              <Preview />
             </div>
           </div>
-
-          {/* Main builder content */}
-          <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-              {/* Form Section */}
-              <div className="space-y-6">
-                <PersonalInformation />
-                <Summary />
-                <Education />
-                <WorkExperience />
-                <Projects />
-                <Skill title="Technical Skills" />
-                <Language />
-                <Certification />
-                <SocialMedia />
-                <LoadUnload />
-              </div>
-
-              {/* Preview Section */}
-              <div className="lg:sticky lg:top-6">
-                <Preview />
-              </div>
-            </div>
-          </div>
-        </div>
-      </ResumeContext.Provider>
-    </SectionTitleProvider>
+          <FormCP formClose={formClose} setFormClose={setFormClose} />
+          <Print />
+        </ResumeContext.Provider>
+      </SectionTitleProvider>
+    </>
   );
 }

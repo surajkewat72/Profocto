@@ -60,6 +60,12 @@ const Skill = ({ title }) => {
     (skillType) => skillType.title === title
   );
 
+  // If skillType is not found, don't render the component
+  if (!skillType) {
+    console.warn(`Skill type "${title}" not found in resumeData.skills`);
+    return null;
+  }
+
   // Map skill titles to section keys
   const getSectionKey = (title) => {
     if (title === "Programming Languages") return "programming";
