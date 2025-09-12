@@ -579,7 +579,7 @@
 }
 
 .form-section {
-    @apply bg-[#171717] rounded-lg border-2 p-4 sm:p-6 mb-4 shadow-lg;
+    @apply bg-[#171717] rounded-lg border-2 p-6 mb-4 shadow-lg;
     background: linear-gradient(135deg, #171717 0%, #1a1a1a 100%);
     border-color: hsl(330 81% 60% / 0.3);
     border-width: 2px;
@@ -594,14 +594,14 @@
 }
 
 .form-section-title {
-    @apply text-base sm:text-lg font-semibold text-gray-50 mb-3 sm:mb-4 pb-3 border-b border-gray-700 flex items-center justify-between;
+    @apply text-lg font-semibold text-gray-50 mb-4 pb-3 border-b border-gray-700 flex items-center justify-between;
     line-height: 1.2;
     color: hsl(0 0% 98%);
     border-bottom-color: hsl(330 81% 60% / 0.2);
 }
 
 .section-card {
-    @apply bg-transparent rounded-md border p-3 sm:p-4 mb-3 shadow-sm;
+    @apply bg-transparent rounded-md border p-4 mb-3 shadow-sm;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%);
     border-color: hsl(330 81% 60% / 0.15);
     border-width: 1px;
