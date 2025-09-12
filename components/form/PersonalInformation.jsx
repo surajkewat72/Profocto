@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext } from "react";
-import { ResumeContext } from "../../app/builder/page";
+import { ResumeContext } from "../../contexts/ResumeContext";
 const PersonalInformation = ({}) => {
   const { resumeData, setResumeData, handleProfilePicture, handleChange } =
     useContext(ResumeContext);

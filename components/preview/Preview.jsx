@@ -21,7 +21,7 @@ import ContactInfo from "./ContactInfo";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { ResumeContext } from "../../app/builder/page";
+import { ResumeContext } from "../../contexts/ResumeContext";
 import Language from "./Language";
 import Certification from "./Certification";
 import TemplateTwo from "./TemplateTwo";

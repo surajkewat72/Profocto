@@ -2,7 +2,7 @@
 
 import FormButton from "./FormButton";
 import React, { useContext } from "react";
-import { ResumeContext } from "../../app/builder/page";
+import { ResumeContext } from "../../contexts/ResumeContext";
 
 const SocialMedia = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);

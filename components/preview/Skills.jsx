@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext } from "react";
-import { ResumeContext } from "../../app/builder/page";
+import { ResumeContext } from "../../contexts/ResumeContext";
 
 const Skills = ({ title, skills }) => {
   const { resumeData, setResumeData } = useContext(ResumeContext);

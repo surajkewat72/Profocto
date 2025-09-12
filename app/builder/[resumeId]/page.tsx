@@ -14,17 +14,48 @@ import Projects from "@/components/form/Projects";
 import Skill from "@/components/form/Skill";
 import Summary from "@/components/form/Summary";
 import Language from "@/components/form/Language";
-import certification from "@/components/form/certification";
+import Certification from "@/components/form/certification";
 import SocialMedia from "@/components/form/SocialMedia";
 import LoadUnload from "@/components/form/LoadUnload";
 import { SectionTitleProvider } from "@/contexts/SectionTitleContext";
+import { ResumeContext } from "@/contexts/ResumeContext";
+import DefaultResumeData from "@/components/utility/DefaultResumeData";
+import type { ResumeData } from "../../types/resume";
+
+interface BuilderPageParams {
+  resumeId: string;
+  [key: string]: string | string[] | undefined;
+}
 
 export default function BuilderPage() {
   const { data: session, status } = useSession();
-  const params = useParams();
+  const params = useParams<BuilderPageParams>();
   const router = useRouter();
   const [isValidating, setIsValidating] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
+
+  // Resume data state
+  const [resumeData, setResumeData] = useState<ResumeData>(DefaultResumeData as ResumeData);
+
+  // Profile picture handler
+  const handleProfilePicture = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file instanceof Blob) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setResumeData({ ...resumeData, profilePicture: event.target?.result as string });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      console.error("Invalid file type");
+    }
+  };
+
+  // Change handler
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setResumeData({ ...resumeData, [e.target.name]: e.target.value });
+  };
 
   useEffect(() => {
     if (status === 'loading') return; // Wait for session to load
@@ -103,57 +134,66 @@ export default function BuilderPage() {
   // Render the main builder interface
   return (
     <SectionTitleProvider>
-      <div className="min-h-screen bg-gray-50">
-        {/* Header with user info and resume ID */}
-        <div className="bg-white border-b border-gray-200 p-4 sm:p-6">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Resume Builder</h1>
-              <p className="text-sm text-gray-500">
-                Session: {params.resumeId}
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-sm text-gray-600">
-                Welcome, {session.user?.name || session.user?.email}
+      <ResumeContext.Provider
+        value={{
+          resumeData,
+          setResumeData,
+          handleProfilePicture,
+          handleChange,
+        }}
+      >
+        <div className="min-h-screen bg-gray-50">
+          {/* Header with user info and resume ID */}
+          <div className="bg-white border-b border-gray-200 p-4 sm:p-6">
+            <div className="max-w-7xl mx-auto flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">Resume Builder</h1>
+                <p className="text-sm text-gray-500">
+                  Session: {params.resumeId}
+                </p>
               </div>
-              <button
-                onClick={() => {
-                  // You can add sign out functionality here
-                  router.push('/');
-                }}
-                className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
-              >
-                Exit
-              </button>
+              <div className="flex items-center gap-4">
+                <div className="text-sm text-gray-600">
+                  Welcome, {session?.user?.name || session?.user?.email}
+                </div>
+                <button
+                  onClick={() => {
+                    // You can add sign out functionality here
+                    router.push('/');
+                  }}
+                  className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
+                >
+                  Exit
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Main builder content */}
+          <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+              {/* Form Section */}
+              <div className="space-y-6">
+                <PersonalInformation />
+                <Summary />
+                <Education />
+                <WorkExperience />
+                <Projects />
+                <Skill title="Technical Skills" />
+                <Language />
+                <Certification />
+                <SocialMedia />
+                <LoadUnload />
+              </div>
+
+              {/* Preview Section */}
+              <div className="lg:sticky lg:top-6">
+                <Preview />
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Main builder content */}
-        <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            {/* Form Section */}
-            <div className="space-y-6">
-              <PersonalInformation />
-              <Summary />
-              <Education />
-              <WorkExperience />
-              <Projects />
-              <Skill />
-              <Language />
-              <certification />
-              <SocialMedia />
-              <LoadUnload />
-            </div>
-
-            {/* Preview Section */}
-            <div className="lg:sticky lg:top-6">
-              <Preview />
-            </div>
-          </div>
-        </div>
-      </div>
+      </ResumeContext.Provider>
     </SectionTitleProvider>
   );
 }

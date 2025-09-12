@@ -2,7 +2,7 @@
 
 import { FaCloudUploadAlt, FaCloudDownloadAlt } from "react-icons/fa";
 import React, { useContext } from "react";
-import { ResumeContext } from "../../app/builder/page";
+import { ResumeContext } from "../../contexts/ResumeContext";
 
 const LoadUnload = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
