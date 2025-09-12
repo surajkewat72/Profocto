@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import Link from "next/link";
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import AuthModal from '@/components/auth/AuthModal';
 import { Inter, Playfair_Display } from 'next/font/google';
 
 const inter = Inter({ 
@@ -22,6 +24,10 @@ export default function Hero() {
     const videoRef = useRef(null);
     const [isLoading, setIsLoading] = useState(true);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [showAuthModal, setShowAuthModal] = useState(false);
+    
+    const { data: session, status } = useSession();
+    const router = useRouter();
 
     useEffect(() => {
         // Handle video loading state with faster detection
@@ -62,6 +68,23 @@ export default function Hero() {
 
     const overlayTransform = {
         transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`
+    };
+
+    // Handle Create Resume button click
+    const handleCreateResume = () => {
+        if (status === 'loading') return; // Wait for session to load
+        
+        if (session?.user) {
+            // User is authenticated, redirect to their unique resume URL
+            if (session.user.resumeUrl) {
+                router.push(`/builder/${session.user.resumeUrl}`);
+            } else {
+                router.push('/builder');
+            }
+        } else {
+            // User is not authenticated, show auth modal
+            setShowAuthModal(true);
+        }
     };
 
     return (
@@ -205,13 +228,23 @@ export default function Hero() {
                     </div>
                 </div>
 
-                <Link
+                <button
                     ref={ctaRef}
-                    href="/builder"
-                    className={`inline-flex h-10 sm:h-12 items-center justify-center rounded-lg bg-white text-black px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-300 hover:bg-gray-100 hover:shadow-lg ${inter.className}`}
+                    onClick={handleCreateResume}
+                    disabled={status === 'loading'}
+                    className={`inline-flex h-10 sm:h-12 items-center justify-center rounded-lg bg-white text-black px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-300 hover:bg-gray-100 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${inter.className}`}
                 >
-                    Create Resume
-                </Link>
+                    {status === 'loading' ? (
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 border-2 border-gray-400 border-t-black rounded-full animate-spin"></div>
+                            <span>Loading...</span>
+                        </div>
+                    ) : session?.user ? (
+                        'Continue Building'
+                    ) : (
+                        'Create Resume'
+                    )}
+                </button>
             </div>
 
             {/* Animated gradient overlay for better text contrast */}
@@ -331,6 +364,12 @@ export default function Hero() {
                     100% { background-position: 0% 0%; }
                 }
             `}</style>
+
+            {/* Authentication Modal */}
+            <AuthModal 
+                isOpen={showAuthModal} 
+                onClose={() => setShowAuthModal(false)} 
+            />
         </div>
     );
 }
