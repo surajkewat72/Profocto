@@ -18,10 +18,10 @@ const generateResumeUrl = () => {
 
 export const authOptions = {
   pages: {
-    signIn: '/', // Redirect to homepage instead of default sign-in page
+    signIn: '/',
   },
   session: {
-    strategy: 'jwt', // Use JWT strategy consistently
+    strategy: 'jwt', 
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   providers: [
