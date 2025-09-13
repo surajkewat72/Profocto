@@ -102,6 +102,30 @@ export default function BuilderPage() {
     setIsValidating(false);
   }, [session, status, params.resumeId, router]);
 
+  // Keyboard shortcut for sidebar toggle (Ctrl+B or Cmd+B)
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Check for Ctrl+B (Windows/Linux) or Cmd+B (Mac)
+      if ((event.ctrlKey || event.metaKey) && event.key === 'b') {
+        event.preventDefault();
+        console.log('=== KEYBOARD SHORTCUT TRIGGERED ===');
+        console.log('Current formClose state:', formClose);
+        setFormClose(prev => {
+          console.log('Toggling sidebar from', prev, 'to', !prev);
+          return !prev;
+        });
+      }
+    };
+
+    // Add event listener
+    document.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup function to remove event listener
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [formClose]); // Include formClose in dependency array for current state
+
   // Show loading state while validating
   if (status === "loading" || isValidating) {
     return (
