@@ -21,7 +21,7 @@ const AuthModal = ({ isOpen, onClose }) => {
       console.log('Calling signIn...');
       const result = await signIn(provider, { 
         redirect: false, // Keep this false to handle in modal
-        callbackUrl: window.location.origin + '/builder', // Redirect to builder after login
+        callbackUrl: window.location.origin + '/dashboard', // Redirect to dashboard after login
       });
       
       console.log('SignIn result:', result);
@@ -37,8 +37,8 @@ const AuthModal = ({ isOpen, onClose }) => {
           const session = await getSession();
           console.log('Session after sign in:', session);
           if (session?.user) {
-            console.log('Redirecting to builder');
-            router.push('/builder');
+            console.log('Redirecting to dashboard');
+            router.push('/dashboard');
             onClose();
           } else {
             console.log('No session, redirecting to home');

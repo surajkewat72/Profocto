@@ -88,8 +88,12 @@ export default function Hero() {
         if (status === 'loading') return; // Wait for session to load
         
         if (session?.user) {
-            // User is authenticated, redirect to builder
-            router.push('/builder');
+            // User is authenticated, redirect to their unique resume URL
+            if (session.user.resumeUrl) {
+                router.push(`/builder/${session.user.resumeUrl}`);
+            } else {
+                router.push('/builder');
+            }
         } else {
             // User is not authenticated, show auth modal
             setShowAuthModal(true);

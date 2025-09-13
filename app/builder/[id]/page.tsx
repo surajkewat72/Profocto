@@ -84,20 +84,20 @@ export default function BuilderPage() {
     }
 
     // Check if the id matches the user's resumeUrl
-    const userResumeUrl = session.user?.resumeUrl;
+    // const userResumeUrl = session.user?.resumeUrl;
     const currentId = params.id;
 
-    if (userResumeUrl === currentId) {
-      setIsAuthorized(true);
-    } else {
-      // Wrong resume URL, redirect to correct one or home
-      if (userResumeUrl) {
-        router.push(`/builder/${userResumeUrl}`);
-      } else {
-        router.push("/");
-      }
-      return;
-    }
+    // if (userResumeUrl === currentId) {
+    //   setIsAuthorized(true);
+    // } else {
+    //   // Wrong resume URL, redirect to correct one or home
+    //   if (userResumeUrl) {
+    //     router.push(`/builder/${userResumeUrl}`);
+    //   } else {
+    //     router.push("/");
+    //   }
+    //   return;
+    // }
 
     setIsValidating(false);
   }, [session, status, params.id, router]);
