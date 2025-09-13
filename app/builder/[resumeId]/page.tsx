@@ -237,10 +237,6 @@ export default function BuilderPage() {
                       >
                         Create your professional resume
                       </p>
-                      {/* Debug info */}
-                      <div className="mt-2 p-2 bg-yellow-200 text-black text-xs rounded">
-                        <strong>Debug:</strong> formClose = {formClose ? 'true' : 'false'}
-                      </div>
                     </div>
 
                     {/* Form Sections */}

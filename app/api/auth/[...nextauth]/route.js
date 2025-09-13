@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
-import CredentialsProvider from 'next-auth/providers/credentials'
 import { MongoDBAdapter } from '@auth/mongodb-adapter'
 import { MongoClient } from 'mongodb'
 
@@ -32,27 +31,6 @@ export const authOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    }),
-    CredentialsProvider({
-      name: 'credentials',
-      credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
-        name: { label: 'Name', type: 'text' }
-      },
-      async authorize(credentials) {
-        // For demo purposes - in production, you'd validate against your database
-        if (credentials?.email && credentials?.password) {
-          // Mock user creation/validation
-          const user = {
-            id: generateResumeUrl(),
-            email: credentials.email,
-            name: credentials.name || credentials.email.split('@')[0],
-          }
-          return user
-        }
-        return null
-      },
     }),
   ],
   callbacks: {
