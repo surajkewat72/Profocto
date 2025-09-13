@@ -89,8 +89,6 @@ export default function BuilderPage() {
 
     if (userResumeUrl === currentId) {
       setIsAuthorized(true);
-      // Load resume data from database
-      loadResumeData();
     } else {
       // Wrong resume URL, redirect to correct one or home
       if (userResumeUrl) {
@@ -103,56 +101,6 @@ export default function BuilderPage() {
 
     setIsValidating(false);
   }, [session, status, params.id, router]);
-
-  // Load resume data from database
-  const loadResumeData = async () => {
-    try {
-      const response = await fetch('/api/resume');
-      if (response.ok) {
-        const result = await response.json();
-        if (result.success && result.data) {
-          setResumeData(result.data);
-        }
-      } else {
-        console.error('Failed to load resume data');
-      }
-    } catch (error) {
-      console.error('Error loading resume data:', error);
-    }
-  };
-
-  // Save resume data to database
-  const saveResumeData = async (data: ResumeData) => {
-    try {
-      const response = await fetch('/api/resume', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ data }),
-      });
-      
-      if (response.ok) {
-        console.log('Resume data saved successfully');
-      } else {
-        console.error('Failed to save resume data');
-      }
-    } catch (error) {
-      console.error('Error saving resume data:', error);
-    }
-  };
-
-  // Auto-save resume data when it changes
-  useEffect(() => {
-    if (isAuthorized && resumeData) {
-      // Debounce the save to avoid too frequent API calls
-      const timeoutId = setTimeout(() => {
-        saveResumeData(resumeData);
-      }, 1000); // Save after 1 second of no changes
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [resumeData, isAuthorized]);
 
   // Keyboard shortcut for sidebar toggle (Ctrl+B or Cmd+B)
   useEffect(() => {

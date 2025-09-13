@@ -2,23 +2,16 @@ import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
 import { MongoDBAdapter } from '@auth/mongodb-adapter'
-import { MongoClient, ObjectId } from 'mongodb'
+import { MongoClient } from 'mongodb'
 
 const client = new MongoClient(process.env.MONGODB_URI)
-const clientPromise = Promise.resolve(client.connect())
-
-// Generate unique resume URL for each user
-const generateResumeUrl = () => {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  const timestamp = Date.now().toString(36)
-  const random = Array.from({ length: 8 }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('')
-  return `${timestamp}-${random}-${Math.random().toString(36).substr(2, 6)}`
-}
+const clientPromise = client.connect()
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
   pages: {
     signIn: '/',
+    error: '/',
   },
   session: {
     strategy: 'database',
@@ -28,6 +21,13 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code"
+        }
+      }
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
@@ -35,63 +35,36 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, user }) {
-      try {
-        // Add user ID to session
-        if (user) {
-          session.user.id = user.id
-          
-          // Get or create resume for this user
-          const db = (await clientPromise).db()
-          let resume = await db.collection('resumes').findOne({ userId: user.id })
-          
-          if (!resume) {
-            // Create new resume for user
-            const resumeUrl = generateResumeUrl()
-            const newResume = {
-              userId: user.id,
-              resumeUrl: resumeUrl,
-              data: {
-                personalInformation: {},
-                summary: '',
-                workExperience: [],
-                education: [],
-                skills: [],
-                certifications: [],
-                projects: [],
-                languages: [],
-                socialMedia: {}
-              },
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-            
-            const result = await db.collection('resumes').insertOne(newResume)
-            resume = { ...newResume, _id: result.insertedId }
-          }
-          
-          session.user.resumeUrl = resume.resumeUrl
-        }
-        
-        return session
-      } catch (error) {
-        console.error('Session callback error:', error)
-        return session
+    async redirect({ url, baseUrl }) {
+      // Redirect to builder page after sign in
+      if (url === baseUrl || url === `${baseUrl}/`) {
+        return `${baseUrl}/builder`
       }
+      // Allows relative callback URLs
+      if (url.startsWith('/')) return `${baseUrl}${url}`
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url
+      return baseUrl
+    },
+    async session({ session, user }) {
+      // Only include essential user data for privacy
+      session.user.id = user.id
+      return session
     },
     async signIn({ user, account, profile }) {
-      // Allow all sign ins - MongoDB adapter handles user creation
+      // Allow sign in and let NextAuth handle user creation
       return true
     },
   },
   events: {
-    async signIn({ user, account, profile }) {
-      console.log(`User signed in: ${user.email} via ${account.provider}`)
+    async signIn({ user, account, profile, isNewUser }) {
+      console.log(`User signed in: ${user.email} via ${account.provider}${isNewUser ? ' (new user)' : ''}`)
     },
     async createUser({ user }) {
       console.log(`New user created: ${user.email}`)
     },
   },
+  debug: process.env.NODE_ENV === 'development',
 }
 
 const handler = NextAuth(authOptions)
