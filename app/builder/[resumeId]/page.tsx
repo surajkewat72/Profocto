@@ -1,13 +1,12 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 // Import your existing builder components
 import Language from "@/components/form/Language";
-import FormCP from "@/components/form/FormCP";
 import LoadUnload from "@/components/form/LoadUnload";
 import Preview from "@/components/preview/Preview";
 import DefaultResumeData from "@/components/utility/DefaultResumeData";
@@ -214,6 +213,10 @@ export default function BuilderPage() {
                       >
                         Create your professional resume
                       </p>
+                      {/* Debug info */}
+                      <div className="mt-2 p-2 bg-yellow-200 text-black text-xs rounded">
+                        <strong>Debug:</strong> formClose = {formClose ? 'true' : 'false'}
+                      </div>
                     </div>
 
                     {/* Form Sections */}
@@ -250,10 +253,193 @@ export default function BuilderPage() {
                       <Language />
                       <Certification />
                     </div>
+
+                    {/* Floating Profile Pocket - Sticky at bottom */}
+                    <div className="sticky bottom-0 left-0 right-0 p-4 z-30 mt-6">
+                      <div 
+                        className="relative p-4 rounded-xl border backdrop-blur-sm"
+                        style={{ 
+                          backgroundColor: "hsla(240, 10%, 3.9%, 0.95)",
+                          borderColor: "hsl(240 3.7% 25%)",
+                          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.5)"
+                        }}
+                      >
+                        {/* Enhanced decorative elements for floating pocket effect */}
+                        <div 
+                          className="absolute -top-1 left-4 right-4 h-2 rounded-b-lg opacity-60"
+                          style={{ backgroundColor: "hsl(240 3.7% 20%)" }}
+                        ></div>
+                        <div 
+                          className="absolute -top-0.5 left-6 right-6 h-1 rounded-b-lg opacity-40"
+                          style={{ backgroundColor: "hsl(240 3.7% 25%)" }}
+                        ></div>
+                        <div 
+                          className="absolute inset-0 rounded-xl border border-pink-500/20 animate-pulse"
+                        ></div>
+
+                        <div className="flex items-center space-x-3">
+                          {/* Profile Image */}
+                          <div className="relative">
+                            <div 
+                              className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg shadow-lg ring-2 ring-pink-500/30 overflow-hidden"
+                              style={{ 
+                                background: session?.user?.image 
+                                  ? "transparent" 
+                                  : "linear-gradient(135deg, hsl(322, 84%, 60%) 0%, hsl(270, 84%, 60%) 100%)"
+                              }}
+                            >
+                              {session?.user?.image ? (
+                                <img 
+                                  src={session.user.image} 
+                                  alt="Profile" 
+                                  className="w-full h-full object-cover"
+                                  onError={(e) => {
+                                    // Fallback if image fails to load
+                                    e.currentTarget.style.display = 'none';
+                                    e.currentTarget.parentElement!.style.background = 
+                                      "linear-gradient(135deg, hsl(322, 84%, 60%) 0%, hsl(270, 84%, 60%) 100%)";
+                                    e.currentTarget.parentElement!.innerHTML = 
+                                      session?.user?.name?.charAt(0)?.toUpperCase() || session?.user?.email?.charAt(0)?.toUpperCase() || 'U';
+                                  }}
+                                />
+                              ) : (
+                                // Default avatar with user's initial or 'U'
+                                <span className="text-lg font-bold">
+                                  {session?.user?.name?.charAt(0)?.toUpperCase() || 
+                                   session?.user?.email?.charAt(0)?.toUpperCase() || 'U'}
+                                </span>
+                              )}
+                            </div>
+                            <div 
+                              className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 animate-pulse" 
+                              style={{ borderColor: "hsl(240 10% 3.9%)" }}
+                            ></div>
+                          </div>
+                          
+                          {/* Name and Info */}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium truncate" style={{ color: "hsl(0 0% 98%)" }}>
+                              {session?.user?.name || 'User'}
+                            </p>
+                            <p className="text-xs truncate" style={{ color: "hsl(240 5% 64.9%)" }}>
+                              {session?.user?.email}
+                            </p>
+                          </div>
+                          
+                          {/* Action Buttons - Logout first, then Close */}
+                          <div className="flex items-center space-x-2 relative z-50">
+                            {/* Logout Button */}
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                console.log('=== LOGOUT BUTTON CLICKED ===');
+                                console.log('Calling signOut...');
+                                signOut({ callbackUrl: '/' });
+                              }}
+                              className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
+                              style={{ 
+                                backgroundColor: "hsl(240 3.7% 20%)",
+                                border: "1px solid rgba(239, 68, 68, 0.2)",
+                                pointerEvents: "auto"
+                              }}
+                              title="Logout"
+                              type="button"
+                            >
+                              <svg 
+                                className="w-4 h-4 transition-colors group-hover:text-red-400 pointer-events-none" 
+                                style={{ color: "hsl(240 5% 64.9%)" }}
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24"
+                              >
+                                <path 
+                                  strokeLinecap="round" 
+                                  strokeLinejoin="round" 
+                                  strokeWidth={2} 
+                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" 
+                                />
+                              </svg>
+                            </button>
+
+                            {/* Sidebar Close Button */}
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                console.log('=== SIDEBAR CLOSE BUTTON CLICKED ===');
+                                console.log('Current formClose state:', formClose);
+                                setFormClose(true);
+                                console.log('Called setFormClose(true)');
+                              }}
+                              className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
+                              style={{ 
+                                backgroundColor: "hsl(240 3.7% 20%)",
+                                border: "1px solid rgba(236, 72, 153, 0.2)",
+                                pointerEvents: "auto"
+                              }}
+                              title="Hide Sidebar"
+                              type="button"
+                            >
+                              <svg 
+                                className="w-4 h-4 transition-colors group-hover:text-pink-400 pointer-events-none" 
+                                style={{ color: "hsl(240 5% 64.9%)" }}
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24"
+                              >
+                                <path 
+                                  strokeLinecap="round" 
+                                  strokeLinejoin="round" 
+                                  strokeWidth={2} 
+                                  d="M11 19l-7-7 7-7m8 14l-7-7 7-7" 
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             )}
+            
+            {/* Show Sidebar Button - appears when sidebar is closed */}
+            {formClose && (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('=== SHOW SIDEBAR BUTTON CLICKED ===');
+                  console.log('Current formClose state:', formClose);
+                  setFormClose(false);
+                  console.log('Called setFormClose(false)');
+                }}
+                className="fixed top-4 left-4 p-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-white cursor-pointer shadow-lg transition-all duration-200 hover:scale-105"
+                title="Show Sidebar"
+                style={{ zIndex: 9999, pointerEvents: "auto" }}
+                type="button"
+              >
+                <svg 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-white pointer-events-none"
+                >
+                  <path 
+                    stroke="currentColor" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M13 17l5-5-5-5M6 17l5-5-5-5" 
+                  />
+                </svg>
+              </button>
+            )}
+            
             <div
               className={`${
                 formClose ? "w-full" : "w-full lg:w-[55%] xl:w-[60%]"
@@ -262,7 +448,6 @@ export default function BuilderPage() {
               <Preview />
             </div>
           </div>
-          <FormCP formClose={formClose} setFormClose={setFormClose} />
           <Print />
         </ResumeContext.Provider>
       </SectionTitleProvider>
