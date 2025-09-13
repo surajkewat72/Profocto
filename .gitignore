@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# setup and config files with sensitive data
+*OAUTH*.md
+*_SETUP.md
+SETUP.md

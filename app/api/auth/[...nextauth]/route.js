@@ -2,10 +2,10 @@ import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
 import { MongoDBAdapter } from '@auth/mongodb-adapter'
-import { MongoClient } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb'
 
 const client = new MongoClient(process.env.MONGODB_URI)
-const clientPromise = client.connect()
+const clientPromise = Promise.resolve(client.connect())
 
 // Generate unique resume URL for each user
 const generateResumeUrl = () => {
@@ -16,11 +16,12 @@ const generateResumeUrl = () => {
 }
 
 export const authOptions = {
+  adapter: MongoDBAdapter(clientPromise),
   pages: {
     signIn: '/',
   },
   session: {
-    strategy: 'jwt', 
+    strategy: 'database',
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   providers: [
@@ -34,26 +35,52 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
-      // Generate unique resume URL on first sign in
-      if (user && !token.resumeUrl) {
-        token.resumeUrl = generateResumeUrl()
+    async session({ session, user }) {
+      try {
+        // Add user ID to session
+        if (user) {
+          session.user.id = user.id
+          
+          // Get or create resume for this user
+          const db = (await clientPromise).db()
+          let resume = await db.collection('resumes').findOne({ userId: user.id })
+          
+          if (!resume) {
+            // Create new resume for user
+            const resumeUrl = generateResumeUrl()
+            const newResume = {
+              userId: user.id,
+              resumeUrl: resumeUrl,
+              data: {
+                personalInformation: {},
+                summary: '',
+                workExperience: [],
+                education: [],
+                skills: [],
+                certifications: [],
+                projects: [],
+                languages: [],
+                socialMedia: {}
+              },
+              createdAt: new Date(),
+              updatedAt: new Date()
+            }
+            
+            const result = await db.collection('resumes').insertOne(newResume)
+            resume = { ...newResume, _id: result.insertedId }
+          }
+          
+          session.user.resumeUrl = resume.resumeUrl
+        }
+        
+        return session
+      } catch (error) {
+        console.error('Session callback error:', error)
+        return session
       }
-      
-      if (account?.provider) {
-        token.provider = account.provider
-      }
-      
-      return token
-    },
-    async session({ session, token }) {
-      session.user.id = token.sub
-      session.user.resumeUrl = token.resumeUrl
-      session.user.provider = token.provider
-      return session
     },
     async signIn({ user, account, profile }) {
-      // Allow all sign ins - let NextAuth handle the account linking
+      // Allow all sign ins - MongoDB adapter handles user creation
       return true
     },
   },

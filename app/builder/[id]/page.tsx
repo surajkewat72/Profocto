@@ -30,7 +30,7 @@ const Print = dynamic(() => import("@/components/utility/WinPrint"), {
 });
 
 interface BuilderPageParams {
-  resumeId: string;
+  id: string;
   [key: string]: string | string[] | undefined;
 }
 
@@ -58,7 +58,10 @@ export default function BuilderPage() {
       reader.onload = (event) => {
         setResumeData({
           ...resumeData,
-          profilePicture: event.target?.result as string,
+          personalInformation: {
+            ...resumeData.personalInformation,
+            profileImage: event.target?.result as string,
+          },
         });
       };
       reader.readAsDataURL(file);
@@ -83,12 +86,14 @@ export default function BuilderPage() {
       return;
     }
 
-    // Check if the resumeId matches the user's resumeUrl
+    // Check if the id matches the user's resumeUrl
     const userResumeUrl = session.user?.resumeUrl;
-    const currentResumeId = params.resumeId;
+    const currentId = params.id;
 
-    if (userResumeUrl === currentResumeId) {
+    if (userResumeUrl === currentId) {
       setIsAuthorized(true);
+      // Load resume data from database
+      loadResumeData();
     } else {
       // Wrong resume URL, redirect to correct one or home
       if (userResumeUrl) {
@@ -100,7 +105,57 @@ export default function BuilderPage() {
     }
 
     setIsValidating(false);
-  }, [session, status, params.resumeId, router]);
+  }, [session, status, params.id, router]);
+
+  // Load resume data from database
+  const loadResumeData = async () => {
+    try {
+      const response = await fetch('/api/resume');
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success && result.data) {
+          setResumeData(result.data);
+        }
+      } else {
+        console.error('Failed to load resume data');
+      }
+    } catch (error) {
+      console.error('Error loading resume data:', error);
+    }
+  };
+
+  // Save resume data to database
+  const saveResumeData = async (data: ResumeData) => {
+    try {
+      const response = await fetch('/api/resume', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data }),
+      });
+      
+      if (response.ok) {
+        console.log('Resume data saved successfully');
+      } else {
+        console.error('Failed to save resume data');
+      }
+    } catch (error) {
+      console.error('Error saving resume data:', error);
+    }
+  };
+
+  // Auto-save resume data when it changes
+  useEffect(() => {
+    if (isAuthorized && resumeData) {
+      // Debounce the save to avoid too frequent API calls
+      const timeoutId = setTimeout(() => {
+        saveResumeData(resumeData);
+      }, 1000); // Save after 1 second of no changes
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [resumeData, isAuthorized]);
 
   // Keyboard shortcut for sidebar toggle (Ctrl+B or Cmd+B)
   useEffect(() => {
@@ -253,22 +308,25 @@ export default function BuilderPage() {
                       <div className="form-section">
                         <h2 className="input-title">Technical Skills</h2>
                         <div className="space-y-4">
-                          {resumeData.skills
-                            .filter(
-                              (skill: any) => skill.title !== "Soft Skills"
-                            )
-                            .map((skill: any, index: number) => (
-                              <Skill title={skill.title} key={index} />
-                            ))}
+                          {/* Group skills by category, excluding Soft Skills */}
+                          {Array.from(new Set(
+                            resumeData.skills
+                              .filter((skill: any) => skill.category !== "Soft Skills")
+                              .map((skill: any) => skill.category)
+                          )).map((category: string, index: number) => (
+                            <Skill title={category} key={index} />
+                          ))}
                         </div>
                       </div>
 
                       {/* Soft Skills Section */}
-                      {resumeData.skills
-                        .filter((skill: any) => skill.title === "Soft Skills")
-                        .map((skill: any, index: number) => (
-                          <Skill title={skill.title} key={index} />
-                        ))}
+                      {Array.from(new Set(
+                        resumeData.skills
+                          .filter((skill: any) => skill.category === "Soft Skills")
+                          .map((skill: any) => skill.category)
+                      )).map((category: string, index: number) => (
+                        <Skill title={category} key={index} />
+                      ))}
 
                       <Language />
                       <Certification />
