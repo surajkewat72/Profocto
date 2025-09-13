@@ -1,76 +1,46 @@
 export interface ResumeData {
-  personalInformation: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    address: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    country: string;
-    website: string;
-    profileImage: string;
-  };
+  name: string;
+  position: string;
+  contactInformation: string;
+  email: string;
+  address: string;
+  profilePicture: string;
+  socialMedia: {
+    socialMedia: string;
+    link: string;
+  }[];
   summary: string;
+  education: {
+    school: string;
+    degree: string;
+    startYear: string;
+    endYear: string;
+  }[];
   workExperience: {
-    id: string;
     company: string;
     position: string;
-    startDate: string;
-    endDate: string;
     description: string;
-    location: string;
-  }[];
-  education: {
-    id: string;
-    institution: string;
-    degree: string;
-    fieldOfStudy: string;
-    startDate: string;
-    endDate: string;
-    gpa: string;
-    description: string;
-    location: string;
-  }[];
-  skills: {
-    id: string;
-    name: string;
-    category: string;
-    level: string;
-  }[];
-  certifications: {
-    id: string;
-    name: string;
-    issuer: string;
-    dateObtained: string;
-    expirationDate: string;
-    credentialId: string;
-    url: string;
+    keyAchievements: string;
+    startYear: string;
+    endYear: string;
   }[];
   projects: {
-    id: string;
     name: string;
     description: string;
-    technologies: string[];
-    startDate: string;
-    endDate: string;
-    url: string;
-    githubUrl: string;
+    keyAchievements: string;
+    startYear: string;
+    endYear: string;
+    link: string;
   }[];
-  languages: {
-    id: string;
-    language: string;
-    proficiency: string;
+  skills: {
+    title: string;
+    skills: string[];
   }[];
-  socialMedia: {
-    linkedin: string;
-    github: string;
-    twitter: string;
-    portfolio: string;
-    behance: string;
-    dribbble: string;
-  };
+  languages: string[];
+  certifications: {
+    name: string;
+    issuer: string;
+  }[];
 }
 
 export interface ResumeContextType {

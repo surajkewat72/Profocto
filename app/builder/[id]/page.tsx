@@ -58,10 +58,7 @@ export default function BuilderPage() {
       reader.onload = (event) => {
         setResumeData({
           ...resumeData,
-          personalInformation: {
-            ...resumeData.personalInformation,
-            profileImage: event.target?.result as string,
-          },
+          profilePicture: event.target?.result as string,
         });
       };
       reader.readAsDataURL(file);
@@ -308,25 +305,22 @@ export default function BuilderPage() {
                       <div className="form-section">
                         <h2 className="input-title">Technical Skills</h2>
                         <div className="space-y-4">
-                          {/* Group skills by category, excluding Soft Skills */}
-                          {Array.from(new Set(
-                            resumeData.skills
-                              .filter((skill: any) => skill.category !== "Soft Skills")
-                              .map((skill: any) => skill.category)
-                          )).map((category: string, index: number) => (
-                            <Skill title={category} key={index} />
-                          ))}
+                          {resumeData.skills
+                            .filter(
+                              (skill: any) => skill.title !== "Soft Skills"
+                            )
+                            .map((skill: any, index: number) => (
+                              <Skill title={skill.title} key={index} />
+                            ))}
                         </div>
                       </div>
 
                       {/* Soft Skills Section */}
-                      {Array.from(new Set(
-                        resumeData.skills
-                          .filter((skill: any) => skill.category === "Soft Skills")
-                          .map((skill: any) => skill.category)
-                      )).map((category: string, index: number) => (
-                        <Skill title={category} key={index} />
-                      ))}
+                      {resumeData.skills
+                        .filter((skill: any) => skill.title === "Soft Skills")
+                        .map((skill: any, index: number) => (
+                          <Skill title={skill.title} key={index} />
+                        ))}
 
                       <Language />
                       <Certification />
