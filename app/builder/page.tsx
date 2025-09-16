@@ -1,31 +1,17 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export default function BuilderRedirect() {
-  const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (status === 'loading') return; // Wait for session to load
-
-    if (!session) {
-      // Not authenticated, redirect to home
-      router.push('/');
-      return;
-    }
-
-    // If user has a resumeUrl, redirect to their unique builder page
-    if (session.user?.resumeUrl) {
-      router.push(`/builder/${session.user.resumeUrl}`);
-    } else {
-      // Fallback: redirect to home if no resumeUrl
-      router.push('/');
-    }
-  }, [session, status, router]);
+    // Generate a unique ID for the resume
+    const uniqueId = Math.random().toString(36).substring(2, 15);
+    router.push(`/builder/${uniqueId}`);
+  }, [router]);
 
   // Show loading state
   return (
