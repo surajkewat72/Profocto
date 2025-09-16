@@ -1,53 +1,23 @@
-# Profile Elegante - Frontend & Backend Setup
+# Profile Elegante - Setup Guide
 
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
 - Node.js (v16 or higher)
-- MongoDB (local or Atlas)
 - Git
 
 ### 🔧 Setup Instructions
 
-#### 1. Clone and Install Dependencies
+#### 1. Install Dependencies
 
 ```bash
-# Install frontend dependencies
 npm install
-
-# Install backend dependencies
-cd backend
-npm install
-cd ..
 ```
 
-#### 2. Environment Configuration
+#### 2. Running the Application
 
-**Frontend (.env.local):**
-```env
-NEXT_PUBLIC_API_URL=http://localhost:5000
-NEXT_PUBLIC_GITHUB_CLIENT_ID=your-github-client-id
-NEXT_PUBLIC_APP_ENV=development
-```
-
-**Backend (backend/.env):**
-```env
-NODE_ENV=development
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/profile-elegante
-JWT_SECRET=your-jwt-secret
-FRONTEND_URL=http://localhost:3000
-GITHUB_CLIENT_ID=your-github-client-id
-GITHUB_CLIENT_SECRET=your-github-client-secret
-GITHUB_CALLBACK_URL=http://localhost:5000/auth/github/callback
-GROQ_API_KEY=your-groq-api-key
-```
-
-#### 3. Running the Application
-
-**Option 1: Run Both Frontend & Backend Together (Recommended)**
 ```bash
-npm run dev:full
+npm run dev
 ```
 
 **Option 2: Run Separately**
