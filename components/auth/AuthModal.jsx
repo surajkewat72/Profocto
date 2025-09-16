@@ -3,14 +3,11 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGoogle, FaGithub, FaTimes } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 const AuthModal = ({ isOpen, onClose }) => {
-  const router = useRouter();
-
-  const handleMethodSelect = (method) => {
-    router.push('/builder');
-    onClose();
+  const handleMethodSelect = (provider) => {
+    signIn(provider);
   };
 
   if (!isOpen) return null;
@@ -104,17 +101,19 @@ const AuthModal = ({ isOpen, onClose }) => {
                 <button
                   onClick={() => handleMethodSelect('google')}
                   className="w-full flex items-center justify-center gap-3 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                  type="button"
                 >
                   <FaGoogle className="text-[#4285F4]" />
-                  <span className="text-gray-700">Continue with Google</span>
+                  <span className="text-gray-700">Sign in with Google</span>
                 </button>
 
                 <button
                   onClick={() => handleMethodSelect('github')}
                   className="w-full flex items-center justify-center gap-3 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                  type="button"
                 >
                   <FaGithub className="text-[#333]" />
-                  <span className="text-gray-700">Continue with GitHub</span>
+                  <span className="text-gray-700">Sign in with GitHub</span>
                 </button>
               </div>
 
