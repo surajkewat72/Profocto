@@ -1,40 +1,35 @@
 import { MongoClient, MongoClientOptions } from 'mongodb';
 
 if (!process.env.MONGODB_URI) {
-  throw new Error('Please add your Mongo URI to .env.local');
+  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
-const uri = process.env.MONGODB_URI;
 const options: MongoClientOptions = {
   maxPoolSize: 10,
   minPoolSize: 1,
-  retryWrites: true,
-  writeConcern: {
-    w: 'majority'
-  },
-  connectTimeoutMS: 30000,
-  socketTimeoutMS: 30000,
+  retryWrites: true
 };
 
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
+// In development, we want to preserve connection across reloads
+declare global {
+  var _mongoClientPromise: Promise<MongoClient> | undefined
+}
+
+let clientPromise: Promise<MongoClient>
 
 if (process.env.NODE_ENV === 'development') {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  let globalWithMongo = global as typeof globalThis & {
-    _mongoClientPromise?: Promise<MongoClient>;
-  };
-
-  if (!globalWithMongo._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    globalWithMongo._mongoClientPromise = client.connect();
+  if (!global._mongoClientPromise) {
+    const client = new MongoClient(process.env.MONGODB_URI!, options)
+    global._mongoClientPromise = client.connect()
   }
-  clientPromise = globalWithMongo._mongoClientPromise;
+  clientPromise = global._mongoClientPromise
 } else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri);
-  clientPromise = client.connect();
+  // In production mode, it's better to not use a global variable.
+  const client = new MongoClient(process.env.MONGODB_URI!, options)
+  clientPromise = client.connect()
 }
+
 
 export default clientPromise;

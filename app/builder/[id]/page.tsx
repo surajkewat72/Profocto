@@ -3,9 +3,53 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import { signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 // Import your existing builder components
-import Language from "@/components/form/Language";
+import Langu                            <div className="flex gap-2">
+                              <button
+                                onClick={() => signOut()}
+                                className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
+                                style={{ 
+                                  backgroundColor: "hsl(240 3.7% 20%)",
+                                  border: "1px solid rgba(236, 72, 153, 0.2)",
+                                  pointerEvents: "auto"
+                                }}
+                                title="Logout"
+                                type="button"
+                              >
+                                <svg
+                                  className="w-4 h-4 transition-colors group-hover:text-pink-400 pointer-events-none"
+                                  style={{ color: "hsl(240 5% 64.9%)" }}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                  />
+                                </svg>
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  console.log('=== SIDEBAR CLOSE BUTTON CLICKED ===');
+                                  console.log('Current formClose state:', formClose);
+                                  setFormClose(true);
+                                  console.log('Called setFormClose(true)');
+                                }}
+                                className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
+                                style={{ 
+                                  backgroundColor: "hsl(240 3.7% 20%)",
+                                  border: "1px solid rgba(236, 72, 153, 0.2)",
+                                  pointerEvents: "auto"
+                                }}
+                                title="Hide Sidebar"
+                                type="button"onents/form/Language";
 import LoadUnload from "@/components/form/LoadUnload";
 import Preview from "@/components/preview/Preview";
 import DefaultResumeData from "@/components/utility/DefaultResumeData";
@@ -237,16 +281,40 @@ export default function BuilderPage() {
                           
                           {/* Action Buttons */}
                           <div className="flex items-center space-x-2 relative z-50">
+                            {/* Logout Button */}
+                            <button
+                              onClick={() => signOut()}
+                              className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
+                              style={{ 
+                                backgroundColor: "hsl(240 3.7% 20%)",
+                                border: "1px solid rgba(236, 72, 153, 0.2)",
+                                pointerEvents: "auto"
+                              }}
+                              title="Logout"
+                              type="button"
+                            >
+                              <svg
+                                className="w-4 h-4 transition-colors group-hover:text-pink-400 pointer-events-none"
+                                style={{ color: "hsl(240 5% 64.9%)" }}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                />
+                              </svg>
+                            </button>
 
                             {/* Sidebar Close Button */}
                             <button
                               onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                console.log('=== SIDEBAR CLOSE BUTTON CLICKED ===');
-                                console.log('Current formClose state:', formClose);
                                 setFormClose(true);
-                                console.log('Called setFormClose(true)');
                               }}
                               className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
                               style={{ 
@@ -269,6 +337,32 @@ export default function BuilderPage() {
                                   strokeLinejoin="round" 
                                   strokeWidth={2} 
                                   d="M11 19l-7-7 7-7m8 14l-7-7 7-7" 
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              onClick={() => signOut()}
+                              className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
+                              style={{ 
+                                backgroundColor: "hsl(240 3.7% 20%)",
+                                border: "1px solid rgba(236, 72, 153, 0.2)",
+                                pointerEvents: "auto"
+                              }}
+                              title="Logout"
+                              type="button"
+                            >
+                              <svg
+                                className="w-4 h-4 transition-colors group-hover:text-pink-400 pointer-events-none"
+                                style={{ color: "hsl(240 5% 64.9%)" }}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                                 />
                               </svg>
                             </button>

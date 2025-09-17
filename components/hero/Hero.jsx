@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { Inter, Playfair_Display } from 'next/font/google';
+import AuthModal from '../auth/AuthModal';
 
 const inter = Inter({ 
     subsets: ['latin'],
@@ -22,6 +23,7 @@ export default function Hero() {
     const videoRef = useRef(null);
     const [isLoading, setIsLoading] = useState(true);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     
     const router = useRouter();
 
@@ -68,7 +70,11 @@ export default function Hero() {
 
     // Handle Create Resume button click
     const handleCreateResume = () => {
-        router.push('/builder');
+        setIsAuthModalOpen(true);
+    };
+
+    const handleCloseAuthModal = () => {
+        setIsAuthModalOpen(false);
     };
 
     return (
@@ -215,7 +221,7 @@ export default function Hero() {
 
                 <button
                     ref={ctaRef}
-                    onClick={() => router.push('/builder')}
+                    onClick={handleCreateResume}
                     className={`inline-flex h-10 sm:h-12 items-center justify-center rounded-lg bg-white text-black px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-300 hover:bg-gray-100 hover:shadow-lg ${inter.className}`}
                 >
                     Create Resume
@@ -339,6 +345,12 @@ export default function Hero() {
                     100% { background-position: 0% 0%; }
                 }
             `}</style>
+
+            {/* Auth Modal */}
+            <AuthModal 
+                isOpen={isAuthModalOpen}
+                onClose={handleCloseAuthModal}
+            />
         </div>
     );
 }

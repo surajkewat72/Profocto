@@ -1,13 +1,26 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGoogle, FaGithub, FaTimes } from 'react-icons/fa';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const AuthModal = ({ isOpen, onClose }) => {
-  const handleMethodSelect = (provider) => {
-    signIn(provider);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleMethodSelect = async (provider) => {
+    try {
+      setLoading(true);
+      await signIn(provider, {
+        callbackUrl: '/builder',
+        redirect: true
+      });
+    } catch (error) {
+      console.error('Authentication error:', error);
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -20,13 +33,13 @@ const AuthModal = ({ isOpen, onClose }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        {/* Simple backdrop */}
+        {/* Backdrop */}
         <motion.div 
           className="absolute inset-0 bg-black/50 backdrop-blur-sm"
           onClick={onClose}
         />
         
-        {/* Clean modal */}
+        {/* Modal */}
         <motion.div 
           className="relative w-full max-w-sm mx-auto"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -35,7 +48,7 @@ const AuthModal = ({ isOpen, onClose }) => {
           transition={{ duration: 0.2 }}
         >
           <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-            {/* Simple header */}
+            {/* Header */}
             <div className="p-6 pb-4 border-b border-gray-100">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-gray-900">
@@ -53,13 +66,6 @@ const AuthModal = ({ isOpen, onClose }) => {
 
             {/* Content */}
             <div className="p-6">
-              {/* Error Message */}
-              {error && (
-                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
-                  {error}
-                </div>
-              )}
-
               {/* Welcome Text */}
               <div className="text-center mb-6">
                 <p className="text-gray-600 text-sm">
@@ -67,60 +73,41 @@ const AuthModal = ({ isOpen, onClose }) => {
                 </p>
               </div>
 
-              {/* OAuth Buttons */}
-              <div className="space-y-3">
+              {/* Sign-in options */}
+              <div className="space-y-4">
                 <button
-                  onClick={() => handleOAuthSignIn('google')}
+                  onClick={() => handleMethodSelect('google')}
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  type="button"
                 >
                   {loading ? (
-                    <div className="w-4 h-4 border-2 border-gray-300 border-t-red-500 rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-gray-300 border-t-[#4285F4] rounded-full animate-spin"></div>
                   ) : (
-                    <FaGoogle className="text-red-500" size={16} />
+                    <FaGoogle className="text-[#4285F4]" />
                   )}
                   <span className="text-gray-700">Continue with Google</span>
                 </button>
 
                 <button
-                  onClick={() => handleOAuthSignIn('github')}
+                  onClick={() => handleMethodSelect('github')}
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  type="button"
                 >
                   {loading ? (
-                    <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-700 rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-gray-300 border-t-[#333] rounded-full animate-spin"></div>
                   ) : (
-                    <FaGithub className="text-gray-700" size={16} />
+                    <FaGithub className="text-[#333]" />
                   )}
                   <span className="text-gray-700">Continue with GitHub</span>
                 </button>
               </div>
 
-              {/* Sign-in options */}
-              <div className="space-y-4 p-6">
-                <button
-                  onClick={() => handleMethodSelect('google')}
-                  className="w-full flex items-center justify-center gap-3 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                  type="button"
-                >
-                  <FaGoogle className="text-[#4285F4]" />
-                  <span className="text-gray-700">Sign in with Google</span>
-                </button>
-
-                <button
-                  onClick={() => handleMethodSelect('github')}
-                  className="w-full flex items-center justify-center gap-3 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                  type="button"
-                >
-                  <FaGithub className="text-[#333]" />
-                  <span className="text-gray-700">Sign in with GitHub</span>
-                </button>
-              </div>
-
               {/* Security Notice */}
-              <div className="p-6 pt-0 text-center">
+              <div className="mt-6 text-center">
                 <p className="text-xs text-gray-500">
-                  Click to continue to the resume builder
+                  By continuing, you agree to our Terms of Service and Privacy Policy
                 </p>
               </div>
             </div>
