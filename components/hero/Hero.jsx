@@ -130,7 +130,7 @@ export default function Hero() {
                         transform: `scale(1.05) translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`
                     }}
                 >
-                    <source src="/videos/background.mp4" type="video/mp4" />
+                    <source src="https://ik.imagekit.io/profocto/background.mp4?updatedAt=1759063890063" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
             </div>
