@@ -45,13 +45,6 @@ Before you begin, ensure you have the following installed:
 
 5. **Open your browser** and navigate to `http://localhost:3000`
 
-### 🌿 Branch Naming Convention
-
-- `feature/description` - for new features
-- `fix/description` - for bug fixes
-- `docs/description` - for documentation updates
-- `refactor/description` - for code refactoring
-
 ### 📝 Commit Message Guidelines
 
 Follow the conventional commit format:
@@ -80,40 +73,35 @@ fix(ui): resolve mobile responsive issues
 docs(readme): update installation instructions
 ```
 
-### 🔄 Pull Request Process
+### 🔄 Contribution Process
 
-1. **Create a feature branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. **Make your changes**
+1. **Make your changes**
    - Write clean, readable code
    - Follow existing code style and conventions
    - Add comments for complex logic
    - Ensure responsive design works on all devices
 
-3. **Test your changes**
+2. **Test your changes**
    ```bash
    npm run build    # Ensure build passes
    npm run lint     # Check for linting errors
    ```
 
-4. **Commit your changes**
+3. **Commit your changes**
    ```bash
    git add .
    git commit -m "feat: add your feature description"
    ```
 
-5. **Push to your fork**
+4. **Push to your fork**
    ```bash
-   git push origin feature/your-feature-name
+   git push origin main
    ```
 
-6. **Create a Pull Request**
+5. **Create a Pull Request**
    - Go to the original repository on GitHub
    - Click "New Pull Request"
-   - Select your branch and provide a clear description
+   - Provide a clear description of your changes
    - Reference any related issues
 
 ### 🎨 Code Style Guidelines
