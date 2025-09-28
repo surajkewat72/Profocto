@@ -2,12 +2,11 @@ const fs = require('fs');
 const path = require('path');
 
 const requiredEnvVars = [
-  { key: 'MONGODB_URI', alternativeKeys: ['MONGODB_URL', 'DATABASE_URL'] },
+  { key: 'NEXT_PUBLIC_CONVEX_URL', alternativeKeys: ['CONVEX_URL'] },
+  { key: 'CONVEX_DEPLOY_KEY', alternativeKeys: ['CONVEX_KEY'] },
   { key: 'NEXTAUTH_SECRET', alternativeKeys: ['JWT_SECRET', 'AUTH_SECRET'] },
   { key: 'GOOGLE_CLIENT_ID', alternativeKeys: ['GOOGLE_ID'] },
   { key: 'GOOGLE_CLIENT_SECRET', alternativeKeys: ['GOOGLE_SECRET'] },
-  { key: 'GITHUB_ID', alternativeKeys: ['GITHUB_CLIENT_ID'] },
-  { key: 'GITHUB_SECRET', alternativeKeys: ['GITHUB_CLIENT_SECRET'] },
   { key: 'NEXTAUTH_URL', alternativeKeys: ['AUTH_URL', 'APP_URL'] }
 ];
 

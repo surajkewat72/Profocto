@@ -1,0 +1,16 @@
+{
+  "cSpell.enabled": true,
+  "cSpell.diagnosticLevel": "Information",
+  "cSpell.showStatus": true,
+  "cSpell.configurationFiles": [
+    "./cspell.json"
+  ],
+  "cSpell.ignorePaths": [
+    "node_modules/**",
+    ".next/**",
+    "dist/**",
+    "build/**",
+    "*.min.js",
+    "*.min.css"
+  ]
+}

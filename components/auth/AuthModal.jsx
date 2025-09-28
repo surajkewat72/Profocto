@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGoogle, FaGithub, FaTimes } from 'react-icons/fa';
+import { FaGoogle, FaTimes } from 'react-icons/fa';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
@@ -18,7 +18,7 @@ const AuthModal = ({ isOpen, onClose }) => {
         redirect: true
       });
     } catch (error) {
-      console.error('Authentication error:', error);
+      // Authentication error occurred
       setLoading(false);
     }
   };
@@ -27,20 +27,20 @@ const AuthModal = ({ isOpen, onClose }) => {
 
   return (
     <AnimatePresence>
-      <motion.div 
+      <motion.div
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         {/* Backdrop */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 bg-black/50 backdrop-blur-sm"
           onClick={onClose}
         />
-        
+
         {/* Modal */}
-        <motion.div 
+        <motion.div
           className="relative w-full max-w-sm mx-auto"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -69,7 +69,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               {/* Welcome Text */}
               <div className="text-center mb-6">
                 <p className="text-gray-600 text-sm">
-                  Choose your preferred method to sign in and start building your professional resume.
+                  Continue with Google to create and manage your professional resume.
                 </p>
               </div>
 
@@ -84,24 +84,12 @@ const AuthModal = ({ isOpen, onClose }) => {
                   {loading ? (
                     <div className="w-4 h-4 border-2 border-gray-300 border-t-[#4285F4] rounded-full animate-spin"></div>
                   ) : (
-                    <FaGoogle className="text-[#4285F4]" />
+                    <FaGoogle className="text-pink-500" />
                   )}
                   <span className="text-gray-700">Continue with Google</span>
                 </button>
 
-                <button
-                  onClick={() => handleMethodSelect('github')}
-                  disabled={loading}
-                  className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  type="button"
-                >
-                  {loading ? (
-                    <div className="w-4 h-4 border-2 border-gray-300 border-t-[#333] rounded-full animate-spin"></div>
-                  ) : (
-                    <FaGithub className="text-[#333]" />
-                  )}
-                  <span className="text-gray-700">Continue with GitHub</span>
-                </button>
+
               </div>
 
               {/* Security Notice */}

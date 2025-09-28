@@ -1,8 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { getServerSession } from 'next-auth/next';
 import { AuthProvider } from '@/components/providers/AuthProvider';
-import { authOptions } from './api/auth/[...nextauth]/route';
 
 export const metadata: Metadata = {
   title: 'Profile Elegante',
@@ -13,13 +11,11 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function RootLayout({ children }: RootLayoutProps) {
-  const session = await getServerSession(authOptions);
-
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <AuthProvider session={session}>
+        <AuthProvider>
           {children}
         </AuthProvider>
       </body>

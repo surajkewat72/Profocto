@@ -7,10 +7,6 @@ const DefaultResumeData = {
   profilePicture: "",
   socialMedia: [
     {
-      socialMedia: "Github",
-      link: "github.com/johndoe",
-    },
-    {
       socialMedia: "LinkedIn",
       link: "linkedin.com/in/johndoe",
     },
@@ -54,7 +50,7 @@ const DefaultResumeData = {
       "keyAchievements": "Implemented real-time collaboration using WebSockets\nAchieved 99.9% uptime with efficient caching strategies",
       "startYear": "2023-08-01",
       "endYear": "2024-01-15",
-      "link": "https://github.com/johndoe/task-manager"
+      "link": "https://johndoe.dev/task-manager"
     },
     {
       "name": "E-Commerce Platform",
@@ -62,7 +58,7 @@ const DefaultResumeData = {
       "keyAchievements": "Processed $100K+ in transactions with zero payment failures\nImplemented advanced search and filtering with 300ms response time",
       "startYear": "2023-02-01",
       "endYear": "2023-07-30",
-      "link": "https://github.com/johndoe/ecommerce-platform"
+      "link": "https://johndoe.dev/ecommerce-platform"
     }
   ],
   skills: [

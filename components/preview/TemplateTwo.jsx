@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import ContactInfo from "./ContactInfo";
 import Link from "next/link";
-import { FaExternalLinkAlt, FaGithub, FaLinkedin, FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaExternalLinkAlt, FaLinkedin, FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { CgWebsite } from "react-icons/cg";
 import Certification from "./Certification";
 import { useSectionTitles } from "../../contexts/SectionTitleContext";
@@ -386,7 +386,6 @@ const TemplateTwo = ({
   };
 
   const icons = [
-    { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
     { name: "twitter", icon: <FaTwitter /> },
     { name: "facebook", icon: <FaFacebook /> },

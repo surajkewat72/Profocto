@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  FaGithub,
   FaLinkedin,
   FaTwitter,
   FaFacebook,
@@ -162,7 +161,6 @@ const Preview = () => {
   };
 
   const icons = [
-    { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
     { name: "twitter", icon: <FaTwitter /> },
     { name: "facebook", icon: <FaFacebook /> },
@@ -797,7 +795,7 @@ const ClassicTemplate = ({
               const icon = icons.find(icon => icon.name === socialMedia.socialMedia.toLowerCase());
               return (
                 <Link
-                  href={`${socialMedia.socialMedia.toLowerCase() === "github" || socialMedia.socialMedia.toLowerCase() === "website" 
+                  href={`${socialMedia.socialMedia.toLowerCase() === "website" 
                     ? "https://" 
                     : socialMedia.socialMedia.toLowerCase() === "linkedin" 
                     ? "https://www." 
@@ -857,13 +855,7 @@ const A4PageWrapper = ({ children }) => {
         // Check if content exceeds available space
         const overflow = contentHeight > availableHeight;
         
-        console.log('A4 Height Check:', {
-          a4HeightPx,
-          marginsPx,
-          availableHeight,
-          contentHeight,
-          overflow
-        });
+        // A4 Height Check (console log removed)
         
         setIsOverflowing(overflow);
       }

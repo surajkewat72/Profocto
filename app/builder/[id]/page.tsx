@@ -3,53 +3,11 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
-import { signOut } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import LogoutLoader from "@/components/auth/LogoutLoader";
 
 // Import your existing builder components
-import Langu                            <div className="flex gap-2">
-                              <button
-                                onClick={() => signOut()}
-                                className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
-                                style={{ 
-                                  backgroundColor: "hsl(240 3.7% 20%)",
-                                  border: "1px solid rgba(236, 72, 153, 0.2)",
-                                  pointerEvents: "auto"
-                                }}
-                                title="Logout"
-                                type="button"
-                              >
-                                <svg
-                                  className="w-4 h-4 transition-colors group-hover:text-pink-400 pointer-events-none"
-                                  style={{ color: "hsl(240 5% 64.9%)" }}
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                                  />
-                                </svg>
-                              </button>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  console.log('=== SIDEBAR CLOSE BUTTON CLICKED ===');
-                                  console.log('Current formClose state:', formClose);
-                                  setFormClose(true);
-                                  console.log('Called setFormClose(true)');
-                                }}
-                                className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
-                                style={{ 
-                                  backgroundColor: "hsl(240 3.7% 20%)",
-                                  border: "1px solid rgba(236, 72, 153, 0.2)",
-                                  pointerEvents: "auto"
-                                }}
-                                title="Hide Sidebar"
-                                type="button"onents/form/Language";
+import Language from "@/components/form/Language";
 import LoadUnload from "@/components/form/LoadUnload";
 import Preview from "@/components/preview/Preview";
 import DefaultResumeData from "@/components/utility/DefaultResumeData";
@@ -61,6 +19,7 @@ import Summary from "@/components/form/Summary";
 import Projects from "@/components/form/Projects";
 import Education from "@/components/form/Education";
 import Certification from "@/components/form/certification";
+import EditableFormTitle from "../../../components/form/EditableFormTitle";
 import { SectionTitleProvider } from "@/contexts/SectionTitleContext";
 import { ResumeContext } from "@/contexts/ResumeContext";
 import Squares from "@/components/ui/Squares";
@@ -72,6 +31,8 @@ const Print = dynamic(() => import("@/components/utility/WinPrint"), {
 });
 
 export default function BuilderPage() {
+  // Get user session data
+  const { data: session } = useSession();
 
   // Resume data state with localStorage persistence
   const [resumeData, setResumeData] = useState<ResumeData>(() => {
@@ -82,10 +43,25 @@ export default function BuilderPage() {
     return DefaultResumeData as ResumeData;
   });
 
+  // Logout loading state
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
   // Save to localStorage whenever resumeData changes
   useEffect(() => {
     localStorage.setItem('resumeData', JSON.stringify(resumeData));
   }, [resumeData]);
+
+  // Handle logout with loading state
+  const handleSignOut = async () => {
+    setIsLoggingOut(true);
+    try {
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      // Handle any errors
+    } finally {
+      // The page will redirect, so we don't need to set loading to false
+    }
+  };
 
   // Form hide/show
   const [formClose, setFormClose] = useState(false);
@@ -104,7 +80,7 @@ export default function BuilderPage() {
       };
       reader.readAsDataURL(file);
     } else {
-      console.error("Invalid file type");
+      // Invalid file type
     }
   };
 
@@ -123,10 +99,8 @@ export default function BuilderPage() {
       // Check for Ctrl+B (Windows/Linux) or Cmd+B (Mac)
       if ((event.ctrlKey || event.metaKey) && event.key === 'b') {
         event.preventDefault();
-        console.log('=== KEYBOARD SHORTCUT TRIGGERED ===');
-        console.log('Current formClose state:', formClose);
+        // Keyboard shortcut triggered
         setFormClose(prev => {
-          console.log('Toggling sidebar from', prev, 'to', !prev);
           return !prev;
         });
       }
@@ -204,7 +178,11 @@ export default function BuilderPage() {
 
                       {/* Technical Skills Section */}
                       <div className="form-section">
-                        <h2 className="input-title">Technical Skills</h2>
+                        <EditableFormTitle 
+                          sectionKey="skills" 
+                          defaultTitle="Technical Skills" 
+                          className="input-title"
+                        />
                         <div className="space-y-4">
                           {resumeData.skills
                             .filter(
@@ -259,8 +237,35 @@ export default function BuilderPage() {
                                 background: "linear-gradient(135deg, hsl(322, 84%, 60%) 0%, hsl(270, 84%, 60%) 100%)"
                               }}
                             >
-                              <span className="text-lg font-bold">
-                                R
+                              {session?.user?.image ? (
+                                <img 
+                                  src={session.user.image} 
+                                  alt={session.user.name || 'User'}
+                                  className="w-full h-full rounded-full object-cover"
+                                  onError={(e) => {
+                                    // Hide the image and show fallback text when image fails to load
+                                    const target = e.target as HTMLImageElement;
+                                    target.style.display = 'none';
+                                    const fallbackText = target.parentElement?.querySelector('.fallback-text');
+                                    if (fallbackText) {
+                                      (fallbackText as HTMLElement).style.display = 'block';
+                                    }
+                                  }}
+                                  onLoad={(e) => {
+                                    // Hide fallback text when image loads successfully
+                                    const target = e.target as HTMLImageElement;
+                                    const fallbackText = target.parentElement?.querySelector('.fallback-text');
+                                    if (fallbackText) {
+                                      (fallbackText as HTMLElement).style.display = 'none';
+                                    }
+                                  }}
+                                />
+                              ) : null}
+                              <span 
+                                className={`fallback-text text-lg font-bold ${session?.user?.image ? 'hidden' : 'block'}`}
+                                style={{ display: session?.user?.image ? 'none' : 'block' }}
+                              >
+                                {session?.user?.name?.charAt(0).toUpperCase() || 'U'}
                               </span>
                             </div>
                             <div 
@@ -272,10 +277,11 @@ export default function BuilderPage() {
                           {/* Name and Info */}
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium truncate" style={{ color: "hsl(0 0% 98%)" }}>
-                              Resume Builder
+                              {session?.user?.name || 'User'}
                             </p>
                             <p className="text-xs truncate" style={{ color: "hsl(240 5% 64.9%)" }}>
-                              Create your resume
+                              {/* Show Google email */}
+                              {session?.user?.email || 'Resume Builder'}
                             </p>
                           </div>
                           
@@ -283,14 +289,15 @@ export default function BuilderPage() {
                           <div className="flex items-center space-x-2 relative z-50">
                             {/* Logout Button */}
                             <button
-                              onClick={() => signOut()}
-                              className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
+                              onClick={handleSignOut}
+                              disabled={isLoggingOut}
+                              className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50 disabled:opacity-50 disabled:cursor-not-allowed"
                               style={{ 
                                 backgroundColor: "hsl(240 3.7% 20%)",
                                 border: "1px solid rgba(236, 72, 153, 0.2)",
                                 pointerEvents: "auto"
                               }}
-                              title="Logout"
+                              title={isLoggingOut ? "Signing out..." : "Logout"}
                               type="button"
                             >
                               <svg
@@ -340,32 +347,6 @@ export default function BuilderPage() {
                                 />
                               </svg>
                             </button>
-                            <button
-                              onClick={() => signOut()}
-                              className="p-2 rounded-lg transition-all duration-200 hover:scale-105 group cursor-pointer relative z-50"
-                              style={{ 
-                                backgroundColor: "hsl(240 3.7% 20%)",
-                                border: "1px solid rgba(236, 72, 153, 0.2)",
-                                pointerEvents: "auto"
-                              }}
-                              title="Logout"
-                              type="button"
-                            >
-                              <svg
-                                className="w-4 h-4 transition-colors group-hover:text-pink-400 pointer-events-none"
-                                style={{ color: "hsl(240 5% 64.9%)" }}
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                                />
-                              </svg>
-                            </button>
                           </div>
                         </div>
                       </div>
@@ -381,10 +362,8 @@ export default function BuilderPage() {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  console.log('=== SHOW SIDEBAR BUTTON CLICKED ===');
-                  console.log('Current formClose state:', formClose);
+                  // Show sidebar button clicked
                   setFormClose(false);
-                  console.log('Called setFormClose(false)');
                 }}
                 className="fixed top-4 left-4 p-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-white cursor-pointer shadow-lg transition-all duration-200 hover:scale-105"
                 title="Show Sidebar"
@@ -421,6 +400,9 @@ export default function BuilderPage() {
           <Print />
         </ResumeContext.Provider>
       </SectionTitleProvider>
+      
+      {/* Logout Loading */}
+      <LogoutLoader isVisible={isLoggingOut} />
     </>
   );
 }

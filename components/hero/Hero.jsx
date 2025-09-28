@@ -2,8 +2,10 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 import { Inter, Playfair_Display } from 'next/font/google';
 import AuthModal from '../auth/AuthModal';
+import LogoutLoader from '../auth/LogoutLoader';
 
 const inter = Inter({ 
     subsets: ['latin'],
@@ -24,8 +26,15 @@ export default function Hero() {
     const [isLoading, setIsLoading] = useState(true);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
     
     const router = useRouter();
+    const { data: session, status } = useSession();
+
+    // Track authentication status changes
+    useEffect(() => {
+        // Authentication status tracking for component state
+    }, [session, status]);
 
     useEffect(() => {
         // Handle video loading state with faster detection
@@ -70,11 +79,28 @@ export default function Hero() {
 
     // Handle Create Resume button click
     const handleCreateResume = () => {
-        setIsAuthModalOpen(true);
+        if (session) {
+            // User is already authenticated, redirect to resume builder
+            router.push('/builder');
+        } else {
+            // User is not authenticated, show auth modal
+            setIsAuthModalOpen(true);
+        }
     };
 
     const handleCloseAuthModal = () => {
         setIsAuthModalOpen(false);
+    };
+
+    const handleSignOut = async () => {
+        setIsLoggingOut(true);
+        try {
+            await signOut({ callbackUrl: '/' });
+        } catch (error) {
+            // Handle any errors
+        } finally {
+            // The page will redirect, so we don't need to set loading to false
+        }
     };
 
     return (
@@ -167,8 +193,23 @@ export default function Hero() {
             </div>
 
             <div className={`absolute top-4 sm:top-8 right-4 sm:right-8 z-20 text-white/80 text-xs sm:text-sm font-light tracking-wide text-right transition-all duration-500 hover:text-white ${inter.className}`}>
-                <div className="opacity-80 hover:opacity-100 transition-opacity">ESTABLISHED</div>
-                <div className="mt-1 opacity-60 hover:opacity-100 transition-opacity">2025</div>
+                {session ? (
+                    <div className="flex flex-col items-end gap-2">
+                        <div className="opacity-80 hover:opacity-100 transition-opacity">LOGGED IN</div>
+                        <button 
+                            onClick={handleSignOut}
+                            disabled={isLoggingOut}
+                            className="text-pink-300 hover:text-pink-200 transition-colors opacity-60 hover:opacity-100 disabled:opacity-40 disabled:cursor-not-allowed"
+                        >
+                            {isLoggingOut ? 'Signing Out...' : 'Sign Out'}
+                        </button>
+                    </div>
+                ) : (
+                    <>
+                        <div className="opacity-80 hover:opacity-100 transition-opacity">ESTABLISHED</div>
+                        <div className="mt-1 opacity-60 hover:opacity-100 transition-opacity">2025</div>
+                    </>
+                )}
             </div>
 
             {/* Main Content */}
@@ -211,21 +252,36 @@ export default function Hero() {
                     {/* Subtitle */}
                     <div className={`mt-8 sm:mt-16 space-y-1 ${inter.className}`}>
                         <p className="text-white/80 text-sm sm:text-lg font-light tracking-wider uppercase transition-all duration-500 hover:text-white px-4 sm:px-0">
-                            Elegant and Modern Resume Builder
+                            {session ? 'Your Resume Builder Dashboard' : 'Elegant and Modern Resume Builder'}
                         </p>
                         <p className="text-white/60 text-xs sm:text-sm font-light tracking-wider uppercase transition-all duration-500 hover:text-white/80">
-                            Created by ResumeType
+                            {session ? 'Manage and create your professional resumes' : 'Created by ResumeType'}
                         </p>
                     </div>
                 </div>
 
-                <button
-                    ref={ctaRef}
-                    onClick={handleCreateResume}
-                    className={`inline-flex h-10 sm:h-12 items-center justify-center rounded-lg bg-white text-black px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-300 hover:bg-gray-100 hover:shadow-lg ${inter.className}`}
-                >
-                    Create Resume
-                </button>
+                {session ? (
+                    <div className="flex flex-col items-center gap-4">
+                        <div className={`text-white/80 text-sm ${inter.className}`}>
+                            Welcome back, <span className="text-pink-300 font-medium">{session.user?.name || session.user?.email}</span>
+                        </div>
+                        <button
+                            ref={ctaRef}
+                            onClick={handleCreateResume}
+                            className={`inline-flex h-10 sm:h-12 items-center justify-center rounded-lg bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-300 hover:from-pink-600 hover:to-pink-700 hover:shadow-lg transform hover:scale-105 ${inter.className}`}
+                        >
+                            Go to Dashboard
+                        </button>
+                    </div>
+                ) : (
+                    <button
+                        ref={ctaRef}
+                        onClick={handleCreateResume}
+                        className={`inline-flex h-10 sm:h-12 items-center justify-center rounded-lg bg-white text-black px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-300 hover:bg-gray-100 hover:shadow-lg ${inter.className}`}
+                    >
+                        Create Resume
+                    </button>
+                )}
             </div>
 
             {/* Animated gradient overlay for better text contrast */}
@@ -351,6 +407,9 @@ export default function Hero() {
                 isOpen={isAuthModalOpen}
                 onClose={handleCloseAuthModal}
             />
+
+            {/* Logout Loading */}
+            <LogoutLoader isVisible={isLoggingOut} />
         </div>
     );
 }

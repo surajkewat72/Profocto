@@ -38,7 +38,7 @@ const SocialMedia = () => {
         <div key={index} className="flex-wrap-gap-2 flex items-center">
           <input
             type="text"
-            placeholder="Platform (e.g., LinkedIn, GitHub)"
+            placeholder="Platform (e.g., LinkedIn, Twitter)"
             name="socialMedia"
             className="other-input w-1/3"
             value={socialMedia.socialMedia}

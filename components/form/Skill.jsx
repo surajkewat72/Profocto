@@ -62,7 +62,7 @@ const Skill = ({ title }) => {
 
   // If skillType is not found, don't render the component
   if (!skillType) {
-    console.warn(`Skill type "${title}" not found in resumeData.skills`);
+    // Skill type not found in resumeData.skills
     return null;
   }
 
@@ -79,17 +79,11 @@ const Skill = ({ title }) => {
   return (
     <div className="form-section">
       <div className="form-section-title">
-        {title === "Soft Skills" ? (
-          <EditableFormTitle 
-            sectionKey={getSectionKey(title)} 
-            defaultTitle={title} 
-            className="input-title"
-          />
-        ) : (
-          <h3 className="text-lg font-semibold text-gray-50 mb-0">
-            {title}
-          </h3>
-        )}
+        <EditableFormTitle 
+          sectionKey={getSectionKey(title)} 
+          defaultTitle={title} 
+          className="input-title"
+        />
       </div>
 
       <div className="section-card">

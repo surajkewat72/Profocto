@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  FaGithub,
   FaLinkedin,
   FaTwitter,
   FaFacebook,
@@ -82,7 +81,7 @@ const Preview = () => {
   const [sectionOrder, setSectionOrder] = useState(defaultSections);
 
   const icons = [
-    { name: "github", icon: <FaGithub /> },
+
     { name: "linkedin", icon: <FaLinkedin /> },
     { name: "twitter", icon: <FaTwitter /> },
     { name: "facebook", icon: <FaFacebook /> },
@@ -176,7 +175,7 @@ const Preview = () => {
                   const icon = icons.find(icon => icon.name === socialMedia.socialMedia.toLowerCase());
                   return (
                     <Link
-                      href={`${socialMedia.socialMedia.toLowerCase() === "github" || socialMedia.socialMedia.toLowerCase() === "website" 
+                      href={`${socialMedia.socialMedia.toLowerCase() === "website" 
                         ? "https://" 
                         : socialMedia.socialMedia.toLowerCase() === "linkedin" 
                         ? "https://www." 
@@ -203,6 +202,11 @@ const Preview = () => {
                   width={100}
                   height={100}
                   className="rounded-full border-2 border-gray-300"
+                  onError={(e) => {
+                    // Hide broken image and log error
+                    // Profile image failed to load
+                    e.currentTarget.style.display = 'none';
+                  }}
                 />
               </div>
             )}
