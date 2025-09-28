@@ -2,7 +2,7 @@
   "name": "profile-elegante",
   "version": "0.3.0",
   "private": true,
-  "homepage": "https://profile-elegante.vercel.app/",
+  "homepage": "https://www.profocto.tech/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

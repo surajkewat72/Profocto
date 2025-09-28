@@ -5,7 +5,7 @@
   
   **An elegant and modern resume builder application built with Next.js**
   
-  [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://profile-elegante.vercel.app/)
+  [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://www.profocto.tech/)
   [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/NiranjanKumar001/Profile-Elegante)
   [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 </div>
@@ -14,7 +14,7 @@
 
 ## 🚀 Live Demo
 
-**🌐 Try it now:** [https://profile-elegante.vercel.app/](https://profile-elegante.vercel.app/)
+**🌐 Try it now:** [https://www.profocto.tech/](https://www.profocto.tech/)
 
 Create professional resumes in minutes with our intuitive, modern interface.
 
@@ -111,7 +111,7 @@ Create professional resumes in minutes with our intuitive, modern interface.
 ## 🎯 Quick Start
 
 ### 👤 **For Users**
-1. 🌐 **Visit**: [Profile Élegante](https://profile-elegante.vercel.app/)
+1. 🌐 **Visit**: [Profile Élegante](https://www.profocto.tech/)
 2. 🔐 **Sign In**: Use your Google account for secure authentication
 3. � **Choose Template**: Select from professional resume layouts
 4. ✏️ **Fill Information**: Add your personal details, experience, skills
@@ -178,7 +178,8 @@ Create a `.env.local` file in the root directory with the following variables:
 ```bash
 # Authentication
 NEXTAUTH_SECRET=your-secret-key-here
-NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_URL=http://localhost:3000  # For local development
+# NEXTAUTH_URL=https://www.profocto.tech/  # For production
 
 # Google OAuth
 GOOGLE_CLIENT_ID=your-google-oauth-client-id
@@ -196,7 +197,9 @@ CONVEX_DEPLOY_KEY=your-convex-deploy-key
 2. Create a new project or select existing one
 3. Enable Google+ API
 4. Go to "Credentials" → "Create Credentials" → "OAuth 2.0 Client IDs"
-5. Set authorized redirect URIs: `http://localhost:3000/api/auth/callback/google`
+5. Set authorized redirect URIs: 
+   - `http://localhost:3000/api/auth/callback/google` (for development)
+   - `https://www.profocto.tech/api/auth/callback/google` (for production)
 
 #### **Convex Database Setup**
 1. Sign up at [Convex](https://convex.dev/)
