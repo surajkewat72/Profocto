@@ -2,6 +2,7 @@
   "name": "profile-elegante",
   "version": "0.3.0",
   "private": true,
+  "homepage": "https://profile-elegante.vercel.app/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
