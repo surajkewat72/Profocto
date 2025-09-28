@@ -101,9 +101,9 @@ Profile-Elegante/
 │   ├── 👀 preview/        # Resume preview components
 │   └── 🎨 ui/             # UI utility components
 ├── 📁 contexts/           # React Context providers
-├── 📁 hooks/              # Custom React hooks
 ├── 📁 lib/                # Utility functions and configurations
 ├── 📁 public/             # Static assets
+├── 📁 types/              # TypeScript type definitions
 └── 📁 convex/             # Database schema and functions
 ```
 

@@ -174,7 +174,6 @@ Profile-Elegante/
 │   ├── preview/        # Resume preview components
 │   └── ui/             # UI components
 ├── contexts/           # React contexts
-├── hooks/              # Custom hooks
 ├── lib/                # Utility libraries
 ├── public/             # Static assets
 ├── types/              # TypeScript type definitions
