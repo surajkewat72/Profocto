@@ -47,43 +47,170 @@ Create professional resumes in minutes with our intuitive, modern interface.
 
 ## 🛠️ Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| **Frontend** | Next.js 15, React 18, TypeScript |
-| **Styling** | Tailwind CSS, Framer Motion |
-| **Database** | Convex (Real-time) |
-| **Authentication** | NextAuth.js, Google OAuth |
-| **Deployment** | Vercel |
-| **UI Components** | Custom components, React Icons |
-| **Development** | ESLint, TypeScript, PostCSS |
+### **Core Technologies**
+
+| **Category** | **Technology** | **Version** | **Purpose** |
+|--------------|----------------|-------------|-------------|
+| **Framework** | Next.js | 15.x | React framework with App Router, server-side rendering |
+| **Frontend** | React | 18.x | Component-based UI library |
+| **Language** | TypeScript | 5.x | Type-safe JavaScript development |
+| **Database** | Convex | Latest | Real-time database with automatic sync |
+| **Authentication** | NextAuth.js | 4.x | Secure authentication with OAuth providers |
+
+### **Styling & UI**
+
+| **Technology** | **Purpose** |
+|----------------|-------------|
+| **Tailwind CSS** | Utility-first CSS framework for rapid styling |
+| **Framer Motion** | Animation library for smooth transitions and interactions |
+| **React Icons** | Comprehensive icon library |
+| **Custom Components** | Reusable UI components built from scratch |
+
+### **Development & Build Tools**
+
+| **Tool** | **Purpose** |
+|----------|-------------|
+| **ESLint** | Code linting and formatting |
+| **PostCSS** | CSS processing and optimization |
+| **Autoprefixer** | Automatic CSS vendor prefixing |
+| **TypeScript Compiler** | Type checking and compilation |
+
+### **Deployment & Hosting**
+
+| **Service** | **Purpose** |
+|-------------|-------------|
+| **Vercel** | Frontend hosting and deployment |
+| **Convex Cloud** | Database hosting and real-time sync |
+| **Google OAuth** | Authentication service |
+
+### **Key Dependencies**
+
+```json
+{
+  "next": "^15.0.3",
+  "react": "^18.3.1",
+  "typescript": "^5.6.3",
+  "convex": "^1.27.3",
+  "next-auth": "^4.24.11",
+  "framer-motion": "^12.4.3",
+  "tailwindcss": "^3.4.14",
+  "@dnd-kit/core": "^6.1.0",
+  "react-icons": "^5.3.0"
+}
+```
+
+### **Architecture Highlights**
+
+- **App Router**: Modern Next.js routing with server components
+- **Real-time Database**: Convex provides instant data synchronization
+- **Type Safety**: Full TypeScript implementation across the stack
+- **Component Architecture**: Modular, reusable React components
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Performance Optimized**: Next.js optimizations for fast loading
 
 ## 🎯 Quick Start
 
-### For Users
-1. 🌐 Visit [Profile Élegante](https://profile-elegante.vercel.app/)
-2. 🔐 Sign in with your Google account
-3. 📝 Choose a template and fill in your information
-4. 👀 Preview your resume in real-time
-5. 📥 Download your professional resume
+### 👤 **For Users**
+1. 🌐 **Visit**: [Profile Élegante](https://profile-elegante.vercel.app/)
+2. 🔐 **Sign In**: Use your Google account for secure authentication
+3. � **Choose Template**: Select from professional resume layouts
+4. ✏️ **Fill Information**: Add your personal details, experience, skills
+5. �️ **Live Preview**: See changes in real-time as you edit
+6. 📥 **Export**: Download your resume as PDF or share online
 
-### For Developers
-Want to contribute? Check out our [Contributing Guide](CONTRIBUTING.md)
+### 💻 **For Developers**
+
+#### **Prerequisites**
+- Node.js 18+ 
+- npm or yarn
+- Git
+- Google OAuth credentials (for auth)
+- Convex account (for database)
+
+#### **Local Development Setup**
 
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/NiranjanKumar001/Profile-Elegante.git
+cd Profile-Elegante
 
-# Install dependencies
+# 2. Install dependencies
 npm install
 
-# Set up environment variables
+# 3. Set up environment variables
 cp .env.example .env.local
+# Edit .env.local with your credentials:
+# - NEXTAUTH_SECRET=your-secret-key
+# - NEXTAUTH_URL=http://localhost:3000
+# - GOOGLE_CLIENT_ID=your-google-client-id
+# - GOOGLE_CLIENT_SECRET=your-google-client-secret
+# - NEXT_PUBLIC_CONVEX_URL=your-convex-url
+# - CONVEX_DEPLOY_KEY=your-convex-deploy-key
 
-# Start development server
+# 4. Set up Convex database
+npx convex dev
+
+# 5. Start development server
 npm run dev
 ```
 
-## 📸 Screenshots
+#### **Available Scripts**
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+```
+
+#### **Development Workflow**
+1. Make your changes
+2. Test locally with `npm run dev`
+3. Run `npm run build` to ensure production build works
+4. Commit and push your changes
+
+Want to contribute? Check out our [Contributing Guide](CONTRIBUTING.md)
+
+## � Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```bash
+# Authentication
+NEXTAUTH_SECRET=your-secret-key-here
+NEXTAUTH_URL=http://localhost:3000
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-oauth-client-id
+GOOGLE_CLIENT_SECRET=your-google-oauth-client-secret  
+
+# Convex Database
+NEXT_PUBLIC_CONVEX_URL=https://your-convex-deployment.convex.cloud
+CONVEX_DEPLOY_KEY=your-convex-deploy-key
+```
+
+### **How to Get These Values:**
+
+#### **Google OAuth Setup**
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing one
+3. Enable Google+ API
+4. Go to "Credentials" → "Create Credentials" → "OAuth 2.0 Client IDs"
+5. Set authorized redirect URIs: `http://localhost:3000/api/auth/callback/google`
+
+#### **Convex Database Setup**
+1. Sign up at [Convex](https://convex.dev/)
+2. Create a new project
+3. Copy the deployment URL and deploy key from dashboard
+4. Run `npx convex dev` to sync your schema
+
+#### **NextAuth Secret**
+```bash
+# Generate a secure secret
+openssl rand -base64 32
+```
+
+## �📸 Screenshots
 
 <div align="center">
   <img src="public/assets/resume.jpg" alt="Resume Preview" width="600">
