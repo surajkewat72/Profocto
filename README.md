@@ -1,11 +1,11 @@
-# Profile Élegante
+# Profocto
 
 <div align="center">
-  <img src="public/assets/logo.png" alt="Profile Élegante Logo" width="100" height="100">
+  <img src="public/assets/logo.png" alt="Profocto Logo" width="100" height="100">
   
-  **An elegant and modern resume builder application built with Next.js**
+  **Profile Élegante - An elegant and modern resume builder application built with Next.js**
   
-  [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://www.profocto.tech/)
+  [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://profocto.tech)
   [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/NiranjanKumar001/Profocto)
   [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 </div>
@@ -14,7 +14,7 @@
 
 ## 🚀 Live Demo
 
-**🌐 Try it now:** [https://www.profocto.tech/](https://www.profocto.tech/)
+**🌐 Try it now:** [https://profocto.tech](https://profocto.tech)
 
 Create professional resumes in minutes with our intuitive, modern interface.
 
@@ -87,10 +87,12 @@ Create professional resumes in minutes with our intuitive, modern interface.
 
 ```json
 {
-  "next": "^15.0.3",
+  "name": "profocto",
+  "version": "0.3.0",
+  "next": "^15.5.2",
   "react": "^18.3.1",
   "typescript": "^5.6.3",
-  "convex": "^1.27.3",
+  "convex": "^1.17.6",
   "next-auth": "^4.24.11",
   "framer-motion": "^12.4.3",
   "tailwindcss": "^3.4.14",
@@ -111,7 +113,7 @@ Create professional resumes in minutes with our intuitive, modern interface.
 ## 🎯 Quick Start
 
 ### 👤 **For Users**
-1. 🌐 **Visit**: [Profile Élegante](https://www.profocto.tech/)
+1. 🌐 **Visit**: [Profile Élegante](https://profocto.tech)
 2. 🔐 **Sign In**: Use your Google account for secure authentication
 3. � **Choose Template**: Select from professional resume layouts
 4. ✏️ **Fill Information**: Add your personal details, experience, skills
@@ -138,14 +140,13 @@ cd Profocto
 npm install
 
 # 3. Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your credentials:
-# - NEXTAUTH_SECRET=your-secret-key
-# - NEXTAUTH_URL=http://localhost:3000
-# - GOOGLE_CLIENT_ID=your-google-client-id
-# - GOOGLE_CLIENT_SECRET=your-google-client-secret
-# - NEXT_PUBLIC_CONVEX_URL=your-convex-url
-# - CONVEX_DEPLOY_KEY=your-convex-deploy-key
+# Create .env.local file and add the following:
+# NEXTAUTH_SECRET=your-secret-key
+# NEXTAUTH_URL=http://localhost:3000
+# GOOGLE_CLIENT_ID=your-google-client-id
+# GOOGLE_CLIENT_SECRET=your-google-client-secret
+# NEXT_PUBLIC_CONVEX_URL=https://wooden-corgi-542.convex.cloud
+# CONVEX_DEPLOY_KEY=your-convex-deploy-key
 
 # 4. Set up Convex database
 npx convex dev
@@ -176,17 +177,19 @@ Want to contribute? Check out our [Contributing Guide](CONTRIBUTING.md)
 Create a `.env.local` file in the root directory with the following variables:
 
 ```bash
-# Authentication
+# Authentication (Required)
 NEXTAUTH_SECRET=your-secret-key-here
-NEXTAUTH_URL=http://localhost:3000  # For local development
-# NEXTAUTH_URL=https://www.profocto.tech/  # For production
+# For local development:
+NEXTAUTH_URL=http://localhost:3000
+# For production:
+# NEXTAUTH_URL=https://profocto.tech
 
-# Google OAuth
+# Google OAuth (Required)
 GOOGLE_CLIENT_ID=your-google-oauth-client-id
 GOOGLE_CLIENT_SECRET=your-google-oauth-client-secret  
 
-# Convex Database
-NEXT_PUBLIC_CONVEX_URL=https://your-convex-deployment.convex.cloud
+# Convex Database (Required)
+NEXT_PUBLIC_CONVEX_URL=https://wooden-corgi-542.convex.cloud
 CONVEX_DEPLOY_KEY=your-convex-deploy-key
 ```
 
@@ -199,13 +202,14 @@ CONVEX_DEPLOY_KEY=your-convex-deploy-key
 4. Go to "Credentials" → "Create Credentials" → "OAuth 2.0 Client IDs"
 5. Set authorized redirect URIs: 
    - `http://localhost:3000/api/auth/callback/google` (for development)
-   - `https://www.profocto.tech/api/auth/callback/google` (for production)
+   - `https://profocto.tech/api/auth/callback/google` (for production)
 
 #### **Convex Database Setup**
 1. Sign up at [Convex](https://convex.dev/)
-2. Create a new project
+2. Create a new project  
 3. Copy the deployment URL and deploy key from dashboard
 4. Run `npx convex dev` to sync your schema
+5. **Note**: The current deployment uses `wooden-corgi-542.convex.cloud` - you'll need your own Convex deployment
 
 #### **NextAuth Secret**
 ```bash
