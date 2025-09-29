@@ -1,6 +1,6 @@
-# Contributing to Profile Élegante
+# Contributing to Profocto
 
-Thank you for your interest in contributing to Profile Élegante! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to Profocto! This document provides guidelines and information for contributors.
 
 ## 🤝 How to Contribute
 
@@ -16,8 +16,8 @@ Before you begin, ensure you have the following installed:
 1. **Fork the repository**
    ```bash
    # Click the "Fork" button on GitHub, then clone your fork
-   git clone https://github.com/YOUR_USERNAME/Profile-Elegante.git
-   cd Profile-Elegante
+   git clone https://github.com/YOUR_USERNAME/Profocto.git
+   cd Profocto
    ```
 
 2. **Install dependencies**
@@ -154,7 +154,7 @@ Contributors will be recognized in:
 ## 🚀 Project Structure
 
 ```
-Profile-Elegante/
+Profocto/
 ├── app/                 # Next.js app directory
 ├── components/          # React components
 │   ├── auth/           # Authentication components
@@ -187,4 +187,4 @@ If you discover a security vulnerability, please email the maintainer directly r
 
 ---
 
-Thank you for contributing to Profile Élegante! Your efforts help make this project better for everyone. 🎉
+Thank you for contributing to Profocto! Your efforts help make this project better for everyone. 🎉

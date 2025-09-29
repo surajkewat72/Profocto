@@ -6,7 +6,7 @@
   **An elegant and modern resume builder application built with Next.js**
   
   [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://www.profocto.tech/)
-  [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/NiranjanKumar001/Profile-Elegante)
+  [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/NiranjanKumar001/Profocto)
   [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 </div>
 
@@ -131,8 +131,8 @@ Create professional resumes in minutes with our intuitive, modern interface.
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/NiranjanKumar001/Profile-Elegante.git
-cd Profile-Elegante
+git clone https://github.com/NiranjanKumar001/Profocto.git
+cd Profocto
 
 # 2. Install dependencies
 npm install
@@ -223,7 +223,7 @@ openssl rand -base64 32
 ## 🏗️ Project Structure
 
 ```
-Profile-Elegante/
+Profocto/
 ├── 📁 app/                 # Next.js app directory (App Router)
 ├── 📁 components/          # Reusable React components
 │   ├── 🔐 auth/           # Authentication components
@@ -273,10 +273,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📊 Project Stats
 
-![GitHub stars](https://img.shields.io/github/stars/NiranjanKumar001/Profile-Elegante?style=social)
-![GitHub forks](https://img.shields.io/github/forks/NiranjanKumar001/Profile-Elegante?style=social)
-![GitHub issues](https://img.shields.io/github/issues/NiranjanKumar001/Profile-Elegante)
-![GitHub last commit](https://img.shields.io/github/last-commit/NiranjanKumar001/Profile-Elegante)
+![GitHub stars](https://img.shields.io/github/stars/NiranjanKumar001/Profocto?style=social)
+![GitHub forks](https://img.shields.io/github/forks/NiranjanKumar001/Profocto?style=social)
+![GitHub issues](https://img.shields.io/github/issues/NiranjanKumar001/Profocto)
+![GitHub last commit](https://img.shields.io/github/last-commit/NiranjanKumar001/Profocto)
 
 ---
 

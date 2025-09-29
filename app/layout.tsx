@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { AuthProvider } from '@/components/providers/AuthProvider';
 
 export const metadata: Metadata = {
-  title: 'Profile Elegante',
+  title: 'Profile Élegante',
   description: 'ELEGANT AND MODERN RESUME BUILDER',
 }
 
