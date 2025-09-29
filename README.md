@@ -217,10 +217,15 @@ CONVEX_DEPLOY_KEY=your-convex-deploy-key
 openssl rand -base64 32
 ```
 
-## �📸 Screenshots
+## 📸 Screenshots
 
 <div align="center">
-  <img src="public/assets/resume.jpg" alt="Resume Preview" width="600">
+  <img src="https://ik.imagekit.io/profocto/Screenshot%202025-09-29%20122924.png?updatedAt=1759129229692" alt="Profocto Website Preview" width="800">
+  <p><em>Modern, elegant interface for creating professional resumes</em></p>
+</div>
+
+<div align="center">
+  <img src="public/assets/resume.jpg" alt="Resume Template Preview" width="600">
   <p><em>Professional resume templates with real-time editing</em></p>
 </div>
 
