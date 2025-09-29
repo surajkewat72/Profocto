@@ -1,12 +1,25 @@
 "use client";
 
 import { MdPictureAsPdf } from "react-icons/md";
+import { useContext } from "react";
+import { ResumeContext } from "@/contexts/ResumeContext";
 
 const WinPrint = () => {
+  const { resumeData } = useContext(ResumeContext);
 
-const print = () => {
+  const print = () => {
+    // Set document title for better PDF filename
+    const originalTitle = document.title;
+    const userName = resumeData?.name || "Resume";
+    document.title = `${userName} - Resume by Profocto`;
+    
     window.print();
-    };
+    
+    // Restore original title after print
+    setTimeout(() => {
+      document.title = originalTitle;
+    }, 1000);
+  };
 
 return (
     <button
