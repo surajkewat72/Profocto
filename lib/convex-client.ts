@@ -14,6 +14,7 @@ const getConvexUrl = (): string => {
   return url;
 };
 
+
 const convex = new ConvexHttpClient(getConvexUrl());
 
 export const convexAdapter = ConvexAdapter(convex);
