@@ -86,7 +86,7 @@ const Preview = () => {
     "experience",
     "projects",
     "skills",
-    "softskills",
+    "softSkills",
     "languages",
     "certifications"
   ];
@@ -97,7 +97,7 @@ const Preview = () => {
     "experience": "Professional Experience",
     "projects": "Projects",
     "skills": "Technical Skills",
-    "softskills": "Soft Skills",
+    "softSkills": "Soft Skills",
     "languages": "Languages",
     "certifications": "Certifications"
   };
@@ -372,20 +372,20 @@ const Preview = () => {
         ) : (
           <TemplateTwo
             namedata={resumeData.name}
-            positiondata={resumeData.position}
-            contactdata={resumeData.contactInformation}
-            emaildata={resumeData.email}
-            addressdata={resumeData.address}
-            telicon={<MdPhone />}
-            emailicon={<MdEmail />}
-            addressicon={<MdLocationOn />}
-            summarydata={resumeData.summary}
-            educationdata={resumeData.education}
-            projectsdata={resumeData.projects}
-            workExperiencedata={resumeData.workExperience}
-            skillsdata={resumeData.skills}
-            languagesdata={resumeData.languages}
-            certificationsdata={resumeData.certifications}
+            positionData={resumeData.position}
+            contactData={resumeData.contactInformation}
+            emailData={resumeData.email}
+            addressData={resumeData.address}
+            telIcon={<MdPhone />}
+            emailIcon={<MdEmail />}
+            addressIcon={<MdLocationOn />}
+            summaryData={resumeData.summary}
+            educationData={resumeData.education}
+            projectsData={resumeData.projects}
+            workExperienceData={resumeData.workExperience}
+            skillsData={resumeData.skills}
+            languagesData={resumeData.languages}
+            certificationsData={resumeData.certifications}
             sectionOrder={sectionOrder}
             enabledSections={enabledSections}
             onDragEnd={onDragEnd}
@@ -508,7 +508,7 @@ const ClassicTemplate = ({
     { id: "experience", title: "Experience", content: resumeData.workExperience },
     { id: "projects", title: "Projects", content: resumeData.projects },
     { id: "skills", title: "Skills", content: resumeData.skills },
-    { id: "softskills", title: "Soft Skills", content: resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills || [] },
+    { id: "softSkills", title: "Soft Skills", content: resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills || [] },
     { id: "languages", title: "Languages", content: resumeData.languages },
     { id: "certifications", title: "Certifications", content: resumeData.certifications }
   ];
@@ -681,11 +681,11 @@ const ClassicTemplate = ({
           </div>
         );
 
-      case "softskills":
+      case "softSkills":
         return (
           <div>
             <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
-              {customSectionTitles.softskills || "Soft Skills"}
+              {customSectionTitles.softSkills || "Soft Skills"}
             </h2>
             <p className="content text-gray-700">
               {resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills?.join(", ")}
