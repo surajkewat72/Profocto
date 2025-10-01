@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { AuthProvider } from '@/components/providers/AuthProvider';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: 'Profile Élegante',
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <AuthProvider>
           {children}
         </AuthProvider>
+        <Toaster position="bottom-center" /> {/* the Toaster component */}
       </body>
     </html>
   )
