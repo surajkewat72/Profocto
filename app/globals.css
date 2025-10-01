@@ -369,7 +369,6 @@
 
     /* Date field text styling */
     input[type="date"]::-webkit-datetime-edit-text {
-        color: hsl(330 81% 60%) !important;
         font-weight: 500;
     }
 
@@ -921,18 +920,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* Force pink theme on date picker popup */
 input[type="date"]::-webkit-datetime-edit {
-    display: none !important;
+  
 }
 
 /* WebKit date picker styling */
 input[type="date"]::-webkit-datetime-edit-fields-wrapper {
-    display: none !important;
+
 }
 
 input[type="date"]::-webkit-datetime-edit-month-field,
 input[type="date"]::-webkit-datetime-edit-day-field,
 input[type="date"]::-webkit-datetime-edit-year-field {
-    color: #ec4899 !important;
+    color: #fff !important;
 }
 
 input[type="date"]::-webkit-inner-spin-button,
