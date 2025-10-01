@@ -30,7 +30,7 @@ const LogoutLoader = ({ isVisible }) => {
       clearInterval(messageInterval);
       clearInterval(dotsInterval);
     };
-  }, [isVisible]);
+  }, [isVisible, studyMessages.length]);
 
   if (!isVisible) return null;
 
