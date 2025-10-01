@@ -14,15 +14,10 @@ import {
 } from "react-icons/fa";
 import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
 import { CgWebsite } from "react-icons/cg";
-import Skills from "./Skills";
 import DateRange from "../utility/DateRange";
-import ContactInfo from "./ContactInfo";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { ResumeContext } from "../../contexts/ResumeContext";
-import Language from "./Language";
-import Certification from "./Certification";
 import TemplateTwo from "./TemplateTwo";
 import { useSectionTitles } from "../../contexts/SectionTitleContext";
 import {
@@ -91,7 +86,7 @@ const Preview = () => {
     "experience",
     "projects",
     "skills",
-    "softskills",
+    "softSkills",
     "languages",
     "certifications"
   ];
@@ -102,7 +97,7 @@ const Preview = () => {
     "experience": "Professional Experience",
     "projects": "Projects",
     "skills": "Technical Skills",
-    "softskills": "Soft Skills",
+    "softSkills": "Soft Skills",
     "languages": "Languages",
     "certifications": "Certifications"
   };
@@ -281,7 +276,7 @@ const Preview = () => {
               <div className="absolute right-0 mt-2 w-64 sm:w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-3 dropdown-enhanced">
                 <div className="px-3 sm:px-4 pb-2 border-b border-gray-200">
                   <h3 className="text-xs sm:text-sm font-semibold text-gray-900">Toggle Resume Sections</h3>
-                  <p className="text-xs text-gray-600 mt-1">Hide sections you don't need (e.g., freshers can hide experience)</p>
+                  <p className="text-xs text-gray-600 mt-1">Hide sections you don&apos;t need (e.g., freshers can hide experience)</p>
                 </div>
                 <div className="py-2 max-h-60 overflow-y-auto">
                   {defaultSections.map((sectionId, index) => (
@@ -366,6 +361,7 @@ const Preview = () => {
         </div>
       </div>
       <A4PageWrapper>
+
         <div className="template-transition">
           {currentTemplate === "template1" ? (
             <ClassicTemplate 
@@ -402,6 +398,7 @@ const Preview = () => {
             />
           )}
         </div>
+
       </A4PageWrapper>
     </div>
   );
@@ -526,7 +523,7 @@ const ClassicTemplate = ({
     { id: "experience", title: "Experience", content: resumeData.workExperience },
     { id: "projects", title: "Projects", content: resumeData.projects },
     { id: "skills", title: "Skills", content: resumeData.skills },
-    { id: "softskills", title: "Soft Skills", content: resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills || [] },
+    { id: "softSkills", title: "Soft Skills", content: resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills || [] },
     { id: "languages", title: "Languages", content: resumeData.languages },
     { id: "certifications", title: "Certifications", content: resumeData.certifications }
   ];
@@ -741,8 +738,9 @@ const ClassicTemplate = ({
           </div>
         );
 
-      case "softskills":
+      case "softSkills":
         return (
+
           <div className="form-section-collapsible">
             <div 
               className="flex items-center justify-between cursor-pointer mb-2"
@@ -758,6 +756,7 @@ const ClassicTemplate = ({
                 {resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills?.join(", ")}
               </p>
             </div>
+
           </div>
         );
 

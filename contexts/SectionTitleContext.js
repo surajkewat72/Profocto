@@ -24,7 +24,7 @@ export const SectionTitleProvider = ({ children }) => {
     "programming": "Programming Languages",
     "frameworks": "Frameworks & Technologies", 
     "clouddb": "Cloud & Databases",
-    "softskills": "Soft Skills",
+      "softSkills": "Soft Skills",
     "languages": "Languages",
     "certifications": "Certifications"
   };
