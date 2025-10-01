@@ -110,9 +110,7 @@ export default function BuilderPage() {
       if ((event.ctrlKey || event.metaKey) && event.key === 'b') {
         event.preventDefault();
         // Keyboard shortcut triggered
-        setFormClose(prev => {
-          return !prev;
-        });
+        setFormClose(prev => !prev);
       }
     };
 
@@ -123,7 +121,7 @@ export default function BuilderPage() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [formClose]); // Include formClose in dependency array for current state
+  }, []); // No dependencies needed since we use functional setState
 
 
 

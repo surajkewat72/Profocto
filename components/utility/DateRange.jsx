@@ -1,7 +1,11 @@
 
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+
+// Move months outside component for better performance
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+               'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const DateRange = ({ startYear, endYear, id }) => {
     const [isClient, setIsClient] = useState(false);
@@ -10,30 +14,34 @@ const DateRange = ({ startYear, endYear, id }) => {
         setIsClient(true);
     }, []);
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) return 'Present';
-        
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        
-        return `${months[date.getMonth()]}, ${date.getFullYear()}`;
-    };
+    // Memoize formatted dates for better performance
+    const formattedDates = useMemo(() => {
+        const formatDate = (dateString) => {
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return 'Present';
+            return `${months[date.getMonth()]}, ${date.getFullYear()}`;
+        };
+
+        return {
+            start: formatDate(startYear),
+            end: endYear ? formatDate(endYear) : 'Present'
+        };
+    }, [startYear, endYear]);
 
     if (!isClient) {
-        // Return a simple fallback during SSR
+        // Return a simple fallback during SSR using basic year format
+        const startYearNum = new Date(startYear).getFullYear();
+        const endYearNum = endYear ? new Date(endYear).getFullYear() : 'Present';
         return (
             <p id={id} className="sub-content">
-                {new Date(startYear).getFullYear()} - {endYear ? new Date(endYear).getFullYear() : 'Present'}
+                {startYearNum} - {endYearNum}
             </p>
         );
     }
-
-    const end = endYear ? new Date(endYear) : null;
     
     return (
         <p id={id} className="sub-content">
-            {formatDate(startYear)} - {end && !isNaN(end.getTime()) ? formatDate(endYear) : 'Present'}
+            {formattedDates.start} - {formattedDates.end}
         </p>
     );
 };

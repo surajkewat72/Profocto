@@ -30,15 +30,21 @@ export const SectionTitleProvider = ({ children }) => {
   };
 
   const [customSectionTitles, setCustomSectionTitles] = useState(defaultTitles);
-  const [editingSection, setEditingSection] = useState(null);
+  const [editingSection, setEditingSection] = useState('');
 
   useEffect(() => {
     setIsClient(true);
-    // Load from localStorage
-    const savedTitles = localStorage.getItem('customSectionTitles');
-    if (savedTitles) {
-      const parsedTitles = JSON.parse(savedTitles);
-      setCustomSectionTitles({ ...defaultTitles, ...parsedTitles });
+    // Load from localStorage with error handling
+    try {
+      const savedTitles = localStorage.getItem('customSectionTitles');
+      if (savedTitles) {
+        const parsedTitles = JSON.parse(savedTitles);
+        setCustomSectionTitles({ ...defaultTitles, ...parsedTitles });
+      }
+    } catch (error) {
+      console.warn('Failed to load custom section titles:', error);
+      // Fallback to default titles if loading fails
+      setCustomSectionTitles(defaultTitles);
     }
   }, []);
 
@@ -46,11 +52,15 @@ export const SectionTitleProvider = ({ children }) => {
     setCustomSectionTitles(prev => {
       const updated = { ...prev, [sectionKey]: newTitle };
       if (isClient) {
-        localStorage.setItem('customSectionTitles', JSON.stringify(updated));
+        try {
+          localStorage.setItem('customSectionTitles', JSON.stringify(updated));
+        } catch (error) {
+          console.warn('Failed to save custom section titles:', error);
+        }
       }
       return updated;
     });
-    setEditingSection(null);
+    setEditingSection('');
   };
 
   const startEditingTitle = (sectionKey) => {
@@ -58,7 +68,7 @@ export const SectionTitleProvider = ({ children }) => {
   };
 
   const cancelEditing = () => {
-    setEditingSection(null);
+    setEditingSection('');
   };
 
   const value = {
