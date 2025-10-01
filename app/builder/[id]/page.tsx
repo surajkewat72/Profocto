@@ -34,22 +34,32 @@ export default function BuilderPage() {
   // Get user session data
   const { data: session } = useSession();
 
-  // Resume data state with localStorage persistence
-  const [resumeData, setResumeData] = useState<ResumeData>(() => {
-    if (typeof window !== 'undefined') {
-      const savedData = localStorage.getItem('resumeData');
-      return savedData ? JSON.parse(savedData) : DefaultResumeData as ResumeData;
+  // Resume data state with localStorage persistence (hydration-safe)
+  const [resumeData, setResumeData] = useState<ResumeData>(DefaultResumeData as ResumeData);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Load from localStorage after hydration to prevent mismatches
+  useEffect(() => {
+    const savedData = localStorage.getItem('resumeData');
+    if (savedData) {
+      try {
+        setResumeData(JSON.parse(savedData));
+      } catch (error) {
+        console.warn('Failed to parse saved resume data:', error);
+      }
     }
-    return DefaultResumeData as ResumeData;
-  });
+    setIsHydrated(true);
+  }, []);
 
   // Logout loading state
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  // Save to localStorage whenever resumeData changes
+  // Save to localStorage whenever resumeData changes (only after hydration)
   useEffect(() => {
-    localStorage.setItem('resumeData', JSON.stringify(resumeData));
-  }, [resumeData]);
+    if (isHydrated) {
+      localStorage.setItem('resumeData', JSON.stringify(resumeData));
+    }
+  }, [resumeData, isHydrated]);
 
   // Handle logout with loading state
   const handleSignOut = async () => {

@@ -29,7 +29,6 @@ const DateRange = ({ startYear, endYear, id }) => {
         );
     }
 
-    const start = new Date(startYear);
     const end = endYear ? new Date(endYear) : null;
     
     return (

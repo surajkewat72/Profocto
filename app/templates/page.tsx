@@ -86,8 +86,8 @@ export default function TemplatesPage() {
         </h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-          {templates.map((template) => (
-            <TemplateCard key={template.id} template={template} />
+          {templates.map((template, index) => (
+            <TemplateCard key={template.id} template={template} index={index} />
           ))}
         </div>
       </div>
@@ -95,7 +95,7 @@ export default function TemplatesPage() {
   );
 }
 
-function TemplateCard({ template }: { template: Template }) {
+function TemplateCard({ template, index }: { template: Template, index: number }) {
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
@@ -105,9 +105,10 @@ function TemplateCard({ template }: { template: Template }) {
       <div className="aspect-[4/3] relative">
         <Image
           src={template.image}
-          alt={template.name}
+          alt={`${template.name} resume template preview`}
           width={400}
           height={300}
+          priority={index < 2}
           className="object-contain w-full h-full p-4 bg-white/5"
         />
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
