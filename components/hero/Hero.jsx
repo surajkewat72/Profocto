@@ -254,14 +254,19 @@ export default function Hero() {
                         </h1>
                     </div>
 
-                    {/* Subtitle */}
+                    {/* SEO-Enhanced Subtitle */}
                     <div className={`mt-8 sm:mt-16 space-y-1 ${inter.className}`}>
-                        <p className="text-white/80 text-sm sm:text-lg font-light tracking-wider uppercase transition-all duration-500 hover:text-white px-4 sm:px-0">
-                            {session ? 'Your Resume Builder Dashboard' : 'Elegant and Modern Resume Builder'}
-                        </p>
+                        <h2 className="text-white/80 text-sm sm:text-lg font-light tracking-wider uppercase transition-all duration-500 hover:text-white px-4 sm:px-0">
+                            {session ? 'Your Resume Builder Dashboard' : 'Professional Resume Builder & CV Creator'}
+                        </h2>
                         <p className="text-white/60 text-xs sm:text-sm font-light tracking-wider uppercase transition-all duration-500 hover:text-white/80">
-                            {session ? 'Manage and create your professional resumes' : 'Created by ResumeType'}
+                            {session ? 'Create and manage your professional resumes with Profocto' : 'Free Online Resume Maker with Elegant Templates - Powered by Profocto'}
                         </p>
+                        {!session && (
+                            <p className="text-white/50 text-xs font-light mt-2 max-w-2xl mx-auto px-4 leading-relaxed hidden sm:block">
+                                Build stunning, professional resumes with our modern resume builder. Choose from elegant templates, edit in real-time, and export as PDF. Join thousands of professionals who trust Profocto for their career success.
+                            </p>
+                        )}
                     </div>
                 </div>
 
