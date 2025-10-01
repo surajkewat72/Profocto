@@ -3,17 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Move studyMessages outside component to avoid stale closures
+const studyMessages = [
+  "Saving your progress",  
+  "Securing your data", 
+  "Backing up changes",
+  "Finishing session",
+  "Logging out safely"
+];
+
 const LogoutLoader = ({ isVisible }) => {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [dots, setDots] = useState(0);
-
-  const studyMessages = [
-    "Saving your progress",
-    "Securing your data", 
-    "Backing up changes",
-    "Finishing session",
-    "Logging out safely"
-  ];
 
   useEffect(() => {
     if (!isVisible) return;
