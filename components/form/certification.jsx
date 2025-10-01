@@ -74,12 +74,14 @@ const Certification = () => {
           <div>
             <label className="label-text">Verification Link (Optional)</label>
             <input
-              type="text"
-              placeholder="e.g., https://www.credly.com/badges/your-badge"
+              type="url"
+              placeholder="https://www.credly.com/badges/your-badge"
               name="link"
               className="other-input w-full"
               value={certification.link || ""}
               onChange={(e) => handleCertification(e, index)}
+              pattern="https?://.+"
+              title="Please enter a valid URL starting with http:// or https://"
             />
           </div>
         </div>

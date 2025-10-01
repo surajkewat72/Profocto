@@ -351,6 +351,9 @@ const A4PageWrapper = ({ children }) => {
   const contentRef = useRef(null);
 
   useEffect(() => {
+    let timeoutId;
+    let observer;
+
     const checkOverflow = () => {
       if (contentRef.current) {
         const container = contentRef.current.parentElement;
@@ -361,21 +364,21 @@ const A4PageWrapper = ({ children }) => {
       }
     };
 
-    // Initial check
-    const timeoutId = setTimeout(checkOverflow, 100);
+    // Debounced check function to prevent excessive calls
+    const debouncedCheckOverflow = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkOverflow, 150);
+    };
+
+    // Initial check after component mounts
+    debouncedCheckOverflow();
     
-    // Periodic check to ensure detection works
-    const intervalId = setInterval(checkOverflow, 1000);
+    // Check on resize with debouncing
+    window.addEventListener('resize', debouncedCheckOverflow);
     
-    // Check on resize
-    window.addEventListener('resize', checkOverflow);
-    
-    // Check when content changes
-    const observer = new MutationObserver(() => {
-      setTimeout(checkOverflow, 50);
-    });
-    
+    // Check when content changes using MutationObserver (more efficient than polling)
     if (contentRef.current) {
+      observer = new MutationObserver(debouncedCheckOverflow);
       observer.observe(contentRef.current, { 
         childList: true, 
         subtree: true, 
@@ -386,9 +389,10 @@ const A4PageWrapper = ({ children }) => {
 
     return () => {
       clearTimeout(timeoutId);
-      clearInterval(intervalId);
-      window.removeEventListener('resize', checkOverflow);
-      observer.disconnect();
+      window.removeEventListener('resize', debouncedCheckOverflow);
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, []);
 

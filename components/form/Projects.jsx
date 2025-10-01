@@ -4,9 +4,11 @@ import FormButton from "./FormButton";
 import React, { useContext } from "react";
 import { ResumeContext } from "../../contexts/ResumeContext";
 import EditableFormTitle from './EditableFormTitle';
+import { useTodayDate, MIN_DATE } from "../../lib/dateUtils";
 
 const Projects = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
+  const todayDate = useTodayDate();
 
   const handleProjects = (e, index) => {
     const newProjects = [...resumeData.projects];
@@ -66,12 +68,14 @@ const Projects = () => {
             <div>
               <label className="label-text">Project Link</label>
               <input
-                type="text"
-                placeholder="Include https:// in the link"
+                type="url"
+                placeholder="https://example.com/project"
                 name="link"
                 className="other-input w-full"
                 value={project.link}
                 onChange={(e) => handleProjects(e, index)}
+                pattern="https?://.+"
+                title="Please enter a valid URL starting with http:// or https://"
               />
             </div>
           </div>

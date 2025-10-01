@@ -4,9 +4,11 @@ import FormButton from "./FormButton";
 import React, { useContext } from "react";
 import { ResumeContext } from "../../contexts/ResumeContext";
 import EditableFormTitle from './EditableFormTitle';
+import { useTodayDate, MIN_DATE } from "../../lib/dateUtils";
 
 const Education = () => {
     const { resumeData, setResumeData} = useContext(ResumeContext);
+    const todayDate = useTodayDate();
 
     const handleEducation = (e, index) => {
       const newEducation = [...resumeData.education];
@@ -76,8 +78,8 @@ const Education = () => {
                   value={education.startYear}
                   onChange={(e) => handleEducation(e, index)}
                   className="other-input w-full"
-                  max={new Date().toISOString().split('T')[0]}
-                  min="1950-01-01"
+                  max={todayDate}
+                  min={MIN_DATE}
                 />
               </div>
               <div>
@@ -88,8 +90,8 @@ const Education = () => {
                   value={education.endYear}
                   onChange={(e) => handleEducation(e, index)}
                   className="other-input w-full"
-                  max={new Date().toISOString().split('T')[0]}
-                  min="1950-01-01"
+                  max={todayDate}
+                  min={MIN_DATE}
                 />
               </div>
             </div>
