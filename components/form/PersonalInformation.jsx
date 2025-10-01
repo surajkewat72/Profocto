@@ -43,12 +43,14 @@ const PersonalInformation = ({}) => {
           <div>
             <label className="label-text">Phone Number</label>
             <input
-              type="text"
-              placeholder="Your contact number"
+              type="tel"
+              placeholder="Your contact number (+1234567890)"
               name="contactInformation"
               className="pi w-full"
               value={resumeData.contactInformation}
               onChange={handleChange}
+              pattern="^\+?[1-9]\d{1,14}$"
+              title="Please enter a valid international phone number"
               minLength="10"
               maxLength="15"
             />

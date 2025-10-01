@@ -4,36 +4,53 @@ export default function Meta({ title, keywords, description }) {
     const homepage = "https://free-next-resume-maker.vercel.app";
     const logo = "/assets/logo.png";
     const fevicon = "/assets/logo.png";
-    function isiteJsonLd() {
-        return {
-            __html: `{
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                "url": "${homepage}",
-                "logo": "${homepage}${logo}",
-                "contactPoint": {
-                    "@type": "ContactPoint",
-                    "telephone": "+91 1234567890",
-                    "contactType": "customer service"
-                },
-                "image": "${homepage}${logo}",
-                "description": "${description}",
-                "founder": "HOT HEAD",
-                "foundingDate": "2024",
-                "foundingLocation": "IN",
-                "email": "xyz@gmail.com",
+    function generateJsonLd() {
+        // Sanitize inputs to prevent XSS attacks
+        const sanitizeString = (str) => {
+            if (!str) return '';
+            return str.replace(/[<>'"&]/g, (match) => {
+                const escapeMap = {
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#x27;',
+                    '&': '&amp;'
+                };
+                return escapeMap[match];
+            });
+        };
+
+        const jsonLdData = {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "url": homepage,
+            "logo": `${homepage}${logo}`,
+            "contactPoint": {
+                "@type": "ContactPoint",
                 "telephone": "+91 1234567890",
-                "areaServed": "IN",
-                "keywords": "${keywords}",
-                "mainEntityOfPage": "${homepage}",
-                "knowsAbout": "${keywords}",
-                "knowsLanguage": "English",
-                "memberOf": "Opensource",
-                "owns": "HOT HEAD",
-                "publishingPrinciples": "${homepage}",
-                "slogan": "free resume maker for humanity"
-            }`
-        }
+                "contactType": "customer service"
+            },
+            "image": `${homepage}${logo}`,
+            "description": sanitizeString(description),
+            "founder": "HOT HEAD",
+            "foundingDate": "2024",
+            "foundingLocation": "IN",
+            "email": "xyz@gmail.com",
+            "telephone": "+91 1234567890",
+            "areaServed": "IN",
+            "keywords": sanitizeString(keywords),
+            "mainEntityOfPage": homepage,
+            "knowsAbout": sanitizeString(keywords),
+            "knowsLanguage": "English",
+            "memberOf": "Opensource",
+            "owns": "HOT HEAD",
+            "publishingPrinciples": homepage,
+            "slogan": "free resume maker for humanity"
+        };
+
+        return {
+            __html: JSON.stringify(jsonLdData)
+        };
     }
 
 
@@ -65,8 +82,8 @@ export default function Meta({ title, keywords, description }) {
             <meta property="twitter:image" content={logo} />
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={isiteJsonLd()}
-                key="isiteJsonLd"
+                dangerouslySetInnerHTML={generateJsonLd()}
+                key="jsonLdSchema"
             />
         </Head>
     );
