@@ -24,6 +24,17 @@ import Language from "./Language";
 import Certification from "./Certification";
 import TemplateTwo from "./TemplateTwo";
 
+// Move defaultSections outside component to avoid re-creation and dependency issues
+const defaultSections = [
+  "about",
+  "projects", 
+  "experience",
+  "skills",
+  "softskills",
+  "languages",
+  "certifications"
+];
+
 const Preview = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
   const [currentTemplate, setCurrentTemplate] = useState("template1");
@@ -67,16 +78,6 @@ const Preview = () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
-
-  const defaultSections = [
-    "about",
-    "projects",
-    "experience",
-    "skills",
-    "softskills",
-    "languages",
-    "certifications"
-  ];
 
   const [sectionOrder, setSectionOrder] = useState(defaultSections);
 
