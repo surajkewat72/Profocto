@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const templates = [
   {
@@ -102,9 +103,11 @@ function TemplateCard({ template }: { template: Template }) {
     >
       <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-transparent to-pink-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div className="aspect-[4/3] relative">
-        <img
+        <Image
           src={template.image}
           alt={template.name}
+          width={400}
+          height={300}
           className="object-contain w-full h-full p-4 bg-white/5"
         />
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
