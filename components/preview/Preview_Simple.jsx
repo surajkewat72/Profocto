@@ -199,7 +199,7 @@ const Preview = () => {
               <div className="flex justify-center mb-2">
                 <Image
                   src={resumeData.profilePicture}
-                  alt="profile"
+                  alt="Profile picture"
                   width={100}
                   height={100}
                   className="rounded-full border-2 border-gray-300"

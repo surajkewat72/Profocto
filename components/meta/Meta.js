@@ -9,28 +9,28 @@ export default function Meta({ title, keywords, description }) {
             __html: `{
                 "@context": "https://schema.org",
                 "@type": "Organization",
-                "url": ${homepage},
-                "logo": ${logo},
+                "url": "${homepage}",
+                "logo": "${homepage}${logo}",
                 "contactPoint": {
                     "@type": "ContactPoint",
                     "telephone": "+91 1234567890",
                     "contactType": "customer service"
                 },
-                "image": ${logo},
-                "description": ${description},
+                "image": "${homepage}${logo}",
+                "description": "${description}",
                 "founder": "HOT HEAD",
                 "foundingDate": "2024",
                 "foundingLocation": "IN",
                 "email": "xyz@gmail.com",
                 "telephone": "+91 1234567890",
                 "areaServed": "IN",
-                "keywords": ${keywords},
-                "mainEntityOfPage": ${homepage},
-                "knowsAbout": ${keywords},
+                "keywords": "${keywords}",
+                "mainEntityOfPage": "${homepage}",
+                "knowsAbout": "${keywords}",
                 "knowsLanguage": "English",
-                "memberOf": "Oensource",
+                "memberOf": "Opensource",
                 "owns": "HOT HEAD",
-                "publishingPrinciples": ${homepage},
+                "publishingPrinciples": "${homepage}",
                 "slogan": "free resume maker for humanity"
             }`
         }
@@ -45,8 +45,8 @@ export default function Meta({ title, keywords, description }) {
             <meta charSet="utf-8" />
             <link rel="icon" href={fevicon} />
             <title>{title}</title>
-            <meta type="copyright" content="Resume Maker" />
-            <meta type="author" content="HOT HEAD" />
+            <meta name="copyright" content="Resume Maker" />
+            <meta name="author" content="HOT HEAD" />
             {/* Open Graph */}
             <meta property="og:type" content="website" />
             <meta property="og:url" content={homepage} />
