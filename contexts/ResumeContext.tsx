@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import { createContext } from "react";
 import DefaultResumeData from "../components/utility/DefaultResumeData";
 import type { ResumeData, ResumeContextType } from "../app/types/resume";
 

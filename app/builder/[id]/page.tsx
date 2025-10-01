@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import LogoutLoader from "@/components/auth/LogoutLoader";
 
 // Import your existing builder components
@@ -56,7 +56,7 @@ export default function BuilderPage() {
     setIsLoggingOut(true);
     try {
       await signOut({ callbackUrl: '/' });
-    } catch (error) {
+    } catch {
       // Handle any errors
     } finally {
       // The page will redirect, so we don't need to set loading to false
@@ -186,9 +186,9 @@ export default function BuilderPage() {
                         <div className="space-y-4">
                           {resumeData.skills
                             .filter(
-                              (skill: any) => skill.title !== "Soft Skills"
+                              (skill: { title: string; skills: string[] }) => skill.title !== "Soft Skills"
                             )
-                            .map((skill: any, index: number) => (
+                            .map((skill: { title: string; skills: string[] }, index: number) => (
                               <Skill title={skill.title} key={index} />
                             ))}
                         </div>
@@ -196,8 +196,8 @@ export default function BuilderPage() {
 
                       {/* Soft Skills Section */}
                       {resumeData.skills
-                        .filter((skill: any) => skill.title === "Soft Skills")
-                        .map((skill: any, index: number) => (
+                        .filter((skill: { title: string; skills: string[] }) => skill.title === "Soft Skills")
+                        .map((skill: { title: string; skills: string[] }, index: number) => (
                           <Skill title={skill.title} key={index} />
                         ))}
 
@@ -238,9 +238,11 @@ export default function BuilderPage() {
                               }}
                             >
                               {session?.user?.image ? (
-                                <img 
+                                <Image 
                                   src={session.user.image} 
                                   alt={session.user.name || 'User'}
+                                  width={40}
+                                  height={40}
                                   className="w-full h-full rounded-full object-cover"
                                   onError={(e) => {
                                     // Hide the image and show fallback text when image fails to load

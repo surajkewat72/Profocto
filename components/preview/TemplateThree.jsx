@@ -3,6 +3,7 @@
 import React, { useContext } from "react";
 import { ResumeContext } from "../../contexts/ResumeContext";
 import { useSectionTitles } from "../../contexts/SectionTitleContext";
+import Image from "next/image";
 
 const TemplateThree = () => {
   const { resumeData } = useContext(ResumeContext);
@@ -24,9 +25,11 @@ const TemplateThree = () => {
           <div className="flex justify-center mb-8 mt-4">
             <div className="w-36 h-36 rounded-full overflow-hidden bg-white shadow-xl border-4 border-white/30">
               {resumeData.profileImage ? (
-                <img
+                <Image
                   src={resumeData.profileImage}
                   alt="Profile"
+                  width={144}
+                  height={144}
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     // Hide broken image and show default fallback
