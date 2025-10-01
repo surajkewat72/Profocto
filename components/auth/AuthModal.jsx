@@ -18,8 +18,9 @@ const AuthModal = ({ isOpen, onClose }) => {
         redirect: true
       });
     } catch (error) {
-      // Authentication error occurred
+      console.error('Authentication error:', error);
       setLoading(false);
+      // Could add user notification here in the future
     }
   };
 
