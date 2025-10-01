@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
+import toast from 'react-hot-toast';
 import { Inter, Playfair_Display } from 'next/font/google';
 import AuthModal from '../auth/AuthModal';
 import LogoutLoader from '../auth/LogoutLoader';
@@ -30,11 +31,15 @@ export default function Hero() {
     
     const router = useRouter();
     const { data: session, status } = useSession();
+    const searchParams = useSearchParams();
 
     // Track authentication status changes
     useEffect(() => {
-        // Authentication status tracking for component state
-    }, [session, status]);
+        const error = searchParams.get('error');
+        if (error) {
+            toast.error('Sign-in was canceled. Please try again.');
+        }
+    }, [searchParams]);
 
     useEffect(() => {
         // Handle video loading state with faster detection
