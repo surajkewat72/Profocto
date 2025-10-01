@@ -268,31 +268,32 @@ const Preview = () => {
               <FaTh className="w-3 h-3 sm:w-4 sm:h-4" />
               <span className="font-medium hidden sm:inline">Sections</span>
               <span className="font-medium sm:hidden">Sec</span>
-              <FaChevronDown className={`w-2 h-2 sm:w-3 sm:h-3 transition-transform ${showSectionToggle ? 'rotate-180' : ''}`} />
+              <FaChevronDown className={`w-2 h-2 sm:w-3 sm:h-3 chevron-rotate ${showSectionToggle ? 'open' : ''}`} />
             </button>
             
             {/* Section Toggle Dropdown */}
-            {showSectionToggle && (
-              <div className="absolute right-0 mt-2 w-64 sm:w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-3">
+            <div className={`dropdown-container ${showSectionToggle ? 'open' : 'closed'}`}>
+              <div className="absolute right-0 mt-2 w-64 sm:w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-3 dropdown-enhanced">
                 <div className="px-3 sm:px-4 pb-2 border-b border-gray-200">
                   <h3 className="text-xs sm:text-sm font-semibold text-gray-900">Toggle Resume Sections</h3>
                   <p className="text-xs text-gray-600 mt-1">Hide sections you don&apos;t need (e.g., freshers can hide experience)</p>
                 </div>
                 <div className="py-2 max-h-60 overflow-y-auto">
-                  {defaultSections.map((sectionId) => (
+                  {defaultSections.map((sectionId, index) => (
                     <label
                       key={sectionId}
-                      className="flex items-center gap-3 px-4 py-2 hover:bg-pink-50 cursor-pointer"
+                      className={`flex items-center gap-3 px-4 py-2 hover:bg-pink-50 cursor-pointer dropdown-item transition-all duration-200`}
+                      style={{ animationDelay: `${index * 50}ms` }}
                     >
                       <input
                         type="checkbox"
                         checked={enabledSections[sectionId]}
                         onChange={() => toggleSection(sectionId)}
-                        className="w-4 h-4 text-pink-600 bg-white border-2 border-gray-300 rounded focus:ring-pink-500 focus:ring-2 checked:bg-pink-600 checked:border-pink-600"
+                        className="w-4 h-4 text-pink-600 bg-white border-2 border-gray-300 rounded focus:ring-pink-500 focus:ring-2 checked:bg-pink-600 checked:border-pink-600 transition-all duration-200"
                       />
                       <span className="text-sm text-gray-900 flex-1">{sectionLabels[sectionId]}</span>
                       {!enabledSections[sectionId] && (
-                        <FaEyeSlash className="w-4 h-4 text-gray-400" title="Hidden" />
+                        <FaEyeSlash className="w-4 h-4 text-gray-400 transition-all duration-200" title="Hidden" />
                       )}
                     </label>
                   ))}
@@ -303,7 +304,7 @@ const Preview = () => {
                   </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Template Selector */}
@@ -319,13 +320,13 @@ const Preview = () => {
               <span className="font-medium sm:hidden">
                 {templates.find(t => t.id === currentTemplate)?.name.split(' ')[0]}
               </span>
-              <FaChevronDown className={`w-2 h-2 sm:w-3 sm:h-3 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+              <FaChevronDown className={`w-2 h-2 sm:w-3 sm:h-3 chevron-rotate ${isDropdownOpen ? 'open' : ''}`} />
             </button>
             
             {/* Dropdown Menu */}
-            {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-56 sm:w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
-                {templates.map((template) => {
+            <div className={`dropdown-container ${isDropdownOpen ? 'open' : 'closed'}`}>
+              <div className="absolute right-0 mt-2 w-56 sm:w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 dropdown-enhanced">
+                {templates.map((template, index) => {
                   const IconComponent = template.icon;
                   return (
                     <button
@@ -334,65 +335,70 @@ const Preview = () => {
                         setCurrentTemplate(template.id);
                         setIsDropdownOpen(false);
                       }}
-                      className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-pink-50 transition-colors ${
+                      className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-pink-50 transition-all duration-200 dropdown-item ${
                         currentTemplate === template.id ? 'bg-pink-50 border-r-2 border-pink-500' : ''
                       }`}
+                      style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      <IconComponent className={`w-4 h-4 ${currentTemplate === template.id ? 'text-pink-600' : 'text-gray-600'}`} />
+                      <IconComponent className={`w-4 h-4 transition-colors duration-200 ${currentTemplate === template.id ? 'text-pink-600' : 'text-gray-600'}`} />
                       <div className="text-left">
-                        <div className={`font-medium text-sm ${currentTemplate === template.id ? 'text-pink-900' : 'text-gray-900'}`}>
+                        <div className={`font-medium text-sm transition-colors duration-200 ${currentTemplate === template.id ? 'text-pink-900' : 'text-gray-900'}`}>
                           {template.name}
                         </div>
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-gray-500 transition-colors duration-200">
                           {template.description}
                         </div>
                       </div>
                       {currentTemplate === template.id && (
-                        <div className="ml-auto w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <div className="ml-auto w-2 h-2 bg-blue-500 rounded-full transition-all duration-200"></div>
                       )}
                     </button>
                   );
                 })}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
       <A4PageWrapper>
-        {currentTemplate === "template1" ? (
-          <ClassicTemplate 
-            resumeData={resumeData} 
-            sectionOrder={sectionOrder}
-            enabledSections={enabledSections}
-            handleDragEnd={handleDragEnd}
-            sensors={sensors}
-            icons={icons}
-            setResumeData={setResumeData}
-          />
-        ) : (
-          <TemplateTwo
-            namedata={resumeData.name}
-            positionData={resumeData.position}
-            contactData={resumeData.contactInformation}
-            emailData={resumeData.email}
-            addressData={resumeData.address}
-            telIcon={<MdPhone />}
-            emailIcon={<MdEmail />}
-            addressIcon={<MdLocationOn />}
-            summaryData={resumeData.summary}
-            educationData={resumeData.education}
-            projectsData={resumeData.projects}
-            workExperienceData={resumeData.workExperience}
-            skillsData={resumeData.skills}
-            languagesData={resumeData.languages}
-            certificationsData={resumeData.certifications}
-            sectionOrder={sectionOrder}
-            enabledSections={enabledSections}
-            onDragEnd={onDragEnd}
-            resumeData={resumeData}
-            setResumeData={setResumeData}
-          />
-        )}
+
+        <div className="template-transition">
+          {currentTemplate === "template1" ? (
+            <ClassicTemplate 
+              resumeData={resumeData} 
+              sectionOrder={sectionOrder}
+              enabledSections={enabledSections}
+              handleDragEnd={handleDragEnd}
+              sensors={sensors}
+              icons={icons}
+              setResumeData={setResumeData}
+            />
+          ) : (
+            <TemplateTwo
+              namedata={resumeData.name}
+              positiondata={resumeData.position}
+              contactdata={resumeData.contactInformation}
+              emaildata={resumeData.email}
+              addressdata={resumeData.address}
+              telicon={<MdPhone />}
+              emailicon={<MdEmail />}
+              addressicon={<MdLocationOn />}
+              summarydata={resumeData.summary}
+              educationdata={resumeData.education}
+              projectsdata={resumeData.projects}
+              workExperiencedata={resumeData.workExperience}
+              skillsdata={resumeData.skills}
+              languagesdata={resumeData.languages}
+              certificationsdata={resumeData.certifications}
+              sectionOrder={sectionOrder}
+              enabledSections={enabledSections}
+              onDragEnd={onDragEnd}
+              resumeData={resumeData}
+              setResumeData={setResumeData}
+            />
+          )}
+        </div>
+
       </A4PageWrapper>
     </div>
   );
@@ -470,10 +476,19 @@ const ClassicTemplate = ({
 }) => {
   const { customSectionTitles } = useSectionTitles();
   const [isClient, setIsClient] = useState(false);
+  const [collapsedSections, setCollapsedSections] = useState({});
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // Toggle section collapse
+  const toggleSectionCollapse = (sectionId) => {
+    setCollapsedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId]
+    }));
+  };
 
   // Handle drag end for items within sections (same as Modern Template)
   const handleItemDragEnd = (event, sectionType) => {
@@ -518,221 +533,289 @@ const ClassicTemplate = ({
     .filter(section => section !== undefined && enabledSections[section.id]);
 
   const renderSection = (section) => {
+    const isCollapsed = collapsedSections[section.id];
+    
     switch(section.id) {
       case "summary":
         return (
-          <div>
-            <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
-              {customSectionTitles.summary || "Professional Summary"}
-            </h2>
-            <p className="content text-gray-700 text-justify">{resumeData.summary}</p>
+          <div className="form-section-collapsible">
+            <div 
+              className="flex items-center justify-between cursor-pointer mb-2"
+              onClick={() => toggleSectionCollapse(section.id)}
+            >
+              <h2 className="section-title border-b-2 border-gray-300 text-gray-900">
+                {customSectionTitles.summary || "Professional Summary"}
+              </h2>
+              <FaChevronDown className={`w-3 h-3 chevron-rotate ${isCollapsed ? '' : 'open'} text-gray-600`} />
+            </div>
+            <div className={`section-collapse ${isCollapsed ? 'closed' : 'open'}`}>
+              <p className="content text-gray-700 text-justify">{resumeData.summary}</p>
+            </div>
           </div>
         );
 
       case "education":
         return resumeData.education.length > 0 ? (
-          <div>
-            <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
-              {customSectionTitles.education || "Education"}
-            </h2>
-            {resumeData.education.map((item, index) => (
-              <div key={index} className="mb-1 flex justify-between items-start">
-                <div className="flex-1">
-                  <h3 className="content font-semibold text-gray-900">{item.school}</h3>
-                  <p className="content text-gray-700">{item.degree}</p>
+          <div className="form-section-collapsible">
+            <div 
+              className="flex items-center justify-between cursor-pointer mb-2"
+              onClick={() => toggleSectionCollapse(section.id)}
+            >
+              <h2 className="section-title border-b-2 border-gray-300 text-gray-900">
+                {customSectionTitles.education || "Education"}
+              </h2>
+              <FaChevronDown className={`w-3 h-3 chevron-rotate ${isCollapsed ? '' : 'open'} text-gray-600`} />
+            </div>
+            <div className={`section-collapse ${isCollapsed ? 'closed' : 'open'}`}>
+              {resumeData.education.map((item, index) => (
+                <div key={index} className="mb-1 flex justify-between items-start">
+                  <div className="flex-1">
+                    <h3 className="content font-semibold text-gray-900">{item.school}</h3>
+                    <p className="content text-gray-700">{item.degree}</p>
+                  </div>
+                  <div className="ml-4 text-right">
+                    <DateRange
+                      startYear={item.startYear}
+                      endYear={item.endYear}
+                      id={`education-${index}`}
+                    />
+                  </div>
                 </div>
-                <div className="ml-4 text-right">
-                  <DateRange
-                    startYear={item.startYear}
-                    endYear={item.endYear}
-                    id={`education-${index}`}
-                  />
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         ) : null;
 
       case "experience":
         return resumeData.workExperience.length > 0 ? (
-          <div>
-            <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
-              {customSectionTitles.experience || "Professional Experience"}
-            </h2>
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={(event) => handleItemDragEnd(event, 'experience')}
+          <div className="form-section-collapsible">
+            <div 
+              className="flex items-center justify-between cursor-pointer mb-2"
+              onClick={() => toggleSectionCollapse(section.id)}
             >
-              <SortableContext
-                items={resumeData.workExperience.map((_, idx) => `work-${idx}`)}
-                strategy={verticalListSortingStrategy}
+              <h2 className="section-title border-b-2 border-gray-300 text-gray-900">
+                {customSectionTitles.experience || "Professional Experience"}
+              </h2>
+              <FaChevronDown className={`w-3 h-3 chevron-rotate ${isCollapsed ? '' : 'open'} text-gray-600`} />
+            </div>
+            <div className={`section-collapse ${isCollapsed ? 'closed' : 'open'}`}>
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={(event) => handleItemDragEnd(event, 'experience')}
               >
-                {resumeData.workExperience.map((item, index) => (
-                  <SortableItem key={`work-${index}`} id={`work-${index}`}>
-                    <div className="flex justify-between items-start mb-1">
-                      <div className="flex-1">
-                        <h3 className="content i-bold text-gray-900">{item.position}</h3>
-                        <p className="content text-gray-700">{item.company}</p>
+                <SortableContext
+                  items={resumeData.workExperience.map((_, idx) => `work-${idx}`)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {resumeData.workExperience.map((item, index) => (
+                    <SortableItem key={`work-${index}`} id={`work-${index}`}>
+                      <div className="flex justify-between items-start mb-1">
+                        <div className="flex-1">
+                          <h3 className="content i-bold text-gray-900">{item.position}</h3>
+                          <p className="content text-gray-700">{item.company}</p>
+                        </div>
+                        <div className="text-right">
+                          <DateRange
+                            startYear={item.startYear}
+                            endYear={item.endYear}
+                            id={`work-experience-${index}`}
+                          />
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <DateRange
-                          startYear={item.startYear}
-                          endYear={item.endYear}
-                          id={`work-experience-${index}`}
-                        />
-                      </div>
-                    </div>
-                    <p className="content text-gray-700 mb-2">{item.description}</p>
-                    {typeof item.keyAchievements === "string" && item.keyAchievements.trim() && (
-                      <ul className="list-disc list-inside content text-gray-700 ml-4">
-                        {item.keyAchievements
-                          .split("\n")
-                          .filter(achievement => achievement.trim())
-                          .map((achievement, subIndex) => (
-                            <li key={`${item.company}-${index}-${subIndex}`}>
-                              {achievement}
-                            </li>
-                          ))}
-                      </ul>
-                    )}
-                  </SortableItem>
-                ))}
-              </SortableContext>
-            </DndContext>
+                      <p className="content text-gray-700 mb-2">{item.description}</p>
+                      {typeof item.keyAchievements === "string" && item.keyAchievements.trim() && (
+                        <ul className="list-disc list-inside content text-gray-700 ml-4">
+                          {item.keyAchievements
+                            .split("\n")
+                            .filter(achievement => achievement.trim())
+                            .map((achievement, subIndex) => (
+                              <li key={`${item.company}-${index}-${subIndex}`}>
+                                {achievement}
+                              </li>
+                            ))}
+                        </ul>
+                      )}
+                    </SortableItem>
+                  ))}
+                </SortableContext>
+              </DndContext>
+            </div>
           </div>
         ) : null;
 
       case "projects":
         return resumeData.projects.length > 0 ? (
-          <div>
-            <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
-              {customSectionTitles.projects || "Projects"}
-            </h2>
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={(event) => handleItemDragEnd(event, 'projects')}
+          <div className="form-section-collapsible">
+            <div 
+              className="flex items-center justify-between cursor-pointer mb-2"
+              onClick={() => toggleSectionCollapse(section.id)}
             >
-              <SortableContext
-                items={resumeData.projects.map((_, idx) => `project-${idx}`)}
-                strategy={verticalListSortingStrategy}
+              <h2 className="section-title border-b-2 border-gray-300 text-gray-900">
+                {customSectionTitles.projects || "Projects"}
+              </h2>
+              <FaChevronDown className={`w-3 h-3 chevron-rotate ${isCollapsed ? '' : 'open'} text-gray-600`} />
+            </div>
+            <div className={`section-collapse ${isCollapsed ? 'closed' : 'open'}`}>
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={(event) => handleItemDragEnd(event, 'projects')}
               >
-                {resumeData.projects.map((item, index) => (
-                  <SortableItem key={`project-${index}`} id={`project-${index}`}>
-                    <div className="flex justify-between items-start mb-1">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <h3 className="content i-bold text-gray-900">{item.name}</h3>
-                          {item.link && (
-                            <Link
-                              href={item.link}
-                              className="text-blue-600 hover:text-blue-800 transition-colors"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <FaExternalLinkAlt className="w-3 h-3" />
-                            </Link>
-                          )}
+                <SortableContext
+                  items={resumeData.projects.map((_, idx) => `project-${idx}`)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {resumeData.projects.map((item, index) => (
+                    <SortableItem key={`project-${index}`} id={`project-${index}`}>
+                      <div className="flex justify-between items-start mb-1">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <h3 className="content i-bold text-gray-900">{item.name}</h3>
+                            {item.link && (
+                              <Link
+                                href={item.link}
+                                className="text-blue-600 hover:text-blue-800 transition-colors"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <FaExternalLinkAlt className="w-3 h-3" />
+                              </Link>
+                            )}
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <DateRange
+                            startYear={item.startYear}
+                            endYear={item.endYear}
+                            id={`projects-${index}`}
+                          />
                         </div>
                       </div>
-                      <div className="text-right">
-                        <DateRange
-                          startYear={item.startYear}
-                          endYear={item.endYear}
-                          id={`projects-${index}`}
-                        />
-                      </div>
-                    </div>
-                    <p className="content text-gray-700 mb-2">{item.description}</p>
-                    {typeof item.keyAchievements === "string" && item.keyAchievements.trim() && (
-                      <ul className="list-disc list-inside content text-gray-700 ml-4">
-                        {item.keyAchievements
-                          .split("\n")
-                          .filter(achievement => achievement.trim())
-                          .map((achievement, subIndex) => (
-                            <li key={`${item.name}-${index}-${subIndex}`}>
-                              {achievement}
-                            </li>
-                          ))}
-                      </ul>
-                    )}
-                  </SortableItem>
-                ))}
-              </SortableContext>
-            </DndContext>
+                      <p className="content text-gray-700 mb-2">{item.description}</p>
+                      {typeof item.keyAchievements === "string" && item.keyAchievements.trim() && (
+                        <ul className="list-disc list-inside content text-gray-700 ml-4">
+                          {item.keyAchievements
+                            .split("\n")
+                            .filter(achievement => achievement.trim())
+                            .map((achievement, subIndex) => (
+                              <li key={`${item.name}-${index}-${subIndex}`}>
+                                {achievement}
+                              </li>
+                            ))}
+                        </ul>
+                      )}
+                    </SortableItem>
+                  ))}
+                </SortableContext>
+              </DndContext>
+            </div>
           </div>
         ) : null;
 
       case "skills":
         return (
-          <div>
-            <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
-              {customSectionTitles.skills || "Technical Skills"}
-            </h2>
-            {resumeData.skills
-              .filter(skill => skill.title !== "Soft Skills")
-              .map((skill, index) => (
-                <div key={`SKILLS-${index}`} className="mb-3">
-                  <h3 className="content i-bold text-gray-900 mb-1">{skill.title}</h3>
-                  <p className="content text-gray-700">{skill.skills.join(", ")}</p>
-                </div>
-              ))}
+          <div className="form-section-collapsible">
+            <div 
+              className="flex items-center justify-between cursor-pointer mb-2"
+              onClick={() => toggleSectionCollapse(section.id)}
+            >
+              <h2 className="section-title border-b-2 border-gray-300 text-gray-900">
+                {customSectionTitles.skills || "Technical Skills"}
+              </h2>
+              <FaChevronDown className={`w-3 h-3 chevron-rotate ${isCollapsed ? '' : 'open'} text-gray-600`} />
+            </div>
+            <div className={`section-collapse ${isCollapsed ? 'closed' : 'open'}`}>
+              {resumeData.skills
+                .filter(skill => skill.title !== "Soft Skills")
+                .map((skill, index) => (
+                  <div key={`SKILLS-${index}`} className="mb-3">
+                    <h3 className="content i-bold text-gray-900 mb-1">{skill.title}</h3>
+                    <p className="content text-gray-700">{skill.skills.join(", ")}</p>
+                  </div>
+                ))}
+            </div>
           </div>
         );
 
       case "softSkills":
         return (
-          <div>
-            <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
-              {customSectionTitles.softSkills || "Soft Skills"}
-            </h2>
-            <p className="content text-gray-700">
-              {resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills?.join(", ")}
-            </p>
+
+          <div className="form-section-collapsible">
+            <div 
+              className="flex items-center justify-between cursor-pointer mb-2"
+              onClick={() => toggleSectionCollapse(section.id)}
+            >
+              <h2 className="section-title border-b-2 border-gray-300 text-gray-900">
+                {customSectionTitles.softskills || "Soft Skills"}
+              </h2>
+              <FaChevronDown className={`w-3 h-3 chevron-rotate ${isCollapsed ? '' : 'open'} text-gray-600`} />
+            </div>
+            <div className={`section-collapse ${isCollapsed ? 'closed' : 'open'}`}>
+              <p className="content text-gray-700">
+                {resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills?.join(", ")}
+              </p>
+            </div>
+
           </div>
         );
 
       case "languages":
         return resumeData.languages.length > 0 ? (
-          <div>
-            <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
-              {customSectionTitles.languages || "Languages"}
-            </h2>
-            <p className="content text-gray-700">{resumeData.languages.join(", ")}</p>
+          <div className="form-section-collapsible">
+            <div 
+              className="flex items-center justify-between cursor-pointer mb-2"
+              onClick={() => toggleSectionCollapse(section.id)}
+            >
+              <h2 className="section-title border-b-2 border-gray-300 text-gray-900">
+                {customSectionTitles.languages || "Languages"}
+              </h2>
+              <FaChevronDown className={`w-3 h-3 chevron-rotate ${isCollapsed ? '' : 'open'} text-gray-600`} />
+            </div>
+            <div className={`section-collapse ${isCollapsed ? 'closed' : 'open'}`}>
+              <p className="content text-gray-700">{resumeData.languages.join(", ")}</p>
+            </div>
           </div>
         ) : null;
 
       case "certifications":
         return resumeData.certifications.length > 0 ? (
-          <div>
-            <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
-              {customSectionTitles.certifications || "Certifications"}
-            </h2>
-            <ul className="list-disc list-inside content text-gray-700">
-              {resumeData.certifications.map((cert, index) => (
-                <li key={index} className="mb-1">
-                  <div className="flex items-center gap-2">
-                    <span>
-                      {typeof cert === 'string' ? cert : cert.name}
-                      {typeof cert === 'object' && cert.issuer && (
-                        <span className="text-gray-600"> - {cert.issuer}</span>
+          <div className="form-section-collapsible">
+            <div 
+              className="flex items-center justify-between cursor-pointer mb-2"
+              onClick={() => toggleSectionCollapse(section.id)}
+            >
+              <h2 className="section-title border-b-2 border-gray-300 text-gray-900">
+                {customSectionTitles.certifications || "Certifications"}
+              </h2>
+              <FaChevronDown className={`w-3 h-3 chevron-rotate ${isCollapsed ? '' : 'open'} text-gray-600`} />
+            </div>
+            <div className={`section-collapse ${isCollapsed ? 'closed' : 'open'}`}>
+              <ul className="list-disc list-inside content text-gray-700">
+                {resumeData.certifications.map((cert, index) => (
+                  <li key={index} className="mb-1">
+                    <div className="flex items-center gap-2">
+                      <span>
+                        {typeof cert === 'string' ? cert : cert.name}
+                        {typeof cert === 'object' && cert.issuer && (
+                          <span className="text-gray-600"> - {cert.issuer}</span>
+                        )}
+                      </span>
+                      {typeof cert === 'object' && cert.link && cert.link.trim() !== '' && (
+                        <Link
+                          href={cert.link}
+                          className="text-blue-600 hover:text-blue-800 transition-colors"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <FaExternalLinkAlt className="w-3 h-3" />
+                        </Link>
                       )}
-                    </span>
-                    {typeof cert === 'object' && cert.link && cert.link.trim() !== '' && (
-                      <Link
-                        href={cert.link}
-                        className="text-blue-600 hover:text-blue-800 transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaExternalLinkAlt className="w-3 h-3" />
-                      </Link>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         ) : null;
 

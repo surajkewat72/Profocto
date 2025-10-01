@@ -995,6 +995,142 @@ input[type="week"] {
     color-scheme: light !important;
 }
 
+/* Dropdown Animation Styles */
+.dropdown-enter {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-enter-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.dropdown-exit {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-exit-active {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+}
+
+/* Smooth dropdown container */
+.dropdown-container {
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-container.closed {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+.dropdown-container.open {
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Section collapse animation */
+.section-collapse {
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-collapse.closed {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.section-collapse.open {
+    max-height: 2000px;
+    opacity: 1;
+}
+
+/* Smooth chevron rotation */
+.chevron-rotate {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chevron-rotate.open {
+    transform: rotate(180deg);
+}
+
+/* Enhanced dropdown shadow and backdrop */
+.dropdown-enhanced {
+    backdrop-filter: blur(8px);
+    box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04),
+        0 0 0 1px rgba(236, 72, 153, 0.1);
+    border: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+/* Smooth hover effects for dropdown items */
+.dropdown-item {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(0);
+}
+
+.dropdown-item:hover {
+    transform: translateX(4px);
+    background-color: rgba(236, 72, 153, 0.05);
+}
+
+/* Staggered animation for dropdown items */
+.dropdown-item:nth-child(1) { animation-delay: 0ms; }
+.dropdown-item:nth-child(2) { animation-delay: 50ms; }
+.dropdown-item:nth-child(3) { animation-delay: 100ms; }
+.dropdown-item:nth-child(4) { animation-delay: 150ms; }
+.dropdown-item:nth-child(5) { animation-delay: 200ms; }
+.dropdown-item:nth-child(6) { animation-delay: 250ms; }
+.dropdown-item:nth-child(7) { animation-delay: 300ms; }
+.dropdown-item:nth-child(8) { animation-delay: 350ms; }
+
+/* Form section expand/collapse animation */
+.form-section-collapsible {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.form-section-collapsible.collapsed {
+    max-height: 60px;
+    opacity: 0.7;
+}
+
+.form-section-collapsible.expanded {
+    max-height: 2000px;
+    opacity: 1;
+}
+
+/* Smooth template transition */
+.template-transition {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.template-transition.entering {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+}
+
+.template-transition.entered {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.template-transition.exiting {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.98);
+}
+
 @layer base {
   * {
     @apply border-border;
