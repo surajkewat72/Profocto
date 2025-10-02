@@ -30,6 +30,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://profocto.tech',
   },
+  icons: {
+    icon: '/assets/1.png',
+    shortcut: '/assets/1.png',
+    apple: '/assets/1.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
