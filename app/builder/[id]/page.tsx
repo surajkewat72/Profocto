@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -24,6 +24,7 @@ import { SectionTitleProvider } from "@/contexts/SectionTitleContext";
 import { ResumeContext } from "@/contexts/ResumeContext";
 import Squares from "@/components/ui/Squares";
 import type { ResumeData } from "../../types/resume";
+import { FaChevronUp } from "react-icons/fa";
 
 // server side rendering false
 const Print = dynamic(() => import("@/components/utility/WinPrint"), {
@@ -122,6 +123,16 @@ export default function BuilderPage() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []); // No dependencies needed since we use functional setState
+     const divRef = useRef(null);
+  const scrollToTop = () => {
+    if (divRef.current ) {
+      //@ts-ignore
+      divRef.current.scrollTo({
+        top: 0,
+        behavior: "smooth", // smooth scrolling
+      });
+    }
+  };
 
   // Render the main builder interface (unprotected)
   return (
@@ -152,6 +163,8 @@ export default function BuilderPage() {
                   />
                 </div>
                 <div
+                  
+                  ref={divRef}
                   className="h-full border-r relative z-10 overflow-y-auto"
                   style={{ borderColor: "hsl(240 3.7% 15.9%)" }}
                 >
@@ -328,7 +341,7 @@ export default function BuilderPage() {
                                 />
                               </svg>
                             </button>
-
+                          <button className="absolute   border-pink-500/40 border-[1.7px]  bg-black rounded-full z-[9999] text-white -translate-y-16 bottom-0 mt-3 p-2 right-0 text-xs " onClick={scrollToTop}> <FaChevronUp/></button>
                             {/* Sidebar Close Button */}
                             <button
                               onClick={(e) => {
