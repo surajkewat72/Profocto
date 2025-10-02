@@ -687,7 +687,7 @@ const ClassicTemplate = ({
             <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
               {customSectionTitles.softSkills || "Soft Skills"}
             </h2>
-            <p className="contentfont-sans  text-black">
+            <p className="content font-sans  text-black">
               {resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills?.join(", ")}
             </p>
           </div>
