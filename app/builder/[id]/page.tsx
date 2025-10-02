@@ -24,7 +24,6 @@ import { SectionTitleProvider } from "@/contexts/SectionTitleContext";
 import { ResumeContext } from "@/contexts/ResumeContext";
 import Squares from "@/components/ui/Squares";
 import type { ResumeData } from "../../types/resume";
-import fallbackimage from "@/no-code-files/fallback-image.png";
 
 // server side rendering false
 const Print = dynamic(() => import("@/components/utility/WinPrint"), {
