@@ -33,7 +33,7 @@ export default function SEOContent() {
 
         <h2>Perfect for All Professionals</h2>
         <p>
-          Whether you're a recent graduate, experienced professional, career changer,
+          Whether you&apos;re a recent graduate, experienced professional, career changer,
           or executive, Profocto has the perfect resume template for your needs.
           Our resume builder works for all industries including technology, healthcare,
           finance, marketing, education, and more.
@@ -41,7 +41,7 @@ export default function SEOContent() {
 
         <h2>Free Resume Builder Online</h2>
         <p>
-          Start building your professional resume today with Profocto's free online
+          Start building your professional resume today with Profocto&apos;s free online
           resume builder. No downloads required - create, edit, and export your resume
           directly from your web browser. Join thousands of professionals who have
           successfully created their resumes with Profocto.
@@ -69,7 +69,7 @@ export default function SEOContent() {
                 "name": "Is Profocto resume builder free?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes, Profocto offers a free online resume builder with professional templates, real-time editing, and PDF export capabilities."
+                  "text": "          A: Yes! Profocto&apos;s Profile Élegante is completely free to use. Create unlimited resumes,"
                 }
               },
               {
