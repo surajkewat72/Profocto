@@ -258,25 +258,21 @@ export default function BuilderPage() {
                             >
                               {session?.user?.image ? (
                                 <Image
-                                  src={session.user.image || fallbackimage.src}
+                                  src={session.user.image}
                                   alt={session.user.name || "User"}
                                   width={50}
                                   height={40}
                                   className="w-full h-full rounded-full object-cover"
                                   onError={(e) => {
-                                    // Hide the image and show fallback text when image fails to load
+                                    // Hide the image on error and show initials instead
                                     const target = e.target as HTMLImageElement;
-                                    target.src = fallbackimage.src; //Set to fallback image
+                                    target.style.display = 'none';
                                   }}
                                 />
                               ) : (
-                                <Image
-                                  src={fallbackimage.src}
-                                  alt={session?.user?.name || "User"}
-                                  width={50}
-                                  height={40}
-                                  className="w-full h-full object-center object-cover"
-                                />
+                                <div className="w-full h-full flex items-center justify-center text-white text-xl font-bold">
+                                  {session?.user?.name?.charAt(0).toUpperCase() || "U"}
+                                </div>
                               )}
                             </div>
                             <div
