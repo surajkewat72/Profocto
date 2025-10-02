@@ -14,7 +14,7 @@ export default function Home() {
       <section className="sr-only">
         <h1>Profocto - Professional Resume Builder and CV Creator</h1>
         <p>
-          Create stunning professional resumes with Profocto&apos;s Profile Élegante resume builder. 
+          Create stunning professional resumes with Profocto's Profile Élegante resume builder. 
           Our free online resume maker offers elegant templates, real-time editing, PDF export, 
           and cloud storage. Build your perfect CV in minutes with our modern, intuitive interface.
         </p>
@@ -30,7 +30,7 @@ export default function Home() {
         </ul>
         <p>
           Join thousands of professionals who trust Profocto to create their resumes. 
-          Whether you&apos;re a recent graduate, experienced professional, or career changer, 
+          Whether you're a recent graduate, experienced professional, or career changer, 
           our resume builder helps you create the perfect CV for your job applications.
         </p>
       </section>

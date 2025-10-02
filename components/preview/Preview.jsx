@@ -216,7 +216,7 @@ const Preview = () => {
         localStorage.setItem('enabledSections', JSON.stringify(initial));
       }
     }
-  }, [isClient, defaultSections]);
+  }, [isClient]);
 
   // Handle drag and drop for section reordering using @dnd-kit
   const handleDragEnd = (event) => {
