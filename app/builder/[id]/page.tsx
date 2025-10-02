@@ -341,7 +341,7 @@ export default function BuilderPage() {
                                 />
                               </svg>
                             </button>
-                          <button className="absolute border-white border-2  bg-black rounded-full z-[9999] text-white -translate-y-16 bottom-0 mt-3 p-2 right-0 text-xs " onClick={scrollToTop}> <FaChevronUp/></button>
+                          <button className="absolute   border-pink-500/40 border-[1.7px]  bg-black rounded-full z-[9999] text-white -translate-y-16 bottom-0 mt-3 p-2 right-0 text-xs " onClick={scrollToTop}> <FaChevronUp/></button>
                             {/* Sidebar Close Button */}
                             <button
                               onClick={(e) => {
