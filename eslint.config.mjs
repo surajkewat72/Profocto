@@ -19,6 +19,7 @@ const eslintConfig = [
       'public/**',
       '.vercel/**',
       'convex/_generated/**',
+      'next-env.d.ts',
     ],
   },
 ];
