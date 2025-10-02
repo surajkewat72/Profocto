@@ -256,8 +256,8 @@ const Preview = () => {
   return (
     <div className="w-full h-screen sticky top-0 preview rm-padding-print overflow-y-auto bg-gray-50">
       {/* Template Dropdown */}
-      <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-50 exclude-print">
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+      <div className="absolute top-2   right-4 sm:right-6 z-50 exclude-print">
+        <div className="flex flex-row  gap-2 sm:gap-3">
           {/* Section Toggle Button */}
           <div className="relative" ref={toggleRef}>
             <button
@@ -890,8 +890,8 @@ const A4PageWrapper = ({ children }) => {
   }, []);
 
   return (
-    <div className="w-full flex justify-center p-2 md:p-4 lg:p-6 print:p-0">
-      <div className={`a4-preview print:shadow-none print:rounded-none print:border-none print:p-0 ${isOverflowing ? 'overflow-content' : ''}`}>
+    <div className="w-full  flex justify-center p-2 md:p-4 lg:p-6 print:p-0">
+      <div className={`a4-preview top-10 print:shadow-none print:rounded-none print:border-none print:p-0 ${isOverflowing ? 'overflow-content' : ''}`}>
         <div 
           ref={contentRef}
           className="preview-content w-full h-full bg-white text-black relative"
