@@ -102,9 +102,18 @@ export default function Hero() {
         try {
             await signOut({ callbackUrl: '/' });
         } catch (error) {
-            // Handle any errors
-        } finally {
-            // The page will redirect, so we don't need to set loading to false
+            console.error('Sign out error:', error);
+            toast.error('Failed to sign out. Please try again.');
+            setIsLoggingOut(false);
+        }
+    };
+
+    // Keyboard navigation handler
+    const handleKeyDown = (e) => {
+        // Handle Enter and Space for the main CTA button
+        if ((e.key === 'Enter' || e.key === ' ') && e.target === ctaRef.current) {
+            e.preventDefault();
+            handleCreateResume();
         }
     };
 
@@ -129,6 +138,7 @@ export default function Hero() {
                     loop
                     playsInline
                     preload="metadata"
+                    aria-label="Decorative background video showing abstract motion graphics"
                     className="absolute top-0 left-0 w-full h-full object-cover opacity-70 scale-105 transition-transform duration-1000"
                     style={{
                         display: isLoading ? 'none' : 'block',
@@ -136,7 +146,10 @@ export default function Hero() {
                     }}
                 >
                     <source src="https://ik.imagekit.io/profocto/background.mp4?updatedAt=1759063890063" type="video/mp4" />
-                    Your browser does not support the video tag.
+                    <p className="sr-only">
+                        Your browser does not support the video tag. This is a decorative background video 
+                        and does not affect the functionality of the resume builder.
+                    </p>
                 </video>
             </div>
 
@@ -197,14 +210,15 @@ export default function Hero() {
                 <div className="mt-1 opacity-60 hover:opacity-100 transition-opacity">SERIF DESIGN</div>
             </div>
 
-            <div className={`absolute z-[9999] top-4 sm:top-8 right-4 sm:right-8 z-20 text-white/80 text-xs sm:text-sm font-light tracking-wide text-right transition-all duration-500 hover:text-white ${inter.className}`}>
+            <div className={`absolute top-4 sm:top-8 right-4 sm:right-8 z-30 text-white/80 text-xs sm:text-sm font-light tracking-wide text-right transition-all duration-500 hover:text-white ${inter.className}`}>
                 {session ? (
                     <div className="flex flex-col items-end gap-2">
                         <div className="opacity-80 hover:opacity-100 transition-opacity">LOGGED IN</div>
                         <button
                             onClick={handleSignOut}
                             disabled={isLoggingOut}
-                            className="relative  pointer-events-auto text-pink-300 cursor-pointer hover:text-pink-200 transition-colors opacity-60 hover:opacity-100 disabled:opacity-40 disabled:cursor-not-allowed"
+                            aria-label={isLoggingOut ? 'Signing out...' : 'Sign out of your account'}
+                            className="relative pointer-events-auto text-pink-300 cursor-pointer hover:text-pink-200 transition-colors opacity-60 hover:opacity-100 disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:ring-offset-black rounded px-2 py-1"
                         >
                             {isLoggingOut ? 'Signing Out...' : 'Sign Out'}
                         </button>
@@ -274,7 +288,9 @@ export default function Hero() {
                         <button
                             ref={ctaRef}
                             onClick={handleCreateResume}
-                            className={`inline-flex h-10 sm:h-12 items-center justify-center rounded-lg bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-300 hover:from-pink-600 hover:to-pink-700 hover:shadow-lg transform hover:scale-105 ${inter.className}`}
+                            onKeyDown={handleKeyDown}
+                            aria-label="Go to resume dashboard"
+                            className={`inline-flex h-10 sm:h-12 items-center justify-center rounded-lg bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-300 hover:from-pink-600 hover:to-pink-700 hover:shadow-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:ring-offset-black ${inter.className}`}
                         >
                             Go to Dashboard
                         </button>
@@ -283,7 +299,9 @@ export default function Hero() {
                     <button
                         ref={ctaRef}
                         onClick={handleCreateResume}
-                        className={`inline-flex h-10 sm:h-12 items-center justify-center rounded-lg bg-white text-black px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-300 hover:bg-gray-100 hover:shadow-lg ${inter.className}`}
+                        onKeyDown={handleKeyDown}
+                        aria-label="Create your professional resume for free"
+                        className={`inline-flex h-10 sm:h-12 items-center justify-center rounded-lg bg-white text-black px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-300 hover:bg-gray-100 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black ${inter.className}`}
                     >
                         Create Resume
                     </button>
