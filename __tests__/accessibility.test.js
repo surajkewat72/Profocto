@@ -169,8 +169,8 @@ describe('Accessibility Integration', () => {
         <button aria-label="Create new resume">Create Resume</button>
         <nav aria-label="Main navigation">
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/builder">Builder</a></li>
+            <li><button type="button">Home</button></li>
+            <li><button type="button">Builder</button></li>
           </ul>
         </nav>
       </div>
