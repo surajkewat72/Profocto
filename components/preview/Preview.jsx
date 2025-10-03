@@ -948,9 +948,6 @@ const A4PageWrapper = ({ children }) => {
     // Initial check with longer delay to ensure content is rendered
     const timeoutId = setTimeout(checkOverflow, 200);
 
-    // More frequent checks to catch content changes
-    const intervalId = setInterval(checkOverflow, 500);
-
     // Check on resize
     window.addEventListener("resize", checkOverflow);
 
@@ -972,7 +969,6 @@ const A4PageWrapper = ({ children }) => {
 
     return () => {
       clearTimeout(timeoutId);
-      clearInterval(intervalId);
       window.removeEventListener("resize", checkOverflow);
       observer.disconnect();
     };
