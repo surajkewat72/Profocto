@@ -451,7 +451,8 @@ const SortableItem = ({ id, children }) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={`mb-3 cursor-move ${isDragging ? "bg-gray-50 shadow-lg rounded p-2" : ""}`}
+      className={`mb-1
+         cursor-move ${isDragging ? "bg-gray-50 shadow-lg rounded p-2" : ""}`}
     >
       {children}
     </div>
@@ -525,7 +526,7 @@ const ClassicTemplate = ({
             <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
               {customSectionTitles.summary || "Professional Summary"}
             </h2>
-            <p className="content text-gray-700 text-justify">{resumeData.summary}</p>
+            <p className="content font-sans  text-black text-justify">{resumeData.summary}</p>
           </div>
         );
 
@@ -539,7 +540,7 @@ const ClassicTemplate = ({
               <div key={index} className="mb-1 flex justify-between items-start">
                 <div className="flex-1">
                   <h3 className="content font-semibold text-gray-900">{item.school}</h3>
-                  <p className="content text-gray-700">{item.degree}</p>
+                  <p className="content font-sans  text-black">{item.degree}</p>
                 </div>
                 <div className="ml-4 text-right">
                   <DateRange
@@ -570,10 +571,9 @@ const ClassicTemplate = ({
               >
                 {resumeData.workExperience.map((item, index) => (
                   <SortableItem key={`work-${index}`} id={`work-${index}`}>
-                    <div className="flex justify-between items-start mb-1">
+                    <div className="flex justify-between items-start mb-[0.5]">
                       <div className="flex-1">
-                        <h3 className="content i-bold text-gray-900">{item.position}</h3>
-                        <p className="content text-gray-700">{item.company}</p>
+                        <h3 className="content i-bold text-gray-900">{item.position} - {item.company}</h3>
                       </div>
                       <div className="text-right">
                         <DateRange
@@ -583,9 +583,9 @@ const ClassicTemplate = ({
                         />
                       </div>
                     </div>
-                    <p className="content text-gray-700 mb-2">{item.description}</p>
+                    <p className="content font-sans  text-black mb-1">{item.description}</p>
                     {typeof item.keyAchievements === "string" && item.keyAchievements.trim() && (
-                      <ul className="list-disc list-inside content text-gray-700 ml-4">
+                      <ul className="list-disc list-inside content font-sans  text-black ml-4">
                         {item.keyAchievements
                           .split("\n")
                           .filter(achievement => achievement.trim())
@@ -644,9 +644,9 @@ const ClassicTemplate = ({
                         />
                       </div>
                     </div>
-                    <p className="content text-gray-700 mb-2">{item.description}</p>
+                    <p className="content font-sans  text-black mb-1">{item.description}</p>
                     {typeof item.keyAchievements === "string" && item.keyAchievements.trim() && (
-                      <ul className="list-disc list-inside content text-gray-700 ml-4">
+                      <ul className="list-disc list-inside content font-sans  text-black ml-4">
                         {item.keyAchievements
                           .split("\n")
                           .filter(achievement => achievement.trim())
@@ -673,9 +673,9 @@ const ClassicTemplate = ({
             {resumeData.skills
               .filter(skill => skill.title !== "Soft Skills")
               .map((skill, index) => (
-                <div key={`SKILLS-${index}`} className="mb-3">
+                <div key={`SKILLS-${index}`} className="mb-1">
                   <h3 className="content i-bold text-gray-900 mb-1">{skill.title}</h3>
-                  <p className="content text-gray-700">{skill.skills.join(", ")}</p>
+                  <p className="content font-sans  text-black">{skill.skills.join(", ")}</p>
                 </div>
               ))}
           </div>
@@ -687,7 +687,7 @@ const ClassicTemplate = ({
             <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
               {customSectionTitles.softSkills || "Soft Skills"}
             </h2>
-            <p className="content text-gray-700">
+            <p className="content font-sans  text-black">
               {resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills?.join(", ")}
             </p>
           </div>
@@ -699,7 +699,7 @@ const ClassicTemplate = ({
             <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
               {customSectionTitles.languages || "Languages"}
             </h2>
-            <p className="content text-gray-700">{resumeData.languages.join(", ")}</p>
+            <p className="content font-sans  text-black">{resumeData.languages.join(", ")}</p>
           </div>
         ) : null;
 
@@ -709,14 +709,14 @@ const ClassicTemplate = ({
             <h2 className="section-title border-b-2 border-gray-300 mb-1 text-gray-900">
               {customSectionTitles.certifications || "Certifications"}
             </h2>
-            <ul className="list-disc list-inside content text-gray-700">
+            <ul className="list-disc list-inside content font-sans  text-black">
               {resumeData.certifications.map((cert, index) => (
                 <li key={index} className="mb-1">
                   <div className="flex items-center gap-2">
                     <span>
                       {typeof cert === 'string' ? cert : cert.name}
                       {typeof cert === 'object' && cert.issuer && (
-                        <span className="text-gray-600"> - {cert.issuer}</span>
+                        <span className="font-sans  text-black"> - {cert.issuer}</span>
                       )}
                     </span>
                     {typeof cert === 'object' && cert.link && cert.link.trim() !== '' && (
@@ -745,7 +745,11 @@ const ClassicTemplate = ({
   if (!isClient) {
     return (
       <div className="w-full h-full bg-white p-4">
-        <div className="text-center mb-4">
+        <div className="text-center mb-1
+        
+        
+        
+        ">
           <h1 className="text-2xl font-bold text-gray-900">{resumeData.name}</h1>
           <p className="text-lg text-gray-700">{resumeData.position}</p>
         </div>
@@ -761,14 +765,14 @@ const ClassicTemplate = ({
   }
 
   return (
-    <div className="w-full h-full bg-white p-4">
+    <div className="w-full h-full bg-white p-0">
       {/* Professional Header */}
-      <div className="text-center mb-2 no-break">
+      <div className="text-center mb-0 no-break">
         <h1 className="name">{resumeData.name}</h1>
         <h2 className="profession">{resumeData.position}</h2>
         
         {/* Contact Information */}
-        <div className="flex justify-center items-center gap-4 contact mb-2">
+        <div className="flex justify-center items-center gap-2 contact mb-0">
           <div className="flex items-center gap-1">
             <MdPhone className="text-gray-500" />
             <span>{resumeData.contactInformation}</span>
@@ -891,7 +895,7 @@ const A4PageWrapper = ({ children }) => {
 
   return (
     <div className="w-full  flex justify-center p-2 md:p-4 lg:p-6 print:p-0">
-      <div className={`a4-preview top-10 print:shadow-none print:rounded-none print:border-none print:p-0 ${isOverflowing ? 'overflow-content' : ''}`}>
+      <div className={`a4-preview lg:top-10 sm:top-14 top-10 print:shadow-none print:rounded-none print:border-none print:p-0 ${isOverflowing ? 'overflow-content' : ''}`}>
         <div 
           ref={contentRef}
           className="preview-content w-full h-full bg-white text-black relative"
