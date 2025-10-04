@@ -237,8 +237,8 @@ export default function BuilderPage() {
                       <Certification />
                     </div>
 
-                    {/* Floating Profile Pocket - Sticky at bottom */}
-                    <div className='sticky bottom-0 left-0 right-0 p-4 z-30 mt-6'>
+                    {/* Floating Profile Pocket - stick only on large screens to avoid overlap */}
+                    <div className='relative lg:sticky bottom-0 left-0 right-0 p-4 z-10 mt-6'>
                       <div
                         className='relative p-4 rounded-xl border backdrop-blur-sm'
                         style={{
