@@ -85,7 +85,7 @@ const WorkExperience = () => {
                 name="startYear"
                 value={workExperience.startYear}
                 onChange={(e) => handleWorkExperience(e, index)}
-                className="other-input w-full"
+                className="other-input w-full text-gray-200"
                 max={new Date().toISOString().split('T')[0]}
                 min="1950-01-01"
               />
@@ -97,7 +97,7 @@ const WorkExperience = () => {
                 name="endYear"
                 value={workExperience.endYear}
                 onChange={(e) => handleWorkExperience(e, index)}
-                className="other-input w-full"
+                className="other-input w-full text-gray-200"
                 max={new Date().toISOString().split('T')[0]}
                 min="1950-01-01"
               />

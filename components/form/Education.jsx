@@ -77,7 +77,7 @@ const Education = () => {
                   name="startYear"
                   value={education.startYear}
                   onChange={(e) => handleEducation(e, index)}
-                  className="other-input w-full"
+                  className="other-input w-full text-gray-200"
                   max={todayDate}
                   min={MIN_DATE}
                 />
@@ -89,7 +89,7 @@ const Education = () => {
                   name="endYear"
                   value={education.endYear}
                   onChange={(e) => handleEducation(e, index)}
-                  className="other-input w-full"
+                  className="other-input w-full text-gray-200"
                   max={todayDate}
                   min={MIN_DATE}
                 />
