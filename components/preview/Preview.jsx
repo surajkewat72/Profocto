@@ -21,6 +21,9 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { ResumeContext } from "../../contexts/ResumeContext";
 import TemplateTwo from "./TemplateTwo";
 import TemplateFour from "./TemplateFour"
+import TemplateFive from "./TemplateFive"
+
+import TemplateSix from "./TemplateSix"
 import { useSectionTitles } from "../../contexts/SectionTitleContext";
 import {
   DndContext,
@@ -85,6 +88,18 @@ const Preview = () => {
       description: "Clean and ATS friendly",
       icon: FaTh,
     },
+    {
+    id: "template5",
+    name: "Fancy Template",
+    description: "New modern layout",
+    icon: FaFileAlt,
+  },
+  {
+    id: "template6",
+    name: "Smart Template",
+    description: "clean layout with divisions",
+    icon: FaFileAlt,
+  },
   ];
 
   const defaultSections = [
@@ -398,7 +413,10 @@ const Preview = () => {
         </div>
       </div>
       <A4PageWrapper>
-        {currentTemplate === "template1" ? (
+  {(() => {
+    switch (currentTemplate) {
+      case "template1":
+        return (
           <ClassicTemplate
             resumeData={resumeData}
             sectionOrder={sectionOrder}
@@ -408,7 +426,9 @@ const Preview = () => {
             icons={icons}
             setResumeData={setResumeData}
           />
-        ) : currentTemplate === "template2" ? (
+        );
+      case "template2":
+        return (
           <TemplateTwo
             namedata={resumeData.name}
             positionData={resumeData.position}
@@ -431,7 +451,33 @@ const Preview = () => {
             resumeData={resumeData}
             setResumeData={setResumeData}
           />
-        ) : (
+        );
+      case "template5":
+        return (
+          <TemplateFive
+            resumeData={resumeData}
+            sectionOrder={sectionOrder}
+            enabledSections={enabledSections}
+            handleDragEnd={handleDragEnd}
+            sensors={sensors}
+            icons={icons}
+            setResumeData={setResumeData}
+          />
+        );
+      case "template6":
+        return (
+          <TemplateSix
+            resumeData={resumeData}
+            sectionOrder={sectionOrder}
+            enabledSections={enabledSections}
+            handleDragEnd={handleDragEnd}
+            sensors={sensors}
+            icons={icons}
+            setResumeData={setResumeData}
+          />
+        );
+      default:
+        return (
           <TemplateFour
             resumeData={resumeData}
             sectionOrder={sectionOrder}
@@ -441,8 +487,12 @@ const Preview = () => {
             icons={icons}
             setResumeData={setResumeData}
           />
-        )}
-      </A4PageWrapper>
+        );
+    }
+  })()}
+</A4PageWrapper>
+
+
     </div>
   );
 };
