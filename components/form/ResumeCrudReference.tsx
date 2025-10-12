@@ -26,7 +26,7 @@ function SaveResume() {
 
   const deleteResumeMutex = useMutation(api.resume.deleteResume)
 
-  const getResume = useQuery(api.resume.getResume, {id:"jh77x8b9n4txa5thjkmf84sg0s7sa8ne"});
+  const getResume = useQuery(api.resume.getResume, {id:"heregoestheresumeid"});
 
   const handleSave = async () => {
     const resumeString = JSON.stringify(resumeData);
