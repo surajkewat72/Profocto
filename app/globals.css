@@ -699,7 +699,7 @@
         border-radius: 0 !important;
         background: white !important;
         transform: none !important;
-        box-sizing: border-box !important;
+        box-sizing: border-box !impo;
     }
     
     /* Ensure content has no padding in print */
@@ -751,13 +751,16 @@
         line-height: 1.3 !important;
         margin-bottom: 0.15rem !important;
         padding-left: 0.25rem !important;
+        color: #4B5563 !important; /* gray-600 for bullet point text */
+        font-size: 14px !important;
+        font-weight: 400 !important;
     }
 
     /* Preserve list markers */
     ul.list-disc li::marker,
     ul.list-inside li::marker,
     ul.list-outside li::marker {
-        color: currentColor !important;
+        color: #374151 !important; /* gray-700 for bullet markers */
         font-size: 1em !important;
     }
 
@@ -767,22 +770,81 @@
         font-weight: 480 !important;
         line-height: 1.3 !important;
         font-family: calibri !important;
+        color: #4B5563 !important; /* gray-600 for professional look */
+    }
+
+    /* Content inside lists should also be gray-600 */
+    ul.list-disc .content,
+    ul.list-inside .content,
+    ul.list-outside .content,
+    ul li {
+        color: #4B5563 !important; /* gray-600 for all list text */
     }
 
     .section-title {
         font-size: 16px !important;
         font-weight: 700 !important;
         line-height: 1.2 !important;
+        color: #111827 !important; /* gray-900 for main titles */
     }
 
     .sub-content {
         font-size: 12px !important;
         font-weight: 400 !important;
         line-height: 1.3 !important;
+        color: #6B7280 !important; /* gray-500 for subtitles */
     }
 
     .i-bold {
         font-weight: 700 !important;
+        color: #1F2937 !important; /* gray-800 for bold items like position/company */
+    }
+
+    /* Professional color adjustments for print */
+    .text-gray-900,
+    .text-black {
+        color: #1F2937 !important; /* gray-800 instead of pure black */
+    }
+
+    .text-gray-700 {
+        color: #4B5563 !important; /* gray-600 for better readability */
+    }
+
+    .text-gray-600 {
+        color: #6B7280 !important; /* gray-500 for subtitles */
+    }
+
+    /* Ensure descriptions are lighter */
+    p.content:not(.i-bold) {
+        color: #4B5563 !important; /* gray-600 for descriptions */
+    }
+
+    /* Keep position/company names bold and darker */
+    h3.content.i-bold {
+        color: #111827 !important; /* gray-900 for main titles */
+    }
+
+    h3.content:not(.i-bold) {
+        color: #1F2937 !important; /* gray-800 for school names */
+    }
+
+    /* Remove bright colors that look unprofessional */
+    .text-blue-600,
+    .text-pink-600,
+    .text-pink-900 {
+        color: #374151 !important; /* gray-700 for links in print */
+    }
+
+    /* Remove any funky background colors */
+    * {
+        background-image: none !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Clean borders */
+    .border-gray-300 {
+        border-color: #D1D5DB !important; /* light gray for section dividers */
     }
 
     /* Remove transforms that might cause issues but preserve layout */
