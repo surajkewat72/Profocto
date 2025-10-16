@@ -14,6 +14,7 @@ const WinPrint = () => {
     document.title = `${userName}_Resume_Profocto`;
     
     // Use browser's native print dialog (Print to PDF)
+    // This preserves hyperlinks, text quality, and selectable text
     window.print();
     
     // Restore original title after print
