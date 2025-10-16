@@ -43,6 +43,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { ImGithub } from "react-icons/im";
 import { SiCodeforces, SiLeetcode } from "react-icons/si";
+import MarginControl from "../utility/MarginControl";
 
 const Preview = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
@@ -287,6 +288,9 @@ const Preview = () => {
       {/* Template Dropdown */}
       <div className="absolute top-2   right-4 sm:right-6 z-50 exclude-print">
         <div className="flex flex-row  gap-2 sm:gap-3">
+          {/* Margin Control Button */}
+          <MarginControl />
+          
           {/* Section Toggle Button */}
           <div className='relative' ref={toggleRef}>
             <button
@@ -651,7 +655,7 @@ const ClassicTemplate = ({
             <h2 className='section-title border-b-2 border-gray-300 mb-1 text-gray-900'>
               {customSectionTitles.summary || "Professional Summary"}
             </h2>
-            <p className="content font-sans  text-black text-justify">{resumeData.summary}</p>
+            <p className="content font-sans text-gray-600 text-justify">{resumeData.summary}</p>
           </div>
         );
 
@@ -664,8 +668,8 @@ const ClassicTemplate = ({
             {resumeData.education.map((item, index) => (
               <div key={index} className="mb-1 flex justify-between items-start">
                 <div className="flex-1">
-                  <h3 className="content font-semibold text-gray-900">{item.school}</h3>
-                  <p className="content font-sans  text-black">{item.degree}</p>
+                  <h3 className="content font-semibold text-gray-800">{item.school}</h3>
+                  <p className="content font-sans text-gray-600">{item.degree}</p>
                 </div>
                 <div className='ml-4 text-right'>
                   <DateRange
@@ -698,7 +702,7 @@ const ClassicTemplate = ({
                   <SortableItem key={`work-${index}`} id={`work-${index}`}>
                     <div className="flex justify-between items-start mb-[0.5]">
                       <div className="flex-1">
-                        <h3 className="content i-bold text-gray-900">{item.position} - {item.company}</h3>
+                        <h3 className="content i-bold text-gray-800">{item.position} - {item.company}</h3>
                       </div>
                       <div className='text-right'>
                         <DateRange
@@ -708,9 +712,9 @@ const ClassicTemplate = ({
                         />
                       </div>
                     </div>
-                    <p className="content font-sans  text-black mb-1">{item.description}</p>
+                    <p className="content font-sans text-gray-600 mb-1">{item.description}</p>
                     {typeof item.keyAchievements === "string" && item.keyAchievements.trim() && (
-                      <ul className="list-disc list-inside content font-sans  text-black ml-4">
+                      <ul className="list-disc list-inside content font-sans text-gray-600 ml-4">
                         {item.keyAchievements
                           .split("\n")
                           .filter(achievement => achievement.trim())
@@ -751,18 +755,18 @@ const ClassicTemplate = ({
                     <div className='flex justify-between items-start mb-1'>
                       <div className='flex-1'>
                         <div className='flex items-center gap-2'>
-                          <h3 className='content i-bold text-gray-900'>
+                          <h3 className='content i-bold text-gray-800'>
                             {item.name}
                           </h3>
                           {item.link && (
-                            <Link
+                            <a
                               href={item.link}
-                              className='text-blue-600 hover:text-blue-800 transition-colors'
+                              className='text-gray-700 hover:text-gray-900 transition-colors'
                               target='_blank'
                               rel='noopener noreferrer'
                             >
                               <FaExternalLinkAlt className='w-3 h-3' />
-                            </Link>
+                            </a>
                           )}
                         </div>
                       </div>
@@ -774,9 +778,9 @@ const ClassicTemplate = ({
                         />
                       </div>
                     </div>
-                    <p className="content font-sans  text-black mb-1">{item.description}</p>
+                    <p className="content font-sans text-gray-600 mb-1">{item.description}</p>
                     {typeof item.keyAchievements === "string" && item.keyAchievements.trim() && (
-                      <ul className="list-disc list-inside content font-sans  text-black ml-4">
+                      <ul className="list-disc list-inside content font-sans text-gray-600 ml-4">
                         {item.keyAchievements
                           .split("\n")
                           .filter(achievement => achievement.trim())
@@ -804,8 +808,8 @@ const ClassicTemplate = ({
               .filter((skill) => skill.title !== "Soft Skills")
               .map((skill, index) => (
                 <div key={`SKILLS-${index}`} className="mb-1">
-                  <h3 className="content i-bold text-gray-900 mb-1">{skill.title}</h3>
-                  <p className="content font-sans  text-black">{skill.skills.join(", ")}</p>
+                  <h3 className="content i-bold text-gray-800 mb-1">{skill.title}</h3>
+                  <p className="content font-sans text-gray-600">{skill.skills.join(", ")}</p>
                 </div>
               ))}
           </div>
@@ -817,7 +821,7 @@ const ClassicTemplate = ({
             <h2 className='section-title border-b-2 border-gray-300 mb-1 text-gray-900'>
               {customSectionTitles.softSkills || "Soft Skills"}
             </h2>
-            <p className="content font-sans  text-black">
+            <p className="content font-sans text-gray-600">
               {resumeData.skills.find(skill => skill.title === "Soft Skills")?.skills?.join(", ")}
             </p>
           </div>
@@ -829,7 +833,7 @@ const ClassicTemplate = ({
             <h2 className='section-title border-b-2 border-gray-300 mb-1 text-gray-900'>
               {customSectionTitles.languages || "Languages"}
             </h2>
-            <p className="content font-sans  text-black">{resumeData.languages.join(", ")}</p>
+            <p className="content font-sans text-gray-600">{resumeData.languages.join(", ")}</p>
           </div>
         ) : null;
 
@@ -839,27 +843,27 @@ const ClassicTemplate = ({
             <h2 className='section-title border-b-2 border-gray-300 mb-1 text-gray-900'>
               {customSectionTitles.certifications || "Certifications"}
             </h2>
-            <ul className="list-disc list-inside content font-sans  text-black">
+            <ul className="list-disc list-inside content font-sans text-gray-600">
               {resumeData.certifications.map((cert, index) => (
                 <li key={index} className='mb-1'>
                   <div className='flex items-center gap-2'>
                     <span>
                       {typeof cert === 'string' ? cert : cert.name}
                       {typeof cert === 'object' && cert.issuer && (
-                        <span className="font-sans  text-black"> - {cert.issuer}</span>
+                        <span className="font-sans text-gray-600"> - {cert.issuer}</span>
                       )}
                     </span>
                     {typeof cert === "object" &&
                       cert.link &&
                       cert.link.trim() !== "" && (
-                        <Link
+                        <a
                           href={cert.link}
-                          className='text-blue-600 hover:text-blue-800 transition-colors'
+                          className='text-gray-700 hover:text-gray-900 transition-colors'
                           target='_blank'
                           rel='noopener noreferrer'
                         >
                           <FaExternalLinkAlt className='w-3 h-3' />
-                        </Link>
+                        </a>
                       )}
                   </div>
                 </li>
@@ -907,11 +911,15 @@ const ClassicTemplate = ({
         <div className="flex justify-center items-center gap-2 contact mb-0">
           <div className="flex items-center gap-1">
             <MdPhone className="text-gray-500" />
-            <span>{resumeData.contactInformation}</span>
+            <a href={`tel:${resumeData.contactInformation}`}>
+              {resumeData.contactInformation}
+            </a>
           </div>
           <div className='flex items-center gap-1'>
             <MdEmail className='text-gray-500' />
-            <span>{resumeData.email}</span>
+            <a href={`mailto:${resumeData.email}`}>
+              {resumeData.email}
+            </a>
           </div>
           <div className='flex items-center gap-1'>
             <MdLocationOn className='text-gray-500' />
@@ -927,7 +935,7 @@ const ClassicTemplate = ({
                 (icon) => icon.name === socialMedia.socialMedia.toLowerCase()
               );
               return (
-                <Link
+                <a
                   href={`${
                     socialMedia.socialMedia.toLowerCase() === "website"
                       ? "https://"
@@ -942,7 +950,7 @@ const ClassicTemplate = ({
                 >
                   {icon && icon.icon}
                   <span>{socialMedia.link}</span>
-                </Link>
+                </a>
               );
             })}
           </div>

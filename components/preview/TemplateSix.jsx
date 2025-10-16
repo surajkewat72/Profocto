@@ -122,7 +122,7 @@ const TemplateSix = ({
                     <div className="flex justify-between items-start text-sm">
                       <h3 className="font-bold text-gray-900 leading-tight flex items-center gap-2">
                         {item.name}
-                        {item.link && <Link href={item.link} target="_blank" className="text-gray-500 hover:text-black"><FaExternalLinkAlt className="w-3 h-3" /></Link>}
+                        {item.link && <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-black"><FaExternalLinkAlt className="w-3 h-3" /></a>}
                       </h3>
                       <DateRange
                         startYear={item.startYear}
@@ -211,7 +211,7 @@ const TemplateSix = ({
           {/* Example for a link (LinkedIn/Portfolio) */}
           {resumeData.linkedin && (
             <div className="flex items-center gap-1">
-              <MdLink className="w-4 h-4" /> <Link href={resumeData.linkedin} target="_blank" className="underline">{resumeData.linkedin}</Link>
+              <MdLink className="w-4 h-4" /> <a href={resumeData.linkedin} target="_blank" rel="noopener noreferrer" className="underline">{resumeData.linkedin}</a>
             </div>
           )}
         </div>

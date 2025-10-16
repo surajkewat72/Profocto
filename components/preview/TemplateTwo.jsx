@@ -206,14 +206,14 @@ const TemplateTwo = ({
                       )}
                     </span>
                     {cert.link && cert.link.trim() !== '' && (
-                      <Link
+                      <a
                         href={cert.link}
                         className="text-blue-600 hover:text-blue-800 transition-colors"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         <FaExternalLinkAlt className="w-3 h-3" />
-                      </Link>
+                      </a>
                     )}
                   </div>
                 </li>
@@ -272,7 +272,7 @@ const TemplateTwo = ({
                       <div className="flex items-center gap-2">
                         <p className="content i-bold">{project.name}</p>
                         {project.link && (
-                          <Link
+                          <a
                             href={project.link}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -280,7 +280,7 @@ const TemplateTwo = ({
                             title={project.link}
                           >
                             <FaExternalLinkAlt size={12} />
-                          </Link>
+                          </a>
                         )}
                       </div>
                       <p className="sub-content font-medium text-gray-600">
