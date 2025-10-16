@@ -12,7 +12,6 @@ import React, { useContext } from "react";
 function SaveResume() {
   const { resumeData } = useContext(ResumeContext);
   const { data: session } = useSession();
-  console.log(session?.user);
   const user = useQuery(api.auth.getUserByEmail, {
     email: session?.user.email!,
   });
@@ -30,18 +29,10 @@ function SaveResume() {
 
   const handleSave = async () => {
     const resumeString = JSON.stringify(resumeData);
-    // @ts-ignore
-    // addResumeMutex({ resume_data: resumeString, owner: session?.user.id });
     
-    // updateResumeMutex({
-    //   resume_id: getResume?._id!,
-    //   resume_data: resumeString,
-    // });
-
     deleteResumeMutex({
       id: getResume?._id!
     })
-    // console.log(resumes);
   };
   return (
     <div>

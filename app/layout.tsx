@@ -78,10 +78,6 @@ export const metadata: Metadata = {
   },
   category: "technology",
   classification: "Business Tools",
-  verification: {
-    // Add your Google Search Console verification code here
-    // google: 'your-google-verification-code',
-  },
   other: {
     "google-site-verification": process.env.GOOGLE_SITE_VERIFICATION || "",
     "theme-color": "#ec4899",
