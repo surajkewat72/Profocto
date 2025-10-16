@@ -727,22 +727,66 @@
         print-color-adjust: exact !important;
     }
 
-    /* Ensure exact font sizes match preview */
-    .a4-preview * {
-        font-size: inherit !important;
-        line-height: inherit !important;
-        margin: inherit !important;
-        padding: inherit !important;
-    }
-
     /* Ensure proper page breaks */
     .no-break {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
 
-    /* Remove any transforms that might cause issues */
-    * {
+    /* Preserve bullet points and list styling in print */
+    ul.list-disc,
+    ul.list-inside,
+    ul.list-outside {
+        list-style-type: disc !important;
+        list-style-position: outside !important;
+        padding-left: 1.2rem !important;
+        margin-left: 0 !important;
+    }
+
+    ul.list-disc li,
+    ul.list-inside li,
+    ul.list-outside li {
+        display: list-item !important;
+        list-style-type: disc !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.15rem !important;
+        padding-left: 0.25rem !important;
+    }
+
+    /* Preserve list markers */
+    ul.list-disc li::marker,
+    ul.list-inside li::marker,
+    ul.list-outside li::marker {
+        color: currentColor !important;
+        font-size: 1em !important;
+    }
+
+    /* Preserve content styling in print */
+    .content {
+        font-size: 14px !important;
+        font-weight: 480 !important;
+        line-height: 1.3 !important;
+        font-family: calibri !important;
+    }
+
+    .section-title {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+    }
+
+    .sub-content {
+        font-size: 12px !important;
+        font-weight: 400 !important;
+        line-height: 1.3 !important;
+    }
+
+    .i-bold {
+        font-weight: 700 !important;
+    }
+
+    /* Remove transforms that might cause issues but preserve layout */
+    .exclude-print ~ * {
         transform: none !important;
     }
 }
