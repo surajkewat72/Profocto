@@ -1,6 +1,6 @@
 # Profocto
 
-<div align="center">
+<div align="center">   
   <img src="public/assets/logo.png" alt="Profocto Logo" width="100" height="100">
   
   **Profile Élegante - An elegant and modern resume builder application built with Next.js**
