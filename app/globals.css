@@ -710,7 +710,7 @@
         border-radius: 0 !important;
         background: white !important;
         transform: none !important;
-        box-sizing: border-box !impo;
+        box-sizing: border-box !important;
     }
     
     /* Ensure content has no padding in print */
