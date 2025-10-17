@@ -409,7 +409,7 @@ const TemplateFour = ({
                 (icon) => icon.name === socialMedia.socialMedia.toLowerCase()
               );
               return (
-                <Link
+                <a
                   href={`${
                     socialMedia.socialMedia.toLowerCase() === "website"
                       ? "https://"
@@ -423,11 +423,11 @@ const TemplateFour = ({
                   rel='noopener noreferrer'
                 >
                   {icon && icon.icon}
-                  <span>{socialMedia.socialMedia}</span>
+                  <span className="capitalize">{socialMedia.socialMedia}</span>
                   {index !== resumeData.socialMedia.length - 1 && (
                     <span>|</span>
                   )}
-                </Link>
+                </a>
               );
             })}
           </div>

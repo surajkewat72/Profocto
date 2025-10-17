@@ -899,12 +899,12 @@ const ClassicTemplate = ({
   return (
     <div className="w-full h-full bg-white p-0">
       {/* Professional Header */}
-      <div className="text-center mb-0 no-break">
+      <div className="text-center mb-2 no-break">
         <h1 className="name">{resumeData.name}</h1>
         <h2 className="profession">{resumeData.position}</h2>
         
-        {/* Contact Information */}
-        <div className="flex justify-center items-center gap-2 contact mb-0">
+        {/* Contact Information & Social Media */}
+        <div className="flex justify-center items-center gap-6 contact mb-0 flex-wrap">
           <div className="flex items-center gap-1">
             <MdPhone className="text-gray-500" />
             <a href={`tel:${resumeData.contactInformation}`}>
@@ -921,36 +921,32 @@ const ClassicTemplate = ({
             <MdLocationOn className='text-gray-500' />
             <span>{resumeData.address}</span>
           </div>
+          
+          {/* Social Media Links */}
+          {resumeData.socialMedia.length > 0 && resumeData.socialMedia.map((socialMedia, index) => {
+            const icon = icons.find(
+              (icon) => icon.name === socialMedia.socialMedia.toLowerCase()
+            );
+            return (
+              <a
+                href={`${
+                  socialMedia.socialMedia.toLowerCase() === "website"
+                    ? "https://"
+                    : socialMedia.socialMedia.toLowerCase() === "linkedin"
+                      ? "https://www."
+                      : "https://www."
+                }${socialMedia.link}`}
+                key={index}
+                className='inline-flex items-center gap-1'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                {icon && icon.icon}
+                <span className="capitalize">{socialMedia.socialMedia}</span>
+              </a>
+            );
+          })}
         </div>
-
-        {/* Social Media */}
-        {resumeData.socialMedia.length > 0 && (
-          <div className='flex justify-center items-center gap-3 text-sm'>
-            {resumeData.socialMedia.map((socialMedia, index) => {
-              const icon = icons.find(
-                (icon) => icon.name === socialMedia.socialMedia.toLowerCase()
-              );
-              return (
-                <a
-                  href={`${
-                    socialMedia.socialMedia.toLowerCase() === "website"
-                      ? "https://"
-                      : socialMedia.socialMedia.toLowerCase() === "linkedin"
-                        ? "https://www."
-                        : "https://www."
-                  }${socialMedia.link}`}
-                  key={index}
-                  className='inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 transition-colors'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  {icon && icon.icon}
-                  <span>{socialMedia.link}</span>
-                </a>
-              );
-            })}
-          </div>
-        )}
       </div>
 
       {/* Draggable Sections with Same System as Modern Template */}

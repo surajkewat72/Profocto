@@ -451,7 +451,7 @@ const TemplateTwo = ({
                     return <span key={index} className="text-sm">{icon.icon}</span>;
                   }
                 })}
-                {getUsername(socialMedia.link)}
+                <span className="capitalize">{socialMedia.socialMedia}</span>
               </a>
             );
           })}
