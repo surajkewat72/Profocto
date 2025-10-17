@@ -664,8 +664,8 @@ const ClassicTemplate = ({
             {resumeData.education.map((item, index) => (
               <div key={index} className="mb-1 flex justify-between items-start">
                 <div className="flex-1">
-                  <h3 className="content font-semibold text-gray-900">{item.school}</h3>
-                  <p className="content font-sans  text-black">{item.degree}</p>
+                  <h3 className="content school-name font-bold">{item.school}</h3>
+                  <p className="content degree-name">{item.degree}</p>
                 </div>
                 <div className='ml-4 text-right'>
                   <DateRange

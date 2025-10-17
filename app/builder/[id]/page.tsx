@@ -46,10 +46,16 @@ export default function BuilderPage() {
     const savedData = localStorage.getItem("resumeData");
     if (savedData) {
       try {
-        setResumeData(JSON.parse(savedData));
+        const parsedData = JSON.parse(savedData);
+        setResumeData(parsedData);
       } catch (error) {
         console.warn("Failed to parse saved resume data:", error);
+        // If parsing fails, use default data
+        setResumeData(DefaultResumeData as ResumeData);
       }
+    } else {
+      // If no saved data, ensure we're using default data
+      setResumeData(DefaultResumeData as ResumeData);
     }
     setIsHydrated(true);
   }, []);

@@ -23,6 +23,12 @@ const DefaultResumeData = {
       "startYear": "2016-09-01",
       "endYear": "2020-06-01"
     },
+    {
+      "school": "MIT",
+      "degree": "Master of Science in Computer Science",
+      "startYear": "2020-09-01",
+      "endYear": "2022-06-01"
+    }
   ],
   workExperience: [
     {

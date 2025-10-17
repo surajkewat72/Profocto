@@ -685,6 +685,18 @@
     
 }
 
+/* School/University name - darker and bold for screen view */
+.school-name {
+    color: #000000;
+    font-weight: 800;
+}
+
+/* Degree/Course name - lighter for screen view */
+.degree-name {
+    color: #4B5563;
+    font-weight: 400;
+}
+
 @media print {
     .exclude-print {
         display: none !important;
@@ -697,7 +709,7 @@
 
     @page {
         size: A4;
-        margin: -3mm 12mm; /* Increased left/right margins */
+        margin: -8mm 12mm; /* Reduced top margin, maintained left/right margins */
     }
 
     .preview {
@@ -816,6 +828,18 @@
     .i-bold {
         font-weight: 700 !important;
         color: #1F2937 !important; /* gray-800 for bold items like position/company */
+    }
+
+    /* School/University name - darker and bold */
+    .school-name {
+        color: #000000 !important; /* Pure black for school names */
+        font-weight: 800 !important; /* Extra bold */
+    }
+
+    /* Degree/Course name - lighter */
+    .degree-name {
+        color: #4B5563 !important; /* gray-600 for degree names */
+        font-weight: 400 !important;
     }
 
     /* Professional color adjustments for print */
