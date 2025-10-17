@@ -291,18 +291,17 @@ const TemplateFour = ({
         );
 
       case "softSkills":
-        return (
+        const softSkillsData = resumeData.skills.find((skill) => skill.title === "Soft Skills")?.skills || [];
+        return softSkillsData.length > 0 ? (
           <div>
             <h2 className='section-title border-b-2 border-gray-300 mb-1 text-gray-900'>
               {customSectionTitles.softSkills || "Soft Skills"}
             </h2>
             <p className='content !text-gray-800'>
-              {resumeData.skills
-                .find((skill) => skill.title === "Soft Skills")
-                ?.skills?.join(", ")}
+              {softSkillsData.join(", ")}
             </p>
           </div>
-        );
+        ) : null;
 
       case "languages":
         return resumeData.languages.length > 0 ? (

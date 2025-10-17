@@ -89,7 +89,12 @@ const TemplateFive = ({
 
   const orderedSections = sectionOrder
     .map((id) => sections.find((s) => s.id === id))
-    .filter((s) => s && enabledSections[s.id]);
+    .filter((s) => {
+      if (!s || !enabledSections[s.id]) return false;
+      // Filter out empty content
+      if (Array.isArray(s.content)) return s.content.length > 0;
+      return s.content && s.content.length > 0;
+    });
 
   const renderMainSection = (section) => {
     switch (section.id) {

@@ -359,16 +359,17 @@ const TemplateTwo = ({
           </div>
         );
       case "softskills":
-        return (
+        const softSkillsData = skillsdata?.find(skill => skill.title === "Soft Skills")?.skills || [];
+        return softSkillsData.length > 0 ? (
           <div>
             <h2 className="section-title border-b-2 border-gray-300 mb-1">
               {customSectionTitles.softskills || "Soft Skills"}
             </h2>
             <p className="content">
-              {skillsdata && skillsdata.find(skill => skill.title === "Soft Skills")?.skills?.join(", ")}
+              {softSkillsData.join(", ")}
             </p>
           </div>
-        );
+        ) : null;
       case "languages":
         return (
           <div>
