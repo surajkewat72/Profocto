@@ -180,7 +180,14 @@ const TemplateTwo = ({
 
   const orderedSections = sectionOrder
     .map(id => sections.find(section => section.id === id))
-    .filter(section => section !== undefined && (!enabledSections || enabledSections[section.id]));
+    .filter(section => {
+      if (!section || (enabledSections && !enabledSections[section.id])) return false;
+      // Filter out sections with empty content
+      if (Array.isArray(section.content)) {
+        return section.content.length > 0;
+      }
+      return section.content && section.content.trim().length > 0;
+    });
 
   // Prevent hydration issues by only rendering on client
   if (!isClient) {
@@ -359,17 +366,16 @@ const TemplateTwo = ({
           </div>
         );
       case "softskills":
-        const softSkillsData = skillsdata?.find(skill => skill.title === "Soft Skills")?.skills || [];
-        return softSkillsData.length > 0 ? (
+        return (
           <div>
             <h2 className="section-title border-b-2 border-gray-300 mb-1">
               {customSectionTitles.softskills || "Soft Skills"}
             </h2>
             <p className="content">
-              {softSkillsData.join(", ")}
+              {section.content.join(", ")}
             </p>
           </div>
-        ) : null;
+        );
       case "languages":
         return (
           <div>
