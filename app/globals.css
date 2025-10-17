@@ -697,6 +697,11 @@
     font-weight: 400;
 }
 
+/* Dark heading underlines for screen view */
+.border-gray-300 {
+    border-color: #000000 !important; /* Pure black borders for section dividers */
+}
+
 @media print {
     .exclude-print {
         display: none !important;
