@@ -1,13 +1,52 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ResumeContext } from "../../contexts/ResumeContext";
+import Image from "next/image";
+
 const PersonalInformation = ({}) => {
   const { resumeData, setResumeData, handleProfilePicture, handleChange } =
     useContext(ResumeContext);
 
-  // Disable image upload for both professional templates
-  const isImageUploadDisabled = true;
+  // Templates that support profile picture
+  const TEMPLATES_WITH_PROFILE_PICTURE = ["template5"]; // Can add more templates here
+  
+  // Default profile picture
+  const DEFAULT_PROFILE_PICTURE = "/assets/smart.jpg";
+
+  // Check current template from localStorage
+  const [currentTemplate, setCurrentTemplate] = useState("");
+  
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedTemplate = localStorage.getItem("currentTemplate");
+      setCurrentTemplate(savedTemplate || "template1");
+    }
+
+    // Listen for template changes via storage event
+    const handleStorageChange = () => {
+      if (typeof window !== "undefined") {
+        const savedTemplate = localStorage.getItem("currentTemplate");
+        setCurrentTemplate(savedTemplate || "template1");
+      }
+    };
+
+    // Check for changes periodically (since localStorage events don't fire in same tab)
+    const interval = setInterval(handleStorageChange, 500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Check if current template supports profile picture
+  const isImageUploadEnabled = TEMPLATES_WITH_PROFILE_PICTURE.includes(currentTemplate);
+
+  // Handle removing profile picture - reset to default
+  const handleRemoveProfilePicture = () => {
+    setResumeData({ ...resumeData, profilePicture: DEFAULT_PROFILE_PICTURE });
+  };
+
+  // Check if current image is the default
+  const isDefaultImage = resumeData.profilePicture === DEFAULT_PROFILE_PICTURE;
 
   return (
     <div className="form-section">
@@ -80,11 +119,58 @@ const PersonalInformation = ({}) => {
           />
         </div>
 
-        {isImageUploadDisabled && (
-          <div className="p-4 bg-gray-800/30 border border-gray-700/40 rounded-lg text-center">
-            <p className="text-gray-400 text-sm">Profile image disabled for professional templates</p>
+        {/* Profile Picture Upload - Available for templates that support it */}
+        {isImageUploadEnabled ? (
+          <div>
+            <label className="label-text">Profile Picture</label>
+            <div className="space-y-3">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleProfilePicture}
+                className="block w-full text-sm text-gray-400
+                  file:mr-4 file:py-2 file:px-4
+                  file:rounded-lg file:border-0
+                  file:text-sm file:font-semibold
+                  file:bg-pink-500/10 file:text-pink-400
+                  hover:file:bg-pink-500/20
+                  file:cursor-pointer cursor-pointer
+                  border border-gray-700/40 rounded-lg
+                  bg-gray-800/30 p-2"
+              />
+              
+              {/* Preview - Always show */}
+              <div className="flex items-center gap-4">
+                <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-pink-400/30 bg-gray-700">
+                  <Image
+                    src={resumeData.profilePicture || DEFAULT_PROFILE_PICTURE}
+                    alt="Profile preview"
+                    width={96}
+                    height={96}
+                    className="object-cover w-full h-full"
+                    style={{ objectPosition: 'center' }}
+                  />
+                </div>
+                {!isDefaultImage && (
+                  <button
+                    type="button"
+                    onClick={handleRemoveProfilePicture}
+                    className="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/30 
+                      rounded-lg hover:bg-red-500/20 transition-colors text-sm font-medium"
+                  >
+                    Remove Picture
+                  </button>
+                )}
+              </div>
+              
+              <p className="text-xs text-gray-500">
+                {isDefaultImage 
+                  ? "Using default image. Upload your own photo to replace it."
+                  : "Recommended: Square image, at least 400x400px for best quality"}
+              </p>
+            </div>
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ const DefaultResumeData = {
   contactInformation: "+1 555-123-4567",
   email: "john.doe@email.com",
   address: "San Francisco, CA",
-  profilePicture: "",
+  profilePicture: "/assets/smart.jpg",
   socialMedia: [
     {
       socialMedia: "LinkedIn",
