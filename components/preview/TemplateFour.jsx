@@ -130,7 +130,7 @@ const TemplateFive = ({
                   <SortableItem key={`work-${index}`} id={`work-${index}`}>
                     <div className="relative pl-4 mb-2">
                       <div className="absolute left-0 top-1 w-2 h-2 bg-black rounded-full"></div>
-                      <div className="p-0 bg-white border-l border-gray-300 ml-1">
+                      <div className="p-0 bg-white ml-1">
                         <h3 className="font-bold text-gray-900 text-sm leading-snug">
                           {item.position} | {item.company}
                         </h3>
@@ -179,7 +179,7 @@ const TemplateFive = ({
                   <SortableItem key={`project-${index}`} id={`project-${index}`}>
                     <div className="relative pl-4 mb-2">
                       <div className="absolute left-0 top-1 w-2 h-2 bg-black rounded-full"></div>
-                      <div className="p-0 bg-white border-l border-gray-300 ml-1">
+                      <div className="p-0 bg-white ml-1">
                         <h3 className="font-bold text-gray-900 text-sm leading-snug flex items-center gap-1">
                           {item.name}
                           {item.link && (
