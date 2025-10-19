@@ -775,7 +775,7 @@ const ClassicTemplate = ({
                           {item.link && (
                             <a
                               href={item.link}
-                              className='text-blue-600 hover:text-blue-800 transition-colors'
+                              className='text-black hover:text-gray-700 transition-colors'
                               target='_blank'
                               rel='noopener noreferrer'
                             >
@@ -872,7 +872,7 @@ const ClassicTemplate = ({
                       cert.link.trim() !== "" && (
                         <a
                           href={cert.link}
-                          className='text-blue-600 hover:text-blue-800 transition-colors'
+                          className='text-black hover:text-gray-700 transition-colors'
                           target='_blank'
                           rel='noopener noreferrer'
                         >

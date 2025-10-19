@@ -122,7 +122,7 @@ const TemplateSix = ({
                     <div className="flex justify-between items-start text-sm">
                       <h3 className="font-bold text-gray-900 leading-tight flex items-center gap-2">
                         {item.name}
-                        {item.link && <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-black"><FaExternalLinkAlt className="w-3 h-3" /></a>}
+                        {item.link && <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-black hover:text-gray-700"><FaExternalLinkAlt className="w-3 h-3" /></a>}
                       </h3>
                       <DateRange
                         startYear={item.startYear}

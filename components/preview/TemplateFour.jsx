@@ -186,7 +186,7 @@ const TemplateFive = ({
                             <Link
                               href={item.link}
                               target="_blank"
-                              className="text-gray-600 hover:text-black"
+                              className="text-black hover:text-gray-700"
                             >
                               <FaExternalLinkAlt className="w-3 h-3" />
                             </Link>

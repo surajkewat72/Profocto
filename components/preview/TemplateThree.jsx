@@ -236,7 +236,7 @@ const TemplateFour = ({
                           {item.link && (
                             <Link
                               href={item.link}
-                              className='text-blue-600 hover:text-blue-800 transition-colors'
+                              className='text-black hover:text-gray-700 transition-colors'
                               target='_blank'
                               rel='noopener noreferrer'
                             >
@@ -342,7 +342,7 @@ const TemplateFour = ({
                       cert.link.trim() !== "" && (
                         <Link
                           href={cert.link}
-                          className='text-blue-600 hover:text-blue-800 transition-colors'
+                          className='text-black hover:text-gray-700 transition-colors'
                           target='_blank'
                           rel='noopener noreferrer'
                         >
