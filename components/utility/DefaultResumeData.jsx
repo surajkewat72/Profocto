@@ -4,7 +4,7 @@ const DefaultResumeData = {
   contactInformation: "+1 555-123-4567",
   email: "john.doe@email.com",
   address: "San Francisco, CA",
-  profilePicture: "/assets/smart.jpg",
+  profilePicture: "https://ik.imagekit.io/profocto/christopher-campbell-rDEOVtE7vOs-unsplash.jpg?updatedAt=1760968464715",
   socialMedia: [
     {
       socialMedia: "LinkedIn",

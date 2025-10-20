@@ -113,10 +113,10 @@ const TemplateFive = ({
       case "summary":
         return (
           <div className='mb-4'>
-            <h2 className='text-sm font-bold uppercase mb-1 pb-0.5 border-b border-gray-400'>
+            <h2 className='text-sm font-bold uppercase mb-2 pb-0.5 border-b border-gray-400'>
               {customSectionTitles.summary || "Summary"}
             </h2>
-            <p className='text-xs leading-snug font-sans'>
+            <p className='text-xs leading-relaxed font-sans text-gray-800'>
               {resumeData.summary}
             </p>
           </div>
@@ -125,15 +125,15 @@ const TemplateFive = ({
       case "education":
         return resumeData.education.length > 0 ? (
           <div className='mb-4'>
-            <h2 className='text-sm font-bold uppercase mb-1 pb-0.5 border-b border-gray-400'>
+            <h2 className='text-sm font-bold uppercase mb-2 pb-0.5 border-b border-gray-400'>
               {customSectionTitles.education || "Education"}
             </h2>
             {resumeData.education.map((item, index) => (
               <div
                 key={index}
-                className='mb-2'
+                className='mb-3'
               >
-                <div className='flex justify-between items-baseline mb-0.5'>
+                <div className='flex justify-between items-baseline mb-1'>
                   <h3 className='text-xs font-bold'>
                     {item.degree}
                   </h3>
@@ -144,7 +144,7 @@ const TemplateFive = ({
                     className='text-xs text-gray-600'
                   />
                 </div>
-                <p className='text-xs font-semibold'>{item.school}</p>
+                <p className='text-xs text-gray-700'>{item.school}</p>
               </div>
             ))}
           </div>
@@ -153,7 +153,7 @@ const TemplateFive = ({
       case "experience":
         return resumeData.workExperience.length > 0 ? (
           <div className='mb-4'>
-            <h2 className='text-sm font-bold uppercase mb-1 pb-0.5 border-b border-gray-400'>
+            <h2 className='text-sm font-bold uppercase mb-2 pb-0.5 border-b border-gray-400'>
               {customSectionTitles.experience || "Professional Experience"}
             </h2>
             <DndContext
@@ -167,14 +167,9 @@ const TemplateFive = ({
               >
                 {resumeData.workExperience.map((item, index) => (
                   <SortableItem key={`work-${index}`} id={`work-${index}`}>
-                    <div className='mb-2'>
-                      <div className='flex justify-between items-baseline mb-0.5'>
+                    <div className='mb-3'>
+                      <div className='flex justify-between items-baseline mb-1'>
                         <h3 className='text-xs font-bold'>
-                          {item.position} |{" "}
-                          <p className='content !text-gray-800 !font-medium'>
-                            {" "}
-                            {item.company}
-                          </p>
                           {item.position}
                         </h3>
                         <DateRange
@@ -184,18 +179,15 @@ const TemplateFive = ({
                           className='text-xs text-gray-600'
                         />
                       </div>
-                      <div className='flex items-center gap-1 mb-0.5'>
-                        <p className='text-xs font-semibold'>{item.company}</p>
-                        {item.location && <span className='text-xs text-gray-600'>• {item.location}</span>}
-                      </div>
+                      <p className='text-xs text-gray-700 mb-1'>{item.company}</p>
                       {item.description && (
-                        <p className='text-xs font-sans leading-snug mb-1'>
+                        <p className='text-xs font-sans leading-relaxed mb-1.5 text-gray-800'>
                           {item.description}
                         </p>
                       )}
                       {typeof item.keyAchievements === "string" &&
                         item.keyAchievements.trim() && (
-                          <ul className='list-disc list-inside text-xs font-sans leading-snug space-y-0.5'>
+                          <ul className='list-disc list-inside text-xs font-sans leading-relaxed space-y-0.5 text-gray-800'>
                             {item.keyAchievements
                               .split("\n")
                               .filter((achievement) => achievement.trim())
@@ -217,7 +209,7 @@ const TemplateFive = ({
       case "projects":
         return resumeData.projects.length > 0 ? (
           <div className='mb-4'>
-            <h2 className='text-sm font-bold uppercase mb-1 pb-0.5 border-b border-gray-400'>
+            <h2 className='text-sm font-bold uppercase mb-2 pb-0.5 border-b border-gray-400'>
               {customSectionTitles.projects || "Projects"}
             </h2>
             <DndContext
@@ -234,8 +226,8 @@ const TemplateFive = ({
                     key={`project-${index}`}
                     id={`project-${index}`}
                   >
-                    <div className='mb-2'>
-                      <div className='flex justify-between items-baseline mb-0.5'>
+                    <div className='mb-3'>
+                      <div className='flex justify-between items-baseline mb-1'>
                         <div className='flex items-center gap-2'>
                           <h3 className='text-xs font-bold'>
                             {item.name}
@@ -259,13 +251,13 @@ const TemplateFive = ({
                         />
                       </div>
                       {item.description && (
-                        <p className='text-xs font-sans leading-snug mb-1'>
+                        <p className='text-xs font-sans leading-relaxed mb-1.5 text-gray-800'>
                           {item.description}
                         </p>
                       )}
                       {typeof item.keyAchievements === "string" &&
                         item.keyAchievements.trim() && (
-                          <ul className='list-disc list-inside text-xs font-sans leading-snug space-y-0.5'>
+                          <ul className='list-disc list-inside text-xs font-sans leading-relaxed space-y-0.5 text-gray-800'>
                             {item.keyAchievements
                               .split("\n")
                               .filter((achievement) => achievement.trim())
@@ -286,23 +278,21 @@ const TemplateFive = ({
 
       case "skills":
         return (
-          <div>
-            <h2 className='text-sm font-bold uppercase mb-1 pb-0.5 border-b border-gray-400'>
+          <div className='mb-4'>
+            <h2 className='text-sm font-bold uppercase mb-2 pb-0.5 border-b border-gray-400'>
               {customSectionTitles.skills || "Skills"}
             </h2>
-            <div className='grid grid-cols-2 gap-x-4 gap-y-2'>
+            <div className='space-y-2'>
               {resumeData.skills
                 .filter((skill) => skill.title !== "Soft Skills")
                 .map((skill, index) => (
                   <div key={`SKILLS-${index}`}>
-                    <h3 className='text-xs font-bold mb-0.5'>
+                    <h3 className='text-xs font-bold mb-1 text-gray-900'>
                       {skill.title}
                     </h3>
-                    <ul className='list-disc list-inside text-xs font-sans leading-snug'>
-                      {skill.skills.map((skillItem, skillIdx) => (
-                        <li key={skillIdx}>{skillItem}</li>
-                      ))}
-                    </ul>
+                    <p className='text-xs font-sans leading-relaxed text-gray-800'>
+                      {skill.skills.join(" • ")}
+                    </p>
                   </div>
                 ))}
             </div>
@@ -312,11 +302,11 @@ const TemplateFive = ({
       case "softSkills":
         return (
           <div className='mb-4'>
-            <h2 className='text-sm font-bold uppercase mb-1 pb-0.5 border-b border-gray-400'>
+            <h2 className='text-sm font-bold uppercase mb-2 pb-0.5 border-b border-gray-400'>
               {customSectionTitles.softSkills || "Soft Skills"}
             </h2>
-            <p className='text-xs font-sans leading-snug'>
-              {section.content.join(", ")}
+            <p className='text-xs font-sans leading-relaxed text-gray-800'>
+              {section.content.join(" • ")}
             </p>
           </div>
         );
@@ -324,33 +314,28 @@ const TemplateFive = ({
       case "languages":
         return resumeData.languages.length > 0 ? (
           <div className='mb-4'>
-            <h2 className='text-sm font-bold uppercase mb-1 pb-0.5 border-b border-gray-400'>
+            <h2 className='text-sm font-bold uppercase mb-2 pb-0.5 border-b border-gray-400'>
               {customSectionTitles.languages || "Languages"}
             </h2>
-            <div className='grid grid-cols-2 gap-x-4 gap-y-1'>
-              {resumeData.languages.map((lang, index) => (
-                <div key={index} className='text-xs'>
-                  <span className='font-semibold'>{typeof lang === "string" ? lang : lang.name}</span>
-                  {typeof lang === "object" && lang.proficiency && (
-                    <span className='text-gray-600'> - {lang.proficiency}</span>
-                  )}
-                </div>
-              ))}
-            </div>
+            <p className='text-xs font-sans leading-relaxed text-gray-800'>
+              {resumeData.languages.map((lang, index) => 
+                typeof lang === "string" ? lang : lang.name
+              ).join(" • ")}
+            </p>
           </div>
         ) : null;
 
       case "certifications":
         return resumeData.certifications.length > 0 ? (
           <div className='mb-4'>
-            <h2 className='text-sm font-bold uppercase mb-1 pb-0.5 border-b border-gray-400'>
+            <h2 className='text-sm font-bold uppercase mb-2 pb-0.5 border-b border-gray-400'>
               {customSectionTitles.certifications || "Certifications"}
             </h2>
             {resumeData.certifications.map((cert, index) => (
-              <div key={index} className='mb-1.5'>
-                <div className='flex justify-between items-baseline'>
+              <div key={index} className='mb-2'>
+                <div className='flex justify-between items-baseline mb-0.5'>
                   <div className='flex items-center gap-2'>
-                    <h3 className='text-xs font-bold'>
+                    <h3 className='text-xs font-bold text-gray-900'>
                       {typeof cert === "string" ? cert : cert.name}
                     </h3>
                     {typeof cert === "object" &&
@@ -371,7 +356,7 @@ const TemplateFive = ({
                   )}
                 </div>
                 {typeof cert === "object" && cert.issuer && (
-                  <p className='text-xs text-gray-600'>{cert.issuer}</p>
+                  <p className='text-xs text-gray-700'>{cert.issuer}</p>
                 )}
               </div>
             ))}
@@ -415,7 +400,7 @@ const TemplateFive = ({
       }}
     >
       {/* Header Section with Profile Picture */}
-      <div className='flex justify-between items-start mb-3 pb-2 border-b border-gray-400 no-break'>
+      <div className='flex justify-between items-start mb-3 no-break'>
         <div className='flex-1 pr-4'>
           <h1 className='text-3xl font-bold mb-1'>{resumeData.name}</h1>
           <p className='text-base italic text-gray-700 mb-2'>{resumeData.position}</p>
@@ -463,14 +448,17 @@ const TemplateFive = ({
 
         {/* Profile Picture - Always visible, uses default if not uploaded */}
         <div className='flex-shrink-0 ml-4'>
-          <div className='w-32 h-32 rounded-sm overflow-hidden bg-gray-100'>
+          <div className='w-32 h-32 overflow-hidden bg-gray-100'>
             <Image
-              src={resumeData.profilePicture || "/assets/smart.jpg"}
+              src={resumeData.profilePicture || "https://ik.imagekit.io/profocto/christopher-campbell-rDEOVtE7vOs-unsplash.jpg?updatedAt=1760968464715"}
               alt={resumeData.name || "Profile"}
               width={128}
               height={128}
               className='object-cover w-full h-full'
               style={{ objectPosition: 'center' }}
+              onError={(e) => {
+                e.currentTarget.src = "/assets/smart.jpg";
+              }}
             />
           </div>
         </div>

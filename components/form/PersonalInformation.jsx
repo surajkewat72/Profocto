@@ -17,8 +17,12 @@ const PersonalInformation = ({}) => {
   // Templates that support profile picture
   const TEMPLATES_WITH_PROFILE_PICTURE = ["template5"]; // Can add more templates here
   
-  // Default profile picture
-  const DEFAULT_PROFILE_PICTURE = "/assets/smart.jpg";
+  // Default profile picture - Use ImageKit URL with fallback
+  const DEFAULT_PROFILE_PICTURE = "https://ik.imagekit.io/profocto/christopher-campbell-rDEOVtE7vOs-unsplash.jpg?updatedAt=1760968464715";
+  const FALLBACK_PROFILE_PICTURE = "/assets/smart.jpg";
+  
+  // State to track if ImageKit URL failed to load
+  const [imageError, setImageError] = useState(false);
 
   // Check current template from localStorage
   const [currentTemplate, setCurrentTemplate] = useState("");

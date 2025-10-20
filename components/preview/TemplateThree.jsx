@@ -1,5 +1,5 @@
 "use client";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { FaExternalLinkAlt, FaArrowUpRightFromSquare } from "react-icons/fa6";
 import DateRange from "../utility/DateRange";
 import {
   arrayMove,
@@ -189,13 +189,14 @@ const TemplateFour = ({
                     </p>
                     {item.keyAchievements === "string" &&
                       item.keyAchievements.trim() && (
-                        <ul className='list-disc list-inside content !text-gray-800 ml-4'>
+                        <ul className='content !text-gray-800 ml-4 space-y-1'>
                           {item.keyAchievements
                             .split("\n")
                             .filter((achievement) => achievement.trim())
                             .map((achievement, subIndex) => (
-                              <li key={`${item.company}-${index}-${subIndex}`}>
-                                {achievement}
+                              <li key={`${item.company}-${index}-${subIndex}`} className='flex items-start gap-2'>
+                                <span className='text-gray-700 font-bold mt-0.5'>▸</span>
+                                <span className='flex-1'>{achievement}</span>
                               </li>
                             ))}
                         </ul>
@@ -236,11 +237,12 @@ const TemplateFour = ({
                           {item.link && (
                             <Link
                               href={item.link}
-                              className='text-black hover:text-gray-700 transition-colors'
+                              className='text-gray-700 hover:text-black transition-colors inline-flex items-center gap-1'
                               target='_blank'
                               rel='noopener noreferrer'
+                              title='View project'
                             >
-                              <FaExternalLinkAlt className='w-3 h-3' />
+                              <FaArrowUpRightFromSquare className='w-3 h-3' />
                             </Link>
                           )}
                         </div>
@@ -258,13 +260,14 @@ const TemplateFour = ({
                     </p>
                     {typeof item.keyAchievements === "string" &&
                       item.keyAchievements.trim() && (
-                        <ul className='list-disc list-inside content !text-gray-800 ml-4'>
+                        <ul className='content !text-gray-800 ml-4 space-y-1'>
                           {item.keyAchievements
                             .split("\n")
                             .filter((achievement) => achievement.trim())
                             .map((achievement, subIndex) => (
-                              <li key={`${item.name}-${index}-${subIndex}`}>
-                                {achievement}
+                              <li key={`${item.name}-${index}-${subIndex}`} className='flex items-start gap-2'>
+                                <span className='text-gray-700 font-bold mt-0.5'>▸</span>
+                                <span className='flex-1'>{achievement}</span>
                               </li>
                             ))}
                         </ul>
@@ -327,10 +330,11 @@ const TemplateFour = ({
             <h2 className='section-title border-b-2 border-gray-300 mb-1 text-gray-900'>
               {customSectionTitles.certifications || "Certifications"}
             </h2>
-            <ul className='list-disc list-inside content !text-gray-800'>
+            <ul className='content !text-gray-800 ml-4 space-y-1'>
               {resumeData.certifications.map((cert, index) => (
-                <li key={index} className='mb-1'>
-                  <div className='flex items-center gap-2'>
+                <li key={index} className='flex items-start gap-2'>
+                  <span className='text-gray-700 font-bold mt-0.5'>▸</span>
+                  <div className='flex-1 flex items-center gap-2'>
                     <span>
                       {typeof cert === "string" ? cert : cert.name}
                       {typeof cert === "object" && cert.issuer && (
@@ -342,11 +346,12 @@ const TemplateFour = ({
                       cert.link.trim() !== "" && (
                         <Link
                           href={cert.link}
-                          className='text-black hover:text-gray-700 transition-colors'
+                          className='text-gray-700 hover:text-black transition-colors inline-flex items-center gap-1'
                           target='_blank'
                           rel='noopener noreferrer'
+                          title='View certificate'
                         >
-                          <FaExternalLinkAlt className='w-3 h-3' />
+                          <FaArrowUpRightFromSquare className='w-3 h-3' />
                         </Link>
                       )}
                   </div>
