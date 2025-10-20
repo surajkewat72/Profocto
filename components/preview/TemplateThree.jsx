@@ -1,5 +1,5 @@
 "use client";
-import { FaExternalLinkAlt, FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { FaExternalLinkSquareAlt } from "react-icons/fa";
 import DateRange from "../utility/DateRange";
 import {
   arrayMove,
@@ -242,7 +242,7 @@ const TemplateFour = ({
                               rel='noopener noreferrer'
                               title='View project'
                             >
-                              <FaArrowUpRightFromSquare className='w-3 h-3' />
+                              <FaExternalLinkSquareAlt className='w-3.5 h-3.5' />
                             </Link>
                           )}
                         </div>
@@ -351,7 +351,7 @@ const TemplateFour = ({
                           rel='noopener noreferrer'
                           title='View certificate'
                         >
-                          <FaArrowUpRightFromSquare className='w-3 h-3' />
+                          <FaExternalLinkSquareAlt className='w-3.5 h-3.5' />
                         </Link>
                       )}
                   </div>
