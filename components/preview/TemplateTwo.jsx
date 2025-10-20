@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import React, { useState, useEffect } from "react";
-import { FaExternalLinkAlt, FaMapMarkerAlt, FaEnvelope, FaPhone, FaLinkedin } from "react-icons/fa";
+import { FaExternalLinkAlt, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt, FaLinkedin } from "react-icons/fa";
 import { ImGithub } from "react-icons/im";
 import { CgWebsite } from "react-icons/cg";
 import DateRange from "../utility/DateRange";
@@ -524,7 +524,7 @@ const TemplateTwo = ({
               )}
               {contactData && (
                 <div className="flex items-center gap-1.5">
-                  <FaPhone className="text-gray-700 text-sm flex-shrink-0" />
+                  <FaPhoneAlt className="text-gray-700 text-sm flex-shrink-0" />
                   <span className="text-gray-800">{contactData}</span>
                 </div>
               )}
@@ -563,7 +563,7 @@ const TemplateTwo = ({
                         rel="noopener noreferrer"
                         className="text-gray-800 hover:text-gray-900"
                       >
-                        {socialName}
+                        {social.displayText || social.link}
                       </a>
                     </div>
                   );

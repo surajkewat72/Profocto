@@ -960,7 +960,7 @@ const ClassicTemplate = ({
                 rel='noopener noreferrer'
               >
                 {icon && icon.icon}
-                <span className="capitalize">{socialMedia.socialMedia}</span>
+                <span>{socialMedia.displayText || socialMedia.link}</span>
               </a>
             );
           })}

@@ -37,7 +37,7 @@ export default function BuilderPage() {
 
   // Resume data state with localStorage persistence (hydration-safe)
   const [resumeData, setResumeData] = useState<ResumeData>(
-    DefaultResumeData as ResumeData
+    JSON.parse(JSON.stringify(DefaultResumeData)) as ResumeData
   );
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -50,12 +50,12 @@ export default function BuilderPage() {
         setResumeData(parsedData);
       } catch (error) {
         console.warn("Failed to parse saved resume data:", error);
-        // If parsing fails, use default data
-        setResumeData(DefaultResumeData as ResumeData);
+        // If parsing fails, use default data (deep copy)
+        setResumeData(JSON.parse(JSON.stringify(DefaultResumeData)) as ResumeData);
       }
     } else {
-      // If no saved data, ensure we're using default data
-      setResumeData(DefaultResumeData as ResumeData);
+      // If no saved data, ensure we're using default data (deep copy)
+      setResumeData(JSON.parse(JSON.stringify(DefaultResumeData)) as ResumeData);
     }
     setIsHydrated(true);
   }, []);

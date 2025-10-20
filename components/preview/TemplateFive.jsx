@@ -1,5 +1,5 @@
 ﻿"use client";
-import { FaExternalLinkAlt, FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin } from "react-icons/fa";
+import { FaExternalLinkAlt, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaLinkedin } from "react-icons/fa";
 import { ImGithub } from "react-icons/im";
 import { CgWebsite } from "react-icons/cg";
 import Image from "next/image";
@@ -416,63 +416,48 @@ const TemplateFive = ({
     >
       {/* Header Section with Profile Picture */}
       <div className='flex justify-between items-start mb-4 pb-3 border-b-2 border-gray-400 no-break'>
-        <div className='flex-1'>
+        <div className='flex-1 pr-4'>
           <h1 className='text-3xl font-bold mb-1'>{resumeData.name}</h1>
           <p className='text-base italic text-gray-700 mb-2'>{resumeData.position}</p>
           
-          {/* Contact Info - Two Column Grid */}
-          <div className='grid grid-cols-2 gap-x-6 gap-y-1 text-xs'>
-            {/* Left Column */}
-            <div className='space-y-1'>
-              {resumeData.address && (
-                <div className='flex items-center gap-1.5'>
-                  <FaMapMarkerAlt className='text-gray-600 flex-shrink-0' />
-                  <span>{resumeData.address}</span>
+          {/* Contact Info - Max 3 items per line */}
+          <div className='text-xs space-y-1'>
+            {/* First Line - Email, Phone, Address (max 3) */}
+            <div className='flex flex-wrap items-center gap-x-4 gap-y-1'>
+              {resumeData.email && (
+                <div className='flex items-center gap-1.5 flex-shrink-0'>
+                  <FaEnvelope className='text-gray-600 flex-shrink-0' />
+                  <span className='truncate max-w-[200px]'>{resumeData.email}</span>
                 </div>
               )}
               {resumeData.contactInformation && (
-                <div className='flex items-center gap-1.5'>
-                  <FaPhone className='text-gray-600 flex-shrink-0' />
-                  <span>{resumeData.contactInformation}</span>
+                <div className='flex items-center gap-1.5 flex-shrink-0'>
+                  <FaPhoneAlt className='text-gray-600 flex-shrink-0' />
+                  <span className='whitespace-nowrap'>{resumeData.contactInformation}</span>
+                </div>
+              )}
+              {resumeData.address && (
+                <div className='flex items-center gap-1.5 flex-shrink-0'>
+                  <FaMapMarkerAlt className='text-gray-600 flex-shrink-0' />
+                  <span className='truncate max-w-[250px]'>{resumeData.address}</span>
                 </div>
               )}
             </div>
-
-            {/* Right Column */}
-            <div className='space-y-1'>
-              {resumeData.email && (
-                <div className='flex items-center gap-1.5'>
-                  <FaEnvelope className='text-gray-600 flex-shrink-0' />
-                  <span>{resumeData.email}</span>
-                </div>
-              )}
-              {resumeData.socialMedia && resumeData.socialMedia.length > 0 && (
-                <div className='space-y-1'>
-                  {resumeData.socialMedia.map((social, index) => (
-                    <div key={index} className='flex items-center gap-1.5'>
-                      {social.socialMedia && social.socialMedia.toLowerCase() === "linkedin" && <FaLinkedin className='text-gray-600 flex-shrink-0' />}
-                      {social.socialMedia && social.socialMedia.toLowerCase() === "github" && <ImGithub className='text-gray-600 flex-shrink-0' />}
-                      {social.socialMedia && social.socialMedia.toLowerCase() === "website" && <CgWebsite className='text-gray-600 flex-shrink-0' />}
-                      <a 
-                        href={`${
-                          social.socialMedia && social.socialMedia.toLowerCase() === "website"
-                            ? "https://"
-                            : social.socialMedia && social.socialMedia.toLowerCase() === "linkedin"
-                              ? "https://www."
-                              : "https://www."
-                        }${social.link}`}
-                        target='_blank' 
-                        rel='noopener noreferrer' 
-                        className='hover:underline flex items-center gap-1'
-                      >
-                        <span>{social.link}</span>
-                        <FaExternalLinkAlt className='w-2.5 h-2.5 text-black' />
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            
+            {/* Second Line - Social Media */}
+            {resumeData.socialMedia && resumeData.socialMedia.length > 0 && (
+              <div className='flex flex-wrap items-center gap-x-4 gap-y-1'>
+                {resumeData.socialMedia.slice(0, 3).map((social, index) => (
+                  <div key={index} className='flex items-center gap-1.5 flex-shrink-0'>
+                    {social.socialMedia && social.socialMedia.toLowerCase() === "linkedin" && <FaLinkedin className='text-gray-600 flex-shrink-0' />}
+                    {social.socialMedia && social.socialMedia.toLowerCase() === "github" && <ImGithub className='text-gray-600 flex-shrink-0' />}
+                    {social.socialMedia && social.socialMedia.toLowerCase() === "website" && <CgWebsite className='text-gray-600 flex-shrink-0' />}
+                    {social.socialMedia && social.socialMedia.toLowerCase() === "instagram" && <span className='text-gray-600 flex-shrink-0'>📷</span>}
+                    <span className='truncate max-w-[200px]'>{social.displayText || social.link}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

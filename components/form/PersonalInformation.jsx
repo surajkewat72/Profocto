@@ -1,12 +1,18 @@
 "use client";
 
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { ResumeContext } from "../../contexts/ResumeContext";
-import Image from "next/image";
+import { FaTrash } from "react-icons/fa";
 
 const PersonalInformation = ({}) => {
   const { resumeData, setResumeData, handleProfilePicture, handleChange } =
     useContext(ResumeContext);
+
+  // Ref for file input to reset it
+  const fileInputRef = useRef(null);
+
+  // State for uploaded filename
+  const [uploadedFileName, setUploadedFileName] = useState("");
 
   // Templates that support profile picture
   const TEMPLATES_WITH_PROFILE_PICTURE = ["template5"]; // Can add more templates here
@@ -43,6 +49,21 @@ const PersonalInformation = ({}) => {
   // Handle removing profile picture - reset to default
   const handleRemoveProfilePicture = () => {
     setResumeData({ ...resumeData, profilePicture: DEFAULT_PROFILE_PICTURE });
+    setUploadedFileName(""); // Clear filename
+    
+    // Reset the file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  // Handle file upload with filename tracking
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setUploadedFileName(file.name);
+      handleProfilePicture(e);
+    }
   };
 
   // Check if current image is the default
@@ -125,9 +146,10 @@ const PersonalInformation = ({}) => {
             <label className="label-text">Profile Picture</label>
             <div className="space-y-3">
               <input
+                ref={fileInputRef}
                 type="file"
                 accept="image/*"
-                onChange={handleProfilePicture}
+                onChange={handleFileUpload}
                 className="block w-full text-sm text-gray-400
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-lg file:border-0
@@ -139,29 +161,21 @@ const PersonalInformation = ({}) => {
                   bg-gray-800/30 p-2"
               />
               
-              {/* Preview - Always show */}
-              <div className="flex items-center gap-4">
-                <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-pink-400/30 bg-gray-700">
-                  <Image
-                    src={resumeData.profilePicture || DEFAULT_PROFILE_PICTURE}
-                    alt="Profile preview"
-                    width={96}
-                    height={96}
-                    className="object-cover w-full h-full"
-                    style={{ objectPosition: 'center' }}
-                  />
-                </div>
-                {!isDefaultImage && (
+              {/* Show filename with delete button only when file is uploaded */}
+              {!isDefaultImage && uploadedFileName && (
+                <div className="flex items-center justify-between bg-gray-800/40 border border-gray-700/40 rounded-lg p-3">
+                  <span className="text-sm text-gray-300 truncate flex-1">{uploadedFileName}</span>
                   <button
                     type="button"
                     onClick={handleRemoveProfilePicture}
-                    className="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/30 
-                      rounded-lg hover:bg-red-500/20 transition-colors text-sm font-medium"
+                    className="ml-3 p-2 bg-red-500/10 text-red-400 border border-red-500/30 
+                      rounded-lg hover:bg-red-500/20 transition-colors flex-shrink-0"
+                    title="Remove picture"
                   >
-                    Remove Picture
+                    <FaTrash className="text-sm" />
                   </button>
-                )}
-              </div>
+                </div>
+              )}
               
               <p className="text-xs text-gray-500">
                 {isDefaultImage 

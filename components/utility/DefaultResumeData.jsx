@@ -8,10 +8,12 @@ const DefaultResumeData = {
   socialMedia: [
     {
       socialMedia: "LinkedIn",
+      displayText: "LinkedIn",
       link: "linkedin.com/in/johndoe",
     },
     {
       socialMedia: "Website",
+      displayText: "Website",
       link: "johndoe.dev",
     },
   ],

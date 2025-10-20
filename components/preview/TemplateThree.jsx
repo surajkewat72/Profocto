@@ -428,7 +428,7 @@ const TemplateFour = ({
                   rel='noopener noreferrer'
                 >
                   {icon && icon.icon}
-                  <span className="capitalize">{socialMedia.socialMedia}</span>
+                  <span>{socialMedia.displayText || socialMedia.link}</span>
                   {index !== resumeData.socialMedia.length - 1 && (
                     <span>|</span>
                   )}

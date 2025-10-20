@@ -45,8 +45,8 @@ const LoadUnload = () => {
   const confirmReset = () => {
     // Clear localStorage
     localStorage.removeItem("resumeData");
-    // Reset to default data
-    setResumeData(DefaultResumeData);
+    // Reset to default data - create a deep copy to avoid reference issues
+    setResumeData(JSON.parse(JSON.stringify(DefaultResumeData)));
     setShowResetModal(false);
   };
 
