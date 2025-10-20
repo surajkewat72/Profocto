@@ -406,7 +406,7 @@ const TemplateFive = ({
 
   return (
     <div
-      className='max-w-[210mm] mx-auto bg-white p-6 print:p-0'
+      className='max-w-[210mm] mx-auto bg-white p-4 print:p-0'
       style={{
         fontFamily: "sans-serif",
         fontSize: "11pt",
@@ -415,7 +415,7 @@ const TemplateFive = ({
       }}
     >
       {/* Header Section with Profile Picture */}
-      <div className='flex justify-between items-start mb-4 pb-3 border-b-2 border-gray-400 no-break'>
+      <div className='flex justify-between items-start mb-3 pb-2 border-b border-gray-400 no-break'>
         <div className='flex-1 pr-4'>
           <h1 className='text-3xl font-bold mb-1'>{resumeData.name}</h1>
           <p className='text-base italic text-gray-700 mb-2'>{resumeData.position}</p>
@@ -463,12 +463,12 @@ const TemplateFive = ({
 
         {/* Profile Picture - Always visible, uses default if not uploaded */}
         <div className='flex-shrink-0 ml-4'>
-          <div className='w-24 h-24 rounded-sm overflow-hidden border-2 border-gray-300 bg-gray-100'>
+          <div className='w-32 h-32 rounded-sm overflow-hidden bg-gray-100'>
             <Image
               src={resumeData.profilePicture || "/assets/smart.jpg"}
               alt={resumeData.name || "Profile"}
-              width={96}
-              height={96}
+              width={128}
+              height={128}
               className='object-cover w-full h-full'
               style={{ objectPosition: 'center' }}
             />
