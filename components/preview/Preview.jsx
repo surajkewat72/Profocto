@@ -12,6 +12,11 @@ import {
   FaTh,
   FaEyeSlash,
   FaHackerrank,
+  FaMedium,
+  FaStackOverflow,
+  FaBehance,
+  FaDribbble,
+  FaGitlab,
 } from "react-icons/fa";
 import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
 import { CgWebsite } from "react-icons/cg";
@@ -185,9 +190,15 @@ const Preview = () => {
     { name: "website", icon: <CgWebsite /> },
     { name: "github", icon: <ImGithub /> },
     { name: "leetcode", icon: <SiLeetcode /> },
-    {name: "hackerrank", icon: <FaHackerrank />},
-    {name: "hacker rank", icon: <FaHackerrank />},
-    {name: "codeforces", icon: <SiCodeforces />}
+    { name: "hackerrank", icon: <FaHackerrank /> },
+    { name: "hacker rank", icon: <FaHackerrank /> },
+    { name: "codeforces", icon: <SiCodeforces /> },
+    { name: "medium", icon: <FaMedium /> },
+    { name: "stack overflow", icon: <FaStackOverflow /> },
+    { name: "behance", icon: <FaBehance /> },
+    { name: "dribbble", icon: <FaDribbble /> },
+    { name: "gitlab", icon: <FaGitlab /> },
+    { name: "custom", icon: <CgWebsite /> }, // Default icon for custom platforms
   ];
 
   const sensors = useSensors(

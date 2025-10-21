@@ -7,6 +7,24 @@ import { ResumeContext } from "../../contexts/ResumeContext";
 const SocialMedia = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
 
+  // Available platform options
+  const platformOptions = [
+    { value: "", label: "Select Platform" },
+    { value: "LinkedIn", label: "LinkedIn" },
+    { value: "GitHub", label: "GitHub" },
+    { value: "Website", label: "Website" },
+    { value: "Twitter", label: "Twitter" },
+    { value: "Instagram", label: "Instagram" },
+    { value: "Facebook", label: "Facebook" },
+    { value: "YouTube", label: "YouTube" },
+    { value: "Medium", label: "Medium" },
+    { value: "Stack Overflow", label: "Stack Overflow" },
+    { value: "Behance", label: "Behance" },
+    { value: "Dribbble", label: "Dribbble" },
+    { value: "GitLab", label: "GitLab" },
+    { value: "Custom", label: "Custom" },
+  ];
+
   // social media
   const handleSocialMedia = (e, index) => {
     const newSocialMedia = [...resumeData.socialMedia];
@@ -46,14 +64,28 @@ const SocialMedia = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <label className="block text-xs text-gray-400 mb-1">Platform</label>
-              <input
-                type="text"
-                placeholder="e.g., LinkedIn, GitHub, Instagram"
+              <select
                 name="socialMedia"
-                className="other-input w-full"
+                className="other-input w-full cursor-pointer"
                 value={socialMedia.socialMedia}
                 onChange={(e) => handleSocialMedia(e, index)}
-              />
+              >
+                {platformOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              {socialMedia.socialMedia === "Custom" && (
+                <input
+                  type="text"
+                  placeholder="Enter custom platform name"
+                  name="socialMedia"
+                  className="other-input w-full mt-2"
+                  value={socialMedia.socialMedia === "Custom" ? "" : socialMedia.socialMedia}
+                  onChange={(e) => handleSocialMedia(e, index)}
+                />
+              )}
             </div>
             <div>
               <label className="block text-xs text-gray-400 mb-1">Display Text</label>
