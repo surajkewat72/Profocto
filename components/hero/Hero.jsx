@@ -254,10 +254,10 @@ export default function Hero() {
                         </div>
 
                         <h1 className={`mb-4 ${playfair.className}`}>
-                            <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] leading-tight tracking-tight font-bold bg-gradient-to-r from-white via-pink-200 to-pink-300 bg-clip-text text-transparent drop-shadow-lg pb-2">
+                            <div className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[12rem] leading-tight tracking-tight font-bold bg-gradient-to-r from-white via-pink-200 to-pink-300 bg-clip-text text-transparent drop-shadow-lg pb-2">
                                 Profile
                             </div>
-                            <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] leading-tight tracking-tight -mt-1 sm:-mt-2 md:-mt-4 lg:-mt-6 font-bold bg-gradient-to-r from-pink-300 via-pink-200 to-white bg-clip-text text-transparent drop-shadow-lg pb-4 sm:pb-6">
+                            <div className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[12rem] leading-tight tracking-tight -mt-1 sm:-mt-2 md:-mt-4 lg:-mt-6 font-bold bg-gradient-to-r from-pink-300 via-pink-200 to-white bg-clip-text text-transparent drop-shadow-lg pb-4 sm:pb-6">
                                 Élegante
                             </div>
                         </h1>
