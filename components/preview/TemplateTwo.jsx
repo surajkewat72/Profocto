@@ -101,6 +101,7 @@ const TemplateTwo = ({
   onDragEnd,
   resumeData,
   setResumeData,
+  icons,
 }) => {
   const [isClient, setIsClient] = useState(false);
   const { customSectionTitles } = useSectionTitles();
@@ -542,17 +543,12 @@ const TemplateTwo = ({
                 resumeData.socialMedia &&
                 resumeData.socialMedia.map((social, index) => {
                   const socialName = social.socialMedia.toLowerCase();
+                  const icon = icons?.find(
+                    (icon) => icon.name === socialName
+                  );
                   return (
                     <div key={index} className="flex items-center gap-1.5">
-                      {socialName === "linkedin" && (
-                        <FaLinkedin className="text-gray-700 text-sm flex-shrink-0" />
-                      )}
-                      {socialName === "github" && (
-                        <ImGithub className="text-gray-700 text-sm flex-shrink-0" />
-                      )}
-                      {socialName === "website" && (
-                        <CgWebsite className="text-gray-700 text-sm flex-shrink-0" />
-                      )}
+                      {icon && React.cloneElement(icon.icon, { className: "text-gray-700 text-sm flex-shrink-0" })}
                       <a
                         href={
                           social.link.startsWith("http")

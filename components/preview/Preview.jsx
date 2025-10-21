@@ -460,6 +460,7 @@ const Preview = () => {
             onDragEnd={onDragEnd}
             resumeData={resumeData}
             setResumeData={setResumeData}
+            icons={icons}
           />
         );
       case "template3":

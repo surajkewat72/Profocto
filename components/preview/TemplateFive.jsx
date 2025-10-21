@@ -1,4 +1,5 @@
 ﻿"use client";
+import React from "react";
 import { FaExternalLinkAlt, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaLinkedin } from "react-icons/fa";
 import { ImGithub } from "react-icons/im";
 import { CgWebsite } from "react-icons/cg";
@@ -432,15 +433,16 @@ const TemplateFive = ({
             {/* Second Line - Social Media */}
             {resumeData.socialMedia && resumeData.socialMedia.length > 0 && (
               <div className='flex flex-wrap items-center gap-x-4 gap-y-1'>
-                {resumeData.socialMedia.slice(0, 3).map((social, index) => (
-                  <div key={index} className='flex items-center gap-1.5 flex-shrink-0'>
-                    {social.socialMedia && social.socialMedia.toLowerCase() === "linkedin" && <FaLinkedin className='text-gray-600 flex-shrink-0' />}
-                    {social.socialMedia && social.socialMedia.toLowerCase() === "github" && <ImGithub className='text-gray-600 flex-shrink-0' />}
-                    {social.socialMedia && social.socialMedia.toLowerCase() === "website" && <CgWebsite className='text-gray-600 flex-shrink-0' />}
-                    {social.socialMedia && social.socialMedia.toLowerCase() === "instagram" && <span className='text-gray-600 flex-shrink-0'>📷</span>}
-                    <span className='truncate max-w-[200px]'>{social.displayText || social.link}</span>
-                  </div>
-                ))}
+                {resumeData.socialMedia.slice(0, 3).map((social, index) => {
+                  const socialName = social.socialMedia?.toLowerCase();
+                  const icon = icons?.find((icon) => icon.name === socialName);
+                  return (
+                    <div key={index} className='flex items-center gap-1.5 flex-shrink-0'>
+                      {icon && React.cloneElement(icon.icon, { className: 'text-gray-600 flex-shrink-0' })}
+                      <span className='truncate max-w-[200px]'>{social.displayText || social.link}</span>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
