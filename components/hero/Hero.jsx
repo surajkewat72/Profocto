@@ -264,7 +264,7 @@ export default function Hero() {
                     </div>
 
                     {/* SEO-Enhanced Subtitle */}
-                    <div className={`mt-8 sm:mt-16 space-y-1 ${inter.className}`}>
+                    <div className={`mt-8 sm:mt-8 md:mt-10 lg:mt-12 space-y-1 ${inter.className}`}>
                         <h2 className="text-white/80 text-sm sm:text-lg font-light tracking-wider uppercase transition-all duration-500 hover:text-white px-4 sm:px-0">
                             {session ? 'Your Resume Builder Dashboard' : 'Professional Resume Builder & CV Creator'}
                         </h2>
