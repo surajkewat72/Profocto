@@ -52,8 +52,7 @@ const config: Config = {
   			}
   		},
   		animation: {
-  			shimmer: 'shimmer 2s linear infinite',
-  			'border-beam': 'border-beam 4s linear infinite'
+  			shimmer: 'shimmer 2s linear infinite'
   		},
   		keyframes: {
   			shimmer: {
@@ -62,14 +61,6 @@ const config: Config = {
   				},
   				to: {
   					backgroundPosition: '-200% 0'
-  				}
-  			},
-  			'border-beam': {
-  				'0%, 100%': {
-  					'offset-distance': '0%'
-  				},
-  				'50%': {
-  					'offset-distance': '100%'
   				}
   			}
   		},
