@@ -233,12 +233,14 @@ export default function Hero() {
 
             {/* Main Content */}
             <div ref={containerRef} className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-4">
-                {/* Introducing Badge with animation */}
+                {/* Introducing Badge with animated border */}
                 <div className="mb-8 sm:mb-12 transform transition-all duration-700 hover:scale-105">
-                    <div className={`inline-flex items-center justify-center px-4 sm:px-6 py-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md transition-all duration-500 hover:bg-white/20 hover:border-white/40 ${inter.className}`}>
-                        <span className="text-white text-xs sm:text-sm font-light tracking-wider uppercase">
-                            Introducing
-                        </span>
+                    <div className="card-wrapper h-[48px] w-[120px] sm:h-[56px] sm:w-[140px]">
+                        <div className={`card-content flex items-center justify-center ${inter.className}`}>
+                            <span className="text-white text-xs sm:text-sm font-medium tracking-wider uppercase">
+                                New
+                            </span>
+                        </div>
                     </div>
                 </div>
 
