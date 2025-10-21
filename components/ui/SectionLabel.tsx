@@ -25,7 +25,7 @@ const SectionLabel = ({ title, badge }: { title: string; badge?: string }) => {
       }}
       viewport={{ once: true }}
       className={cn(
-        "relative w-max mx-auto group rounded-full border border-white/20 bg-gray-900/50 backdrop-blur-md text-base text-white hover:cursor-pointer hover:bg-gray-900/60 dark:border-white/10 dark:bg-gray-900/70 dark:hover:bg-gray-900/80 mb-0 flex items-center px-3 py-1"
+        "relative w-max mx-auto group rounded-full border border-white/20 bg-gray-900/50 backdrop-blur-md text-base text-white hover:cursor-pointer hover:bg-gray-900/60 dark:border-white/10 dark:bg-gray-900/70 dark:hover:bg-gray-900/80 mb-4 sm:mb-0 flex items-center px-3 py-1"
       )}
     >
       {badge && <Badge className="mr-2 bg-pink-600 text-white border-0 text-[11px] px-2.5 py-1 leading-tight">{badge}</Badge>}
