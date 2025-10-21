@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { Inter, Playfair_Display } from 'next/font/google';
 import AuthModal from '../auth/AuthModal';
 import LogoutLoader from '../auth/LogoutLoader';
+import SectionLabel from '../ui/SectionLabel';
 import { signOut } from "next-auth/react";
 const inter = Inter({
     subsets: ['latin'],
@@ -233,14 +234,8 @@ export default function Hero() {
 
             {/* Main Content */}
             <div ref={containerRef} className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-4">
-                {/* Introducing Badge with animation */}
-                <div className="mb-8 sm:mb-12 transform transition-all duration-700 hover:scale-105">
-                    <div className={`inline-flex items-center justify-center px-4 sm:px-6 py-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md transition-all duration-500 hover:bg-white/20 hover:border-white/40 ${inter.className}`}>
-                        <span className="text-white text-xs sm:text-sm font-light tracking-wider uppercase">
-                            Introducing
-                        </span>
-                    </div>
-                </div>
+                {/* Section Label with animation */}
+                <SectionLabel title="INTRODUCING ✨" badge="New"/>
 
                 {/* Main Typography with subtle parallax */}
                 <div className="text-center mb-12 sm:mb-16 transform transition-transform duration-1000" style={textTransform}>
